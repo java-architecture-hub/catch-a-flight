@@ -1,0 +1,19 @@
+package jah.catchflight.common.events;
+
+/**
+ * Defines a contract for publishing domain events in the CatchFlight application.
+ * Implementations of this interface are responsible for dispatching {@link DomainEvent}
+ * instances to relevant event handlers or messaging systems, facilitating event-driven
+ * communication within the application.
+ *
+ * @since 1.0
+ */
+public interface DomainEventsPublisher {
+    /**
+     * Publishes a domain event to be processed by registered event handlers or
+     * messaging systems.
+     *
+     * @param event the {@link DomainEvent} to be published
+     */
+    void publish(DomainEvent event);
+}

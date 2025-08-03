@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>api-simulator</artifactId>
-    <name>Catch A Flight :: API Simulator</name>
+    <name>Catch a Flight :: API Simulator</name>
 
     <dependencies>
         <dependency>

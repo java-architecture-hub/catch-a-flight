@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>order</artifactId>
-    <name>Catch A Flight :: Order</name>
+    <name>Catch a Flight :: Order</name>
 
     <dependencies>
         <dependency>
