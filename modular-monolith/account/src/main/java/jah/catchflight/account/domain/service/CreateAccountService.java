@@ -68,12 +68,7 @@ public class CreateAccountService implements CreateAccountUseCase {
     }
 
     private AccountCreated accountCreatedEvent(Account account) {
-        return new AccountCreated(
-                UUID.randomUUID(),
-                account.getUserId(),
-                account.getUserName(),
-                account.getAccountType(),
-                account.getEmail());
+        return new AccountCreated(UUID.randomUUID(), account.getUserId(), account.getUserName(), account.getAccountType(), account.getEmail());
     }
 
     private void emitAccountCreationFailed(CreateAccountCommand command, String message) {
@@ -81,10 +76,6 @@ public class CreateAccountService implements CreateAccountUseCase {
     }
 
     private AccountCreationFailed accountCreationFailedEvent(CreateAccountCommand command, String message) {
-        return new AccountCreationFailed(
-                UUID.randomUUID(),
-                command.userName(),
-                command.email(),
-                message);
+        return new AccountCreationFailed(UUID.randomUUID(), command.userName(), command.email(), message);
     }
 }
