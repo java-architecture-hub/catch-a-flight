@@ -18,7 +18,6 @@ import java.util.UUID;
  * @param lastName    the last name of the account holder
  * @param accountType the type of account (e.g., REGULAR or PREMIUM)
  * @param version     the version number for optimistic locking
- * @since 1.0
  */
 @Table(name = "ACCOUNTS")
 public record AccountJdbcEntity(

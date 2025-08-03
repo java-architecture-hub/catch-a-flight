@@ -5,8 +5,6 @@ package jah.catchflight.common.events;
  * Implementations of this interface are responsible for dispatching {@link DomainEvent}
  * instances to relevant event handlers or messaging systems, facilitating event-driven
  * communication within the application.
- *
- * @since 1.0
  */
 public interface DomainEventsPublisher {
     /**

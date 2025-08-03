@@ -8,8 +8,6 @@ package jah.catchflight.common.annotations.event;
  * capture and communicate these occurrences across different parts of the application or to
  * external systems, enabling decoupled and reactive processing.
  * </p>
- *
- * @since 1.0
  */
 public @interface Event {
 }

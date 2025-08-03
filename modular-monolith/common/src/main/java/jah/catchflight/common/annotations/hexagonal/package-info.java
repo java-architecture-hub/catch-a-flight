@@ -6,7 +6,5 @@
  * architectural elements, promoting a modular and decoupled design that aligns with the
  * principles of hexagonal architecture.
  * </p>
- *
- * @since 1.0
  */
 package jah.catchflight.common.annotations.hexagonal;

@@ -9,7 +9,5 @@ package jah.catchflight.common.annotations.hexagonal;
  * APIs, or messaging services). This ensures a decoupled interface between the core business
  * logic and external dependencies.
  * </p>
- *
- * @since 1.0
  */
 public @interface OutboundAdapter {}

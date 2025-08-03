@@ -9,7 +9,5 @@ package jah.catchflight.common.annotations.hexagonal;
  * It provides a decoupled interface that outbound adapters implement to connect the domain logic
  * to external dependencies.
  * </p>
- *
- * @since 1.0
  */
 public @interface OutboundPort {}

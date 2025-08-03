@@ -19,8 +19,6 @@ import java.util.Optional;
  * for accounts by interacting with the {@link AccountJdbcRepository} and mapping between domain and
  * persistence entities using {@link AccountJdbcEntityMapper}. It implements multiple repository interfaces
  * to support account creation, retrieval, and updates.
- *
- * @since 1.0
  */
 @Service
 @OutboundAdapter
@@ -48,7 +46,6 @@ public class AccountRepository
      *
      * @param userId the unique identifier of the account to load
      * @return an {@link Optional} containing the {@link Account} if found, or an empty {@link Optional} if not
-     * @since 1.0
      */
     @Override
     public Optional<Account> load(UserId userId) {
@@ -63,7 +60,6 @@ public class AccountRepository
      *
      * @param email the email address to search for
      * @return a {@link CurrentAccount} representing the found account or a non-existing account
-     * @since 1.0
      */
     @Override
     public CurrentAccount findByEmail(Email email) {
@@ -80,7 +76,6 @@ public class AccountRepository
      *
      * @param account the domain {@link Account} to create
      * @return the created {@link Account} after persistence
-     * @since 1.0
      */
     @Override
     public Account create(Account account) {
@@ -95,7 +90,6 @@ public class AccountRepository
      * typically for updating existing account data.
      *
      * @param account the domain {@link Account} to save
-     * @since 1.0
      */
     @Override
     public void save(Account account) {
@@ -108,7 +102,6 @@ public class AccountRepository
      *
      * @param accountJdbcEntity the JDBC entity to convert
      * @return a {@link CurrentAccount} representing either a regular or premium account
-     * @since 1.0
      */
     private CurrentAccount existingUser(AccountJdbcEntity accountJdbcEntity) {
         return switch (accountJdbcEntity.accountType()) {
@@ -122,7 +115,6 @@ public class AccountRepository
      * Used when no account is found for a given email address.
      *
      * @return a {@link NonExistingAccount} instance
-     * @since 1.0
      */
     private NonExistingAccount nonExistingUser() {
         return new NonExistingAccount();

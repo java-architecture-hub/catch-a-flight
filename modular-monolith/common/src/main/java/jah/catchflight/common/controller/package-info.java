@@ -4,7 +4,5 @@
  * between the client and the application's services in the CatchFlight application.
  * These controllers typically manage user inputs, invoke business logic, and return
  * appropriate responses, following the principles of a web-based MVC architecture.
- *
- * @since 1.0
  */
 package jah.catchflight.common.controller;

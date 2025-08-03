@@ -28,8 +28,6 @@ import static org.springframework.http.ResponseEntity.status;
  * HTTP requests to create user accounts and delegating the processing to the
  * {@link CreateAccountUseCase}. It maps incoming requests to domain commands and
  * transforms use case results into appropriate HTTP responses.
- *
- * @since 1.0
  */
 @Slf4j
 @InboundAdapter
@@ -61,7 +59,6 @@ class CreateAccountRestController {
      * @return a {@link ResponseEntity} containing the result of the account creation,
      * with HTTP status codes indicating success (201), bad request (400),
      * or internal server error (500)
-     * @since 1.0
      */
     @PostMapping
     ResponseEntity<?> createUser(@Validated @RequestBody CreateAccountRequest request) {
@@ -86,7 +83,6 @@ class CreateAccountRestController {
      * @param password  the password for the user account
      * @param firstName the first name of the user
      * @param lastName  the last name of the user
-     * @since 1.0
      */
     record CreateAccountRequest(
             @NotNull String email,
@@ -98,8 +94,6 @@ class CreateAccountRestController {
      * Defines the response structure for account creation operations.
      * This sealed interface provides a type-safe way to represent successful
      * account creation responses.
-     *
-     * @since 1.0
      */
     interface CreateAccountResponse {
         /**
@@ -107,7 +101,6 @@ class CreateAccountRestController {
          * Contains the unique identifier of the created user.
          *
          * @param userId the unique identifier of the created user
-         * @since 1.0
          */
         record SuccessResponse(UserId userId) implements CreateAccountResponse {}
     }
@@ -118,7 +111,6 @@ class CreateAccountRestController {
      *
      * @param userId the unique identifier of the created user
      * @return a {@link ResponseEntity} with HTTP status 201 and a {@link CreateAccountResponse}
-     * @since 1.0
      */
     private static ResponseEntity<CreateAccountResponse> successBody(UserId userId) {
         return status(HttpStatus.CREATED).body(new CreateAccountResponse.SuccessResponse(userId));
@@ -129,8 +121,6 @@ class CreateAccountRestController {
      * This class is responsible for transforming a {@link CreateAccountRequest}
      * into a {@link CreateAccountUseCase.CreateAccountCommand} for use by the
      * account creation use case.
-     *
-     * @since 1.0
      */
     private static class CreateAccountMapper {
         /**
@@ -139,7 +129,6 @@ class CreateAccountRestController {
          *
          * @param request the HTTP request containing account creation details
          * @return a {@link CreateAccountUseCase.CreateAccountCommand} for the use case
-         * @since 1.0
          */
         CreateAccountUseCase.CreateAccountCommand toCommand(CreateAccountRequest request) {
             return new CreateAccountUseCase.CreateAccountCommand(

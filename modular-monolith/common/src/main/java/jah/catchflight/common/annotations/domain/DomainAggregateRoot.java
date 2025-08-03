@@ -11,7 +11,5 @@ package jah.catchflight.common.annotations.domain;
  * Classes annotated with {@code @DomainAggregate} are typically responsible for
  * coordinating the behavior of the aggregate and maintaining its invariants.
  * </p>
- *
- * @since 1.0
  */
 public @interface DomainAggregateRoot {}
