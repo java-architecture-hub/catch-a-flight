@@ -8,8 +8,18 @@ import jah.catchflight.common.policy.DomainPolicyOutput.Rejection;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * A domain policy interface for validating passwords.
+ * Implementations of this interface define rules for password validation and produce a
+ * {@link DomainPolicyOutput} indicating whether the password meets the policy requirements.
+ */
 @DomainPolicy
 interface PasswordPolicy extends Function<Password, DomainPolicyOutput> {
+
+    /**
+     * A policy that checks if the password contains at least 12 characters.
+     * Returns a {@link Rejection} if the password is shorter than 12 characters, otherwise an {@link Allowance}.
+     */
     PasswordPolicy shouldContainsAtLeast12Characters =
             password -> {
                 if (password.value().length() < 12) {
@@ -19,6 +29,10 @@ interface PasswordPolicy extends Function<Password, DomainPolicyOutput> {
                 }
             };
 
+    /**
+     * A policy that checks if the password contains at least one lowercase letter.
+     * Returns a {@link Rejection} if no lowercase letter is found, otherwise an {@link Allowance}.
+     */
     PasswordPolicy shouldContainsLowerCaseLetters =
             password -> {
                 if (password.value().matches("[a-z]+")) {
@@ -28,6 +42,10 @@ interface PasswordPolicy extends Function<Password, DomainPolicyOutput> {
                 }
             };
 
+    /**
+     * A policy that checks if the password contains at least one uppercase letter.
+     * Returns a {@link Rejection} if no uppercase letter is found, otherwise an {@link Allowance}.
+     */
     PasswordPolicy shouldContainsUpperCaseLetters =
             password -> {
                 if (password.value().matches("[A-Z]+")) {
@@ -37,6 +55,10 @@ interface PasswordPolicy extends Function<Password, DomainPolicyOutput> {
                 }
             };
 
+    /**
+     * A policy that checks if the password contains at least one digit.
+     * Returns a {@link Rejection} if no digit is found, otherwise an {@link Allowance}.
+     */
     PasswordPolicy shouldContainsDigits =
             password -> {
                 if (password.value().matches("[0-9]+")) {
@@ -46,6 +68,10 @@ interface PasswordPolicy extends Function<Password, DomainPolicyOutput> {
                 }
             };
 
+    /**
+     * A list of all defined password policies to be applied during password validation.
+     * Includes policies for minimum length, lowercase letters, uppercase letters, and digits.
+     */
     List<PasswordPolicy> passwordPolicies =
             List.of(
                     shouldContainsAtLeast12Characters,
@@ -53,4 +79,3 @@ interface PasswordPolicy extends Function<Password, DomainPolicyOutput> {
                     shouldContainsUpperCaseLetters,
                     shouldContainsDigits);
 }
-
