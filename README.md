@@ -16,5 +16,5 @@ to demonstrate flexible, real-world solutions. The project emphasizes:
 - **Full observability** through advanced logging, monitoring, and tracing.
 - **Sophisticated deployment strategies**, including Rolling Upgrades, Blue-Green, and Canary deployments.
 
-The **Modular Monolith** variant prioritizes simplicity and cohesion, while the **Microservices** variant leverages 
+The **[Modular Monolith](modular-monolith/README.md)** variant prioritizes simplicity and cohesion, while the **[Microservices](microservices/README.md)** variant leverages 
 Kubernetes, API management, and event streaming (e.g., Apache Kafka, RabbitMQ) for distributed, cloud-native systems.
