@@ -1,47 +1,18 @@
 # Catch A Flight
 
-Our personal take on:
-_**Event Storming, Domain-Driven Design, Hexagonal Architecture, Modularity, Microservices, Cloud Design Patterns,
-Data-Oriented Programming, Event-Driven, Design, SQL and NoSQL Databases, REST, GraphQL, gRPC, Server-Side Events,
-WebSockets, Async Messaging, with JDK 24 and Spring Boot 3**_. And much more ...
+The **Catch A Flight** project is an in-depth exploration of best-in-class software engineering practices within 
+the Java and Spring Boot ecosystem, harnessing **JDK 24** and **Spring Boot 3** to deliver scalable, modular, 
+and resilient systems. It focuses on two distinct architectural variants—**Modular Monolith** and **Microservices**—
+to demonstrate flexible, real-world solutions. The project emphasizes:
 
-The main goal of this project is to find, test and describe in details the best possible practices for software
-engineering in Java and Spring Boot ecosystem.
+- **Domain-Driven Design (DDD)** and **Event Storming** for precise domain modeling.
+- **Hexagonal Architecture** to ensure modularity and loose coupling.
+- **Event-Driven Design** with **Async Messaging** for responsive, dynamic systems.
+- **Cloud Design Patterns** to support scalable, distributed architectures in the microservices variant.
+- **Comprehensive API capabilities**: REST, GraphQL, gRPC, Server-Side Events, and WebSockets.
+- **Robust persistence options**: SQL (PostgreSQL, MySQL, H2) and NoSQL (Redis, MongoDB, Elasticsearch, Cassandra, InfluxDB, Neo4j).
+- **Full observability** through advanced logging, monitoring, and tracing.
+- **Sophisticated deployment strategies**, including Rolling Upgrades, Blue-Green, and Canary deployments.
 
-## Table of Contents
-
-* [Introduction](#introduction)
-* [Stages](#stages)
-
-## Introduction
-
-Project is divided into few separated stages. Each stage will be in dedicated git branch. The final one is in the main.
-
-## Stages
-
-1. Set Up
-    * Prerequisites
-    * Way of Working
-    * Architecture Decision Records
-
-2. [Modular Monolith](https://github.com/java-architecture-guild/catch-a-flight/tree/modular-monolith-base)
-    * Event Storming
-    * Domain-Driven Design
-    * Event-Driven Design
-    * Hexagonal Architecture
-    * Data-Oriented Programming
-    * H2 In Memory SQL Based Persistence
-    * JDK 24, Spring Boot 3
-    * API Stack: REST, Server-Side Events, GraphQL, WebSockets, gRPC
-    * SQL Databases: PostgreSQL, MySQL
-    * NoSQL Databases: Redis, MongoDB, ElasticSearch, Cassandra, InfluxDB, Neo4j
-
-3. [Microservices](https://github.com/java-architecture-guild/catch-a-flight/tree/microservices-docker)
-    * Kubernetes
-    * API Management
-    * Async Messaging: RabbitMQ
-    * Event Streaming: Apache Kafka
-    * OAuth2
-    * Cloud Design Patterns
-    * Full Observability: Logging, Monitoring, and Tracing
-    * Deployments: Rolling Upgrade, Blue-Green, Canary
+The **Modular Monolith** variant prioritizes simplicity and cohesion, while the **Microservices** variant leverages 
+Kubernetes, API management, and event streaming (e.g., Apache Kafka, RabbitMQ) for distributed, cloud-native systems.
