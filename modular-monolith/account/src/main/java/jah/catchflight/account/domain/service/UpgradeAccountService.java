@@ -1,11 +1,19 @@
 package jah.catchflight.account.domain.service;
 
+import jah.catchflight.account.domain.events.AccountUpgradeFailed;
+import jah.catchflight.account.domain.events.AccountUpgraded;
+import jah.catchflight.account.domain.model.AccountAlreadyUpgradedException;
 import jah.catchflight.account.port.in.UpgradeAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.FindAccountRepository;
 import jah.catchflight.account.port.out.UpdateAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainService;
+import jah.catchflight.sharedkernel.account.UserId;
 import lombok.RequiredArgsConstructor;
+
+import java.util.UUID;
+
+import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
 
 /**
  * Service responsible for handling user account upgrades.
@@ -29,6 +37,40 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
      */
     @Override
     public UpgradeUserResult upgradeUser(UpgradeUserCommand command) {
-        throw new UnsupportedOperationException();
+        try {
+            var userOptional = findAccountRepository.load(command.userId());
+            if (userOptional.isPresent()) {
+                var user = userOptional.get();
+                user.upgradeUser();
+                updateAccountRepository.save(user);
+                emitUserUpgraded(command.userId());
+
+                return new Success();
+            } else {
+                return new UserNotFoundFailure("User not found");
+            }
+        } catch (AccountAlreadyUpgradedException ex) {
+            emitUserUpgradeFailed(command.userId(), ex.getMessage());
+            return new UserAlreadyUpgradedFailure(ex.getMessage());
+        } catch (Exception ex) {
+            emitUserUpgradeFailed(command.userId(), ex.getMessage());
+            return new InternalFailure(ex);
+        }
+    }
+
+    private void emitUserUpgraded(UserId userId) {
+        accountEventPublisher.publish(userUpgradedEvent(userId));
+    }
+
+    private void emitUserUpgradeFailed(UserId userId, String message) {
+        accountEventPublisher.publish(userUpgradedFailedEvent(userId, message));
+    }
+
+    private AccountUpgraded userUpgradedEvent(UserId userId) {
+        return new AccountUpgraded(UUID.randomUUID(), userId);
+    }
+
+    private AccountUpgradeFailed userUpgradedFailedEvent(UserId userId, String message) {
+        return new AccountUpgradeFailed(UUID.randomUUID(), userId, message);
     }
 }
