@@ -1,5 +1,7 @@
 # Catch A Flight
 
+![Java](https://img.shields.io/badge/Java-24-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
+
 The **Catch A Flight** project is an in-depth exploration of best-in-class software engineering practices within 
 the Java and Spring Boot ecosystem, harnessing **JDK 24** and **Spring Boot 3** to deliver scalable, modular, 
 and resilient systems. It focuses on two distinct architectural variants—**Modular Monolith** and **Microservices**—
