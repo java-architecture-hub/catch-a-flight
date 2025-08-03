@@ -15,5 +15,4 @@ package jah.catchflight.common.annotations.domain;
  *
  * @since 1.0
  */
-public @interface DomainService {
-}
+public @interface DomainService {}

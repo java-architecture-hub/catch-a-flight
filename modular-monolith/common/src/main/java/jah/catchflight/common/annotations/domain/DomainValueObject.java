@@ -14,5 +14,4 @@ package jah.catchflight.common.annotations.domain;
  *
  * @since 1.0
  */
-public @interface DomainValueObject {
-}
+public @interface DomainValueObject {}

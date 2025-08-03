@@ -13,5 +13,4 @@ package jah.catchflight.common.annotations.domain;
  *
  * @since 1.0
  */
-public @interface DomainRepository {
-}
+public @interface DomainRepository {}
