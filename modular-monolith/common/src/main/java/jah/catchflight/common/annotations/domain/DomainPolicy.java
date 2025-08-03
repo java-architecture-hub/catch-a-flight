@@ -10,7 +10,5 @@ package jah.catchflight.common.annotations.domain;
  * Classes annotated with {@code @DomainPolicy} are typically used to centralize and enforce
  * complex business rules, ensuring consistency and adherence to the domain's requirements.
  * </p>
- *
- * @since 1.0
  */
 public @interface DomainPolicy {}

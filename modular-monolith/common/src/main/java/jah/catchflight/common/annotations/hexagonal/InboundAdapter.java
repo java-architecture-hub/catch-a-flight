@@ -9,7 +9,5 @@ package jah.catchflight.common.annotations.hexagonal;
  * into calls to the application's inbound ports. This ensures a decoupled interface between
  * external systems and the core business logic.
  * </p>
- *
- * @since 1.0
  */
 public @interface InboundAdapter {}

@@ -7,7 +7,5 @@
  * {@code @DomainValueObject} to clearly define the roles of domain components, promoting a
  * consistent and structured approach to modeling the business domain.
  * </p>
- *
- * @since 1.0
  */
 package jah.catchflight.common.annotations.domain;

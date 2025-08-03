@@ -17,8 +17,6 @@ import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserR
  * This service acts as an inbound adapter in the hexagonal architecture, listening for subscription
  * payment events and triggering account upgrades by delegating to the {@link UpgradeAccountUseCase}.
  * It maps events to domain commands and logs the results of the upgrade operation.
- *
- * @since 1.0
  */
 @Slf4j
 @Service
@@ -42,7 +40,6 @@ class SubscriptionPaidEventHandler {
      * use case, and logs the outcome of the operation based on the result.
      *
      * @param event the subscription paid event containing the account details
-     * @since 1.0
      */
     @EventListener
     void handle(AccountSubscriptionPaid event) {
@@ -61,8 +58,6 @@ class SubscriptionPaidEventHandler {
      * Maps subscription paid events to domain commands for account upgrade operations.
      * This class is responsible for transforming an {@link AccountSubscriptionPaid} event
      * into a {@link UpgradeUserCommand} for use by the upgrade use case.
-     *
-     * @since 1.0
      */
     private static class UpgradeUserMapper {
         /**
@@ -72,7 +67,6 @@ class SubscriptionPaidEventHandler {
          *
          * @param event the subscription paid event containing the account ID
          * @return a {@link UpgradeUserCommand} for the use case
-         * @since 1.0
          */
         UpgradeUserCommand toCommand(AccountSubscriptionPaid event) {
             return new UpgradeUserCommand(new UserId(event.eventId()));

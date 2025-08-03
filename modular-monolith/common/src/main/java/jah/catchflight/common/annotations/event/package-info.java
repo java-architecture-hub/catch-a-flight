@@ -6,7 +6,5 @@
  * a clear and consistent approach to modeling and handling events within the application's
  * event-driven design.
  * </p>
- *
- * @since 1.0
  */
 package jah.catchflight.common.annotations.event;

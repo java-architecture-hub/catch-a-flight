@@ -8,7 +8,6 @@ import jah.catchflight.common.annotations.domain.DomainValueObject;
  * validation rules and constraints.
  *
  * @param value the string representation of the email address
- * @since 1.0
  */
 @DomainValueObject
 public record Email(String value) {}

@@ -7,8 +7,6 @@
  * <p>Dependencies include Lombok for reducing boilerplate code, Spring Context and Spring Web
  * for dependency injection and web-related functionality, Apache Tomcat for embedded server support,
  * and SLF4J for logging.</p>
- *
- * @since 1.0
  */
 module common {
     requires static lombok;

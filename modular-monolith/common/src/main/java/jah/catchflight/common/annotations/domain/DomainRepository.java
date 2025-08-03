@@ -10,7 +10,5 @@ package jah.catchflight.common.annotations.domain;
  * Classes annotated with {@code @DomainRepository} are responsible for encapsulating data access logic,
  * ensuring that domain objects are retrieved and stored in a consistent manner.
  * </p>
- *
- * @since 1.0
  */
 public @interface DomainRepository {}

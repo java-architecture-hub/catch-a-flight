@@ -9,7 +9,5 @@
  * for domain-driven design, event-driven architecture, and hexagonal architecture (Ports and
  * Adapters), respectively, promoting a clear, modular, and maintainable design.
  * </p>
- *
- * @since 1.0
  */
 package jah.catchflight.common.annotations;

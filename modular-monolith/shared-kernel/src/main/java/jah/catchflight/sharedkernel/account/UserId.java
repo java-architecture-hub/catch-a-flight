@@ -10,7 +10,6 @@ import java.util.UUID;
  * and type-safe representation of user identities across the system.
  *
  * @param value the UUID representing the unique user identifier
- * @since 1.0
  */
 @DomainValueObject
 public record UserId(UUID value) {}

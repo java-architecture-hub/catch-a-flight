@@ -25,8 +25,6 @@ import static jah.catchflight.common.controller.ResponseBodyHelper.internalServe
  * HTTP requests for user authentication and delegating the processing to the
  * {@link SignInUseCase}. It maps incoming requests to domain commands and transforms
  * use case results into appropriate HTTP responses.
- *
- * @since 1.0
  */
 @Slf4j
 @InboundAdapter
@@ -58,7 +56,6 @@ class SignInRestController {
      * @return a {@link ResponseEntity} containing the result of the sign-in operation,
      *         with HTTP status codes indicating success (201), bad request (400) for
      *         authentication failure, or internal server error (500)
-     * @since 1.0
      */
     @PostMapping
     ResponseEntity<?> signInUser(@Validated @RequestBody SignInRequest request) {
@@ -79,7 +76,6 @@ class SignInRestController {
      *
      * @param email    the email address of the user
      * @param password the password for the user account
-     * @since 1.0
      */
     record SignInRequest(String email, String password) {}
 
@@ -89,7 +85,6 @@ class SignInRestController {
      *
      * @param userId the unique identifier of the authenticated user
      * @return a {@link ResponseEntity} with HTTP status 201 and a {@link SignInResponse}
-     * @since 1.0
      */
     static ResponseEntity<SignInResponse> successBody(UserId userId) {
         return ResponseEntity
@@ -101,8 +96,6 @@ class SignInRestController {
      * Defines the response structure for sign-in operations.
      * This sealed interface provides a type-safe way to represent successful
      * sign-in responses.
-     *
-     * @since 1.0
      */
     interface SignInResponse {
         /**
@@ -110,7 +103,6 @@ class SignInRestController {
          * Contains the unique identifier of the authenticated user.
          *
          * @param userId the unique identifier of the authenticated user
-         * @since 1.0
          */
         record SuccessResponse(UserId userId) implements SignInResponse {}
     }
@@ -119,8 +111,6 @@ class SignInRestController {
      * Maps HTTP requests to domain commands for sign-in operations.
      * This class is responsible for transforming a {@link SignInRequest}
      * into a {@link SignInCommand} for use by the sign-in use case.
-     *
-     * @since 1.0
      */
     private static class SignInMapper {
         /**
@@ -129,7 +119,6 @@ class SignInRestController {
          *
          * @param request the HTTP request containing sign-in credentials
          * @return a {@link SignInCommand} for the use case
-         * @since 1.0
          */
         SignInCommand toCommand(SignInRequest request) {
             return new SignInCommand();

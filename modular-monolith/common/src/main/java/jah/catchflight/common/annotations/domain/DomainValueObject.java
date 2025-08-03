@@ -11,7 +11,5 @@ package jah.catchflight.common.annotations.domain;
  * Classes annotated with {@code @DomainValueObject} are used to model attributes or measurements
  * that are significant in the domain, ensuring immutability and equality based on their values.
  * </p>
- *
- * @since 1.0
  */
 public @interface DomainValueObject {}

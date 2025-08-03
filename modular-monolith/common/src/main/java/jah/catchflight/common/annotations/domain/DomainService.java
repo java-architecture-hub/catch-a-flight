@@ -12,7 +12,5 @@ package jah.catchflight.common.annotations.domain;
  * processes or rules that span multiple entities, ensuring clear separation of concerns within the
  * domain model.
  * </p>
- *
- * @since 1.0
  */
 public @interface DomainService {}

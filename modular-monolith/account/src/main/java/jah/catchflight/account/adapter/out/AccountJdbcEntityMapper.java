@@ -12,8 +12,6 @@ import jah.catchflight.sharedkernel.account.UserId;
  * in the CatchFlight application. This class is responsible for converting domain models to JDBC entities
  * for database storage and vice versa, ensuring seamless data transformation between the domain and
  * persistence layers.
- *
- * @since 1.0
  */
 class AccountJdbcEntityMapper {
     /**
@@ -23,7 +21,6 @@ class AccountJdbcEntityMapper {
      *
      * @param account the domain {@link Account} object to convert
      * @return an {@link AccountJdbcEntity} representing the account data for persistence
-     * @since 1.0
      */
     AccountJdbcEntity toJdbcEntity(Account account) {
         var userId = account.getUserId();
@@ -51,7 +48,6 @@ class AccountJdbcEntityMapper {
      *
      * @param entity the {@link AccountJdbcEntity} to convert
      * @return an {@link Account} representing the domain model
-     * @since 1.0
      */
     Account toDomain(AccountJdbcEntity entity) {
         var userId = new UserId(entity.id());

@@ -10,7 +10,5 @@ package jah.catchflight.common.annotations.domain;
  * Classes annotated with {@code @DomainFactory} are typically used to centralize object creation
  * logic, improving maintainability and consistency within the domain model.
  * </p>
- *
- * @since 1.0
  */
 public @interface DomainFactory {}

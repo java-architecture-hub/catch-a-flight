@@ -8,7 +8,5 @@ package jah.catchflight.common.annotations.hexagonal;
  * application's core business logic. It acts as an entry point, allowing inbound adapters to
  * interact with the domain logic in a decoupled manner.
  * </p>
- *
- * @since 1.0
  */
 public @interface InboundPort {}

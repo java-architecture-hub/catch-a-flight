@@ -4,8 +4,6 @@ package jah.catchflight.sharedkernel.account;
  * Defines the types of accounts available in the CatchFlight application.
  * This enum represents the different account categories that users can have,
  * such as standard or premium accounts, each with associated privileges or features.
- *
- * @since 1.0
  */
 public enum AccountType {
     /**
