@@ -1,1 +1,8 @@
+/**
+ * Contains classes and interfaces related to policy enforcement in the CatchFlight application.
+ * This package includes components for defining, evaluating, and managing domain-specific policies,
+ * such as business rules, validation logic, and decision-making processes.
+ *
+ * @since 1.0
+ */
 package jah.catchflight.common.policy;
