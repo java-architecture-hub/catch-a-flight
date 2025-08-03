@@ -1,3 +1,15 @@
+/**
+ * Defines the common module for the CatchFlight application, providing shared functionality
+ * and utilities used across other modules. This module includes packages for event handling,
+ * policy enforcement, persistence, and annotations for domain and hexagonal architecture patterns.
+ * It also includes controller-related components for handling web requests.
+ *
+ * <p>Dependencies include Lombok for reducing boilerplate code, Spring Context and Spring Web
+ * for dependency injection and web-related functionality, Apache Tomcat for embedded server support,
+ * and SLF4J for logging.</p>
+ *
+ * @since 1.0
+ */
 module common {
     requires static lombok;
     requires spring.context;
