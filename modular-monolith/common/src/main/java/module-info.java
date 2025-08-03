@@ -6,7 +6,7 @@ module common {
     requires org.slf4j;
 
     exports jah.catchflight.common.annotations.domain;
-    exports jah.catchflight.common.annotations.events;
+    exports jah.catchflight.common.annotations.event;
     exports jah.catchflight.common.events;
     exports jah.catchflight.common.annotations.hexagonal;
     exports jah.catchflight.common.policy;
