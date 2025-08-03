@@ -46,4 +46,3 @@ The **Microservices** variant aims to:
 - **Database Access**:
     - PostgreSQL/MySQL for SQL persistence.
     - Redis, MongoDB, Elasticsearch, Cassandra, InfluxDB, or Neo4j for NoSQL use cases.
-    - 
