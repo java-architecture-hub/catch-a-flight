@@ -36,7 +36,7 @@ The **Modular Monolith** variant aims to:
 
 ### Prerequisites
 
-- **JDK 24**: Ensure Java 24 is installed. [Download JDK 24](https://www.oracle.com/java/technologies/javase/jdk24-downloads.html).
+- **JDK 24**: Ensure Java 24 is installed. [Download JDK 24](https://jdk.java.net/24/).
 - **Maven**: For dependency management and building the project.
 - **Docker**: For running databases and other dependencies locally (optional).
 - **IDE**: IntelliJ IDEA, Eclipse, or any IDE with Spring Boot support.
