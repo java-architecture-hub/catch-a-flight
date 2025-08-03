@@ -17,15 +17,46 @@ import java.util.UUID;
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserCommand;
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
 
+/**
+ * REST controller for handling account upgrade requests in the CatchFlight application.
+ * This controller serves as an inbound adapter in the hexagonal architecture, receiving
+ * HTTP requests to upgrade user accounts and delegating the processing to the
+ * {@link UpgradeAccountUseCase}. It maps incoming requests to domain commands and
+ * transforms use case results into appropriate HTTP responses.
+ *
+ * @since 1.0
+ */
 @Slf4j
 @RestController
 @InboundAdapter
 @RequiredArgsConstructor
 class UpgradeAccountRestController {
+    /**
+     * The use case responsible for executing the account upgrade logic.
+     */
     private final UpgradeAccountUseCase upgradeAccountUseCase;
+
+    /**
+     * The mapper responsible for converting HTTP request data to domain commands.
+     */
     private final UpgradeUserMapper upgradeUserMapper;
+
+    /**
+     * The HTTP servlet request, used for constructing error responses with context.
+     */
     private final HttpServletRequest servletRequest;
 
+    /**
+     * Handles HTTP POST requests to upgrade a user account.
+     * This method processes the account ID from the path variable, maps it to a domain command,
+     * invokes the upgrade use case, and returns an appropriate HTTP response based on the result.
+     *
+     * @param accountId the unique identifier of the account to upgrade, provided as a path variable
+     * @return a {@link ResponseEntity} containing the result of the account upgrade,
+     *         with HTTP status codes indicating success (201), bad request (400) for
+     *         user not found or already upgraded failures, or internal server error (500)
+     * @since 1.0
+     */
     @PostMapping
     ResponseEntity<?> upgrade(@PathVariable("accountId") String accountId) {
         log.info("Request, userId: {}", accountId);
@@ -39,23 +70,76 @@ class UpgradeAccountRestController {
         };
     }
 
+    /**
+     * Constructs a successful HTTP response for account upgrade.
+     * Returns a 201 Created status with no response body.
+     *
+     * @return a {@link ResponseEntity} with HTTP status 201
+     * @since 1.0
+     */
     private static ResponseEntity<UpgradeUserResponse> successBody() {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    /**
+     * Constructs a bad request HTTP response for failed account upgrade attempts.
+     * Returns a 400 Bad Request status with an error message in the response body.
+     *
+     * @param request the HTTP servlet request, used for context in error handling
+     * @param message the error message describing the reason for the failure
+     * @return a {@link ResponseEntity} with HTTP status 400 and the error message
+     * @since 1.0
+     */
     private ResponseEntity<?> badRequestBody(HttpServletRequest request, String message) {
         return ResponseEntity.badRequest().body(message);
     }
 
+    /**
+     * Constructs an internal server error HTTP response for unexpected failures.
+     * Returns a 500 Internal Server Error status with the cause's message in the response body.
+     *
+     * @param request the HTTP servlet request, used for context in error handling
+     * @param cause   the throwable cause of the internal failure
+     * @return a {@link ResponseEntity} with HTTP status 500 and the error message
+     * @since 1.0
+     */
     private ResponseEntity<?> internalServerErrorBody(HttpServletRequest request, Throwable cause) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(cause.getMessage());
     }
 
+    /**
+     * Defines the response structure for account upgrade operations.
+     * This interface provides a type-safe way to represent successful upgrade responses.
+     *
+     * @since 1.0
+     */
     private interface UpgradeUserResponse {
+        /**
+         * Represents a successful account upgrade response.
+         * This record is used to indicate that the account upgrade was successful.
+         *
+         * @since 1.0
+         */
         record SuccessResponse() implements UpgradeUserResponse {}
     }
 
+    /**
+     * Maps HTTP request data to domain commands for account upgrade operations.
+     * This class is responsible for transforming an account ID into a
+     * {@link UpgradeUserCommand} for use by the upgrade use case.
+     *
+     * @since 1.0
+     */
     private static class UpgradeUserMapper {
+        /**
+         * Converts an account ID to a {@link UpgradeUserCommand}.
+         * Maps the provided account ID string to a {@link UserId} domain value object
+         * and constructs a command for the upgrade use case.
+         *
+         * @param userId the string representation of the account ID to upgrade
+         * @return a {@link UpgradeUserCommand} for the use case
+         * @since 1.0
+         */
         UpgradeUserCommand toCommand(String userId) {
             return new UpgradeUserCommand(new UserId(UUID.fromString(userId)));
         }

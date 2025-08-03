@@ -8,6 +8,11 @@ import jah.catchflight.sharedkernel.account.UserId;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * Represents an account entity in the system, serving as a domain aggregate root.
+ * This class encapsulates user-related information such as user ID, email, password, username,
+ * account type, and version. It provides functionality to upgrade a user's account type.
+ */
 @Getter
 @Builder
 @DomainAggregateRoot
@@ -19,6 +24,12 @@ public class Account {
     private AccountType accountType;
     private Version version;
 
+    /**
+     * Upgrades the user's account type from REGULAR to PREMIUM.
+     * If the account is already PREMIUM, the upgrade attempt will fail.
+     *
+     * @return an {@link UpgradeUserResult} indicating the result of the upgrade attempt
+     */
     public UpgradeUserResult upgradeUser() {
         return switch (accountType) {
             case PREMIUM -> new UpgradeUserResult.AlreadyUpdatedFailure(userId, "Premium user can't be upgraded");
@@ -29,8 +40,21 @@ public class Account {
         };
     }
 
+    /**
+     * Sealed interface representing the result of an account upgrade operation.
+     */
     public sealed interface UpgradeUserResult {
+        /**
+         * Indicates a successful account upgrade.
+         */
         record Success() implements UpgradeUserResult {}
+
+        /**
+         * Indicates a failed account upgrade attempt due to the account already being upgraded.
+         *
+         * @param userId the ID of the user whose upgrade attempt failed
+         * @param message the reason for the failure
+         */
         record AlreadyUpdatedFailure(UserId userId, String message) implements UpgradeUserResult {}
     }
 }

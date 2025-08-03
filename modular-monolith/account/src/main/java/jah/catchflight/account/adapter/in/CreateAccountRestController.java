@@ -22,15 +22,47 @@ import static jah.catchflight.common.controller.ResponseBodyHelper.badRequestBod
 import static jah.catchflight.common.controller.ResponseBodyHelper.internalServerErrorBody;
 import static org.springframework.http.ResponseEntity.status;
 
+/**
+ * REST controller for handling account creation requests in the CatchFlight application.
+ * This controller serves as an inbound adapter in the hexagonal architecture, receiving
+ * HTTP requests to create user accounts and delegating the processing to the
+ * {@link CreateAccountUseCase}. It maps incoming requests to domain commands and
+ * transforms use case results into appropriate HTTP responses.
+ *
+ * @since 1.0
+ */
 @Slf4j
 @InboundAdapter
 @RestController
 @RequiredArgsConstructor
 class CreateAccountRestController {
+    /**
+     * The use case responsible for executing the account creation logic.
+     */
     private final CreateAccountUseCase createAccountUseCase;
+
+    /**
+     * The mapper responsible for converting HTTP requests to domain commands.
+     */
     private final CreateAccountMapper createAccountMapper;
+
+    /**
+     * The HTTP servlet request, used for constructing error responses with context.
+     */
     private final HttpServletRequest servletRequest;
 
+    /**
+     * Handles HTTP POST requests to create a new user account.
+     * This method validates the incoming request, maps it to a domain command,
+     * invokes the account creation use case, and returns an appropriate HTTP response
+     * based on the result.
+     *
+     * @param request the validated request containing user account details
+     * @return a {@link ResponseEntity} containing the result of the account creation,
+     * with HTTP status codes indicating success (201), bad request (400),
+     * or internal server error (500)
+     * @since 1.0
+     */
     @PostMapping
     ResponseEntity<?> createUser(@Validated @RequestBody CreateAccountRequest request) {
         log.info("Request: {}", request);
@@ -44,21 +76,71 @@ class CreateAccountRestController {
         };
     }
 
+    /**
+     * Represents the request payload for creating a new user account.
+     * This record encapsulates the required fields for account creation, including
+     * email, password, first name, and last name, all of which are validated to ensure
+     * they are not null.
+     *
+     * @param email     the email address of the user
+     * @param password  the password for the user account
+     * @param firstName the first name of the user
+     * @param lastName  the last name of the user
+     * @since 1.0
+     */
     record CreateAccountRequest(
             @NotNull String email,
             @NotNull String password,
             @NotNull String firstName,
             @NotNull String lastName) {}
 
+    /**
+     * Defines the response structure for account creation operations.
+     * This sealed interface provides a type-safe way to represent successful
+     * account creation responses.
+     *
+     * @since 1.0
+     */
     interface CreateAccountResponse {
+        /**
+         * Represents a successful account creation response.
+         * Contains the unique identifier of the created user.
+         *
+         * @param userId the unique identifier of the created user
+         * @since 1.0
+         */
         record SuccessResponse(UserId userId) implements CreateAccountResponse {}
     }
 
+    /**
+     * Constructs a successful HTTP response for account creation.
+     * Returns a 201 Created status with the user ID in the response body.
+     *
+     * @param userId the unique identifier of the created user
+     * @return a {@link ResponseEntity} with HTTP status 201 and a {@link CreateAccountResponse}
+     * @since 1.0
+     */
     private static ResponseEntity<CreateAccountResponse> successBody(UserId userId) {
         return status(HttpStatus.CREATED).body(new CreateAccountResponse.SuccessResponse(userId));
     }
 
+    /**
+     * Maps HTTP requests to domain commands for account creation.
+     * This class is responsible for transforming a {@link CreateAccountRequest}
+     * into a {@link CreateAccountUseCase.CreateAccountCommand} for use by the
+     * account creation use case.
+     *
+     * @since 1.0
+     */
     private static class CreateAccountMapper {
+        /**
+         * Converts a {@link CreateAccountRequest} to a {@link CreateAccountUseCase.CreateAccountCommand}.
+         * Maps the request fields to domain value objects for email, password, and user name.
+         *
+         * @param request the HTTP request containing account creation details
+         * @return a {@link CreateAccountUseCase.CreateAccountCommand} for the use case
+         * @since 1.0
+         */
         CreateAccountUseCase.CreateAccountCommand toCommand(CreateAccountRequest request) {
             return new CreateAccountUseCase.CreateAccountCommand(
                     new Email(request.email()),

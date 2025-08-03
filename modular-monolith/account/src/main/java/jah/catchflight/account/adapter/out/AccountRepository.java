@@ -13,6 +13,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Repository implementation for managing {@link Account} domain objects in the CatchFlight application.
+ * This service acts as an outbound adapter in the hexagonal architecture, providing persistence operations
+ * for accounts by interacting with the {@link AccountJdbcRepository} and mapping between domain and
+ * persistence entities using {@link AccountJdbcEntityMapper}. It implements multiple repository interfaces
+ * to support account creation, retrieval, and updates.
+ *
+ * @since 1.0
+ */
 @Service
 @OutboundAdapter
 @RequiredArgsConstructor
@@ -21,14 +30,41 @@ public class AccountRepository
         FindCurrentAccountRepository,
         FindAccountRepository,
         UpdateAccountRepository {
+
+    /**
+     * The JDBC repository for performing CRUD operations on {@link AccountJdbcEntity}.
+     */
     private final AccountJdbcRepository accountJdbcRepository;
+
+    /**
+     * The mapper for converting between domain {@link Account} and persistence {@link AccountJdbcEntity} objects.
+     */
     private final AccountJdbcEntityMapper accountJdbcEntityMapper;
 
+    /**
+     * Loads an account by its unique identifier.
+     * Queries the database for an {@link AccountJdbcEntity} with the specified {@link UserId} and maps it to
+     * a domain {@link Account} if found.
+     *
+     * @param userId the unique identifier of the account to load
+     * @return an {@link Optional} containing the {@link Account} if found, or an empty {@link Optional} if not
+     * @since 1.0
+     */
     @Override
     public Optional<Account> load(UserId userId) {
         return accountJdbcRepository.findById(userId.value()).map(accountJdbcEntityMapper::toDomain);
     }
 
+    /**
+     * Finds a current account by its email address.
+     * Queries the database for an {@link AccountJdbcEntity} with the specified email and returns a
+     * {@link CurrentAccount} (either {@link RegularAccount} or {@link PremiumAccount}) if found,
+     * or a {@link NonExistingAccount} if no account matches the email.
+     *
+     * @param email the email address to search for
+     * @return a {@link CurrentAccount} representing the found account or a non-existing account
+     * @since 1.0
+     */
     @Override
     public CurrentAccount findByEmail(Email email) {
         return accountJdbcRepository
@@ -37,6 +73,15 @@ public class AccountRepository
                 .orElseGet(this::nonExistingUser);
     }
 
+    /**
+     * Creates a new account in the database.
+     * Converts the provided domain {@link Account} to an {@link AccountJdbcEntity}, saves it to the database,
+     * and returns the created {@link Account} mapped back to the domain model.
+     *
+     * @param account the domain {@link Account} to create
+     * @return the created {@link Account} after persistence
+     * @since 1.0
+     */
     @Override
     public Account create(Account account) {
         var accountJdbcEntity = accountJdbcEntityMapper.toJdbcEntity(account);
@@ -44,11 +89,27 @@ public class AccountRepository
         return accountJdbcEntityMapper.toDomain(createdJdbcEntity);
     }
 
+    /**
+     * Saves an existing account to the database.
+     * Converts the provided domain {@link Account} to an {@link AccountJdbcEntity} and persists it,
+     * typically for updating existing account data.
+     *
+     * @param account the domain {@link Account} to save
+     * @since 1.0
+     */
     @Override
     public void save(Account account) {
         accountJdbcRepository.save(accountJdbcEntityMapper.toJdbcEntity(account));
     }
 
+    /**
+     * Converts an {@link AccountJdbcEntity} to a {@link CurrentAccount} based on its account type.
+     * Returns a {@link RegularAccount} or {@link PremiumAccount} depending on the account type of the entity.
+     *
+     * @param accountJdbcEntity the JDBC entity to convert
+     * @return a {@link CurrentAccount} representing either a regular or premium account
+     * @since 1.0
+     */
     private CurrentAccount existingUser(AccountJdbcEntity accountJdbcEntity) {
         return switch (accountJdbcEntity.accountType()) {
             case REGULAR -> new RegularAccount(new UserId(accountJdbcEntity.id()));
@@ -56,7 +117,15 @@ public class AccountRepository
         };
     }
 
+    /**
+     * Creates a {@link NonExistingAccount} to represent the absence of an account.
+     * Used when no account is found for a given email address.
+     *
+     * @return a {@link NonExistingAccount} instance
+     * @since 1.0
+     */
     private NonExistingAccount nonExistingUser() {
         return new NonExistingAccount();
     }
 }
+

@@ -8,7 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
-
+/**
+ * Publishes account-related domain events using Spring's ApplicationEventPublisher.
+ * This component acts as an outbound adapter, forwarding events to the application event system.
+ */
 @Slf4j
 @Component
 @OutboundAdapter
@@ -16,6 +19,11 @@ import org.springframework.stereotype.Component;
 class JustForwardAccountEventPublisher implements AccountEventPublisher {
     private final ApplicationEventPublisher applicationEventPublisher;
 
+    /**
+     * Publishes a domain event to the application event system.
+     *
+     * @param event the domain event to be published
+     */
     @Override
     public void publish(DomainEvent event) {
         log.info("Event published. Event id: {}. Event body: {}", event.eventId(), event);

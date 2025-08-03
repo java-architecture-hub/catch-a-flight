@@ -7,7 +7,24 @@ import jah.catchflight.common.persistence.Version;
 import jah.catchflight.sharedkernel.account.Email;
 import jah.catchflight.sharedkernel.account.UserId;
 
+/**
+ * Maps between domain {@link Account} objects and persistence-layer {@link AccountJdbcEntity} objects
+ * in the CatchFlight application. This class is responsible for converting domain models to JDBC entities
+ * for database storage and vice versa, ensuring seamless data transformation between the domain and
+ * persistence layers.
+ *
+ * @since 1.0
+ */
 class AccountJdbcEntityMapper {
+    /**
+     * Converts a domain {@link Account} object to a persistence-layer {@link AccountJdbcEntity}.
+     * This method extracts relevant fields from the domain account, including user ID, email, password,
+     * username, account type, and version, and constructs a corresponding JDBC entity for database storage.
+     *
+     * @param account the domain {@link Account} object to convert
+     * @return an {@link AccountJdbcEntity} representing the account data for persistence
+     * @since 1.0
+     */
     AccountJdbcEntity toJdbcEntity(Account account) {
         var userId = account.getUserId();
         var userName = account.getUserName();
@@ -26,6 +43,16 @@ class AccountJdbcEntityMapper {
                 version.value());
     }
 
+    /**
+     * Converts a persistence-layer {@link AccountJdbcEntity} to a domain {@link Account} object.
+     * This method constructs domain value objects (e.g., {@link UserId}, {@link Email}, {@link UserName},
+     * {@link Password}, {@link Version}) from the JDBC entity fields and builds a domain {@link Account}
+     * using the builder pattern.
+     *
+     * @param entity the {@link AccountJdbcEntity} to convert
+     * @return an {@link Account} representing the domain model
+     * @since 1.0
+     */
     Account toDomain(AccountJdbcEntity entity) {
         var userId = new UserId(entity.id());
         var userName = new UserName(entity.firstName(), entity.lastName());
@@ -44,4 +71,3 @@ class AccountJdbcEntityMapper {
                 .build();
     }
 }
-
