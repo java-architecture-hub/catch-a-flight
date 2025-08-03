@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>application</artifactId>
-    <name>Catch A Flight :: Application</name>
+    <name>Catch a Flight :: Application</name>
 
     <dependencies>
         <dependency>

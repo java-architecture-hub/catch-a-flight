@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>engagement</artifactId>
-    <name>Catch A Flight :: Engagement</name>
+    <name>Catch a Flight :: Engagement</name>
 
     <dependencies>
         <dependency>

@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>bestdeal</artifactId>
-    <name>Catch A Flight :: Best Deal</name>
+    <name>Catch a Flight :: Best Deal</name>
 
     <dependencies>
         <dependency>

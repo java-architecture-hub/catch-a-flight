@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>booking</artifactId>
-    <name>Catch A Flight :: Booking</name>
+    <name>Catch a Flight :: Booking</name>
 
     <dependencies>
         <dependency>

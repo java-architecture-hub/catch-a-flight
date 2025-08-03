@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>shared-kernel</artifactId>
-    <name>Catch A Flight :: Shared Kernel</name>
+    <name>Catch a Flight :: Shared Kernel</name>
 
     <dependencies>
         <dependency>

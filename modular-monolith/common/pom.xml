@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>common</artifactId>
-    <name>Catch A Flight :: Common</name>
+    <name>Catch a Flight :: Common</name>
 
     <dependencies>
         <dependency>

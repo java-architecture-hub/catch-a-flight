@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>query</artifactId>
-    <name>Catch A Flight :: Query</name>
+    <name>Catch a Flight :: Query</name>
 
     <dependencies>
         <dependency>
