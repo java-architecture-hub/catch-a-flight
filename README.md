@@ -1,4 +1,4 @@
-# Catch A Flight
+# Catch a Flight
 
 ![Java](https://img.shields.io/badge/Java-24-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
