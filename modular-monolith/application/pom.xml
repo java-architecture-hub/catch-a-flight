@@ -14,7 +14,15 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jah.catch-a-flight</groupId>
+            <artifactId>account</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
