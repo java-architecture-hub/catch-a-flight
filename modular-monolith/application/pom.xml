@@ -24,5 +24,35 @@
             <artifactId>account</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>jah.catch-a-flight</groupId>
+            <artifactId>api-simulator</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jah.catch-a-flight</groupId>
+            <artifactId>bestdeal</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jah.catch-a-flight</groupId>
+            <artifactId>booking</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jah.catch-a-flight</groupId>
+            <artifactId>engagement</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jah.catch-a-flight</groupId>
+            <artifactId>order</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jah.catch-a-flight</groupId>
+            <artifactId>query</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

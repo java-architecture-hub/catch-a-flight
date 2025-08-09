@@ -1,6 +1,12 @@
 package jah.catchflight.application;
 
 import jah.catchflight.account.AccountConfiguration;
+import jah.catchflight.apisimulator.ApiSimulatorConfiguration;
+import jah.catchflight.bestdeal.BestDealConfiguration;
+import jah.catchflight.booking.BookingConfiguration;
+import jah.catchflight.engagement.EngagementConfiguration;
+import jah.catchflight.order.OrderConfiguration;
+import jah.catchflight.query.QueryConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -8,6 +14,12 @@ import org.springframework.context.annotation.Import;
 @EnableAutoConfiguration
 @Configuration(proxyBeanMethods = false)
 @Import({
-        AccountConfiguration.class
+        AccountConfiguration.class,
+        ApiSimulatorConfiguration.class,
+        BestDealConfiguration.class,
+        BookingConfiguration.class,
+        EngagementConfiguration.class,
+        OrderConfiguration.class,
+        QueryConfiguration.class
 })
 public class AppConfiguration {}
