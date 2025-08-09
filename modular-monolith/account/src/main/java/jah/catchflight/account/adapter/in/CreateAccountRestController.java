@@ -34,19 +34,8 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequiredArgsConstructor
 class CreateAccountRestController {
-    /**
-     * The use case responsible for executing the account creation logic.
-     */
     private final CreateAccountUseCase createAccountUseCase;
-
-    /**
-     * The mapper responsible for converting HTTP requests to domain commands.
-     */
     private final CreateAccountMapper createAccountMapper;
-
-    /**
-     * The HTTP servlet request, used for constructing error responses with context.
-     */
     private final HttpServletRequest servletRequest;
 
     /**
@@ -96,12 +85,6 @@ class CreateAccountRestController {
      * account creation responses.
      */
     interface CreateAccountResponse {
-        /**
-         * Represents a successful account creation response.
-         * Contains the unique identifier of the created user.
-         *
-         * @param userId the unique identifier of the created user
-         */
         record SuccessResponse(UserId userId) implements CreateAccountResponse {}
     }
 
@@ -123,13 +106,6 @@ class CreateAccountRestController {
      * account creation use case.
      */
     private static class CreateAccountMapper {
-        /**
-         * Converts a {@link CreateAccountRequest} to a {@link CreateAccountUseCase.CreateAccountCommand}.
-         * Maps the request fields to domain value objects for email, password, and user name.
-         *
-         * @param request the HTTP request containing account creation details
-         * @return a {@link CreateAccountUseCase.CreateAccountCommand} for the use case
-         */
         CreateAccountUseCase.CreateAccountCommand toCommand(CreateAccountRequest request) {
             return new CreateAccountUseCase.CreateAccountCommand(
                     new Email(request.email()),

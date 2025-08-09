@@ -23,23 +23,11 @@ import java.util.Optional;
 @Service
 @OutboundAdapter
 @RequiredArgsConstructor
-public class AccountRepository
-        implements CreateAccountRepository,
-        FindCurrentAccountRepository,
-        FindAccountRepository,
-        UpdateAccountRepository {
-
-    /**
-     * The JDBC repository for performing CRUD operations on {@link AccountJdbcEntity}.
-     */
+public class AccountRepository implements CreateAccountRepository, FindCurrentAccountRepository, FindAccountRepository, UpdateAccountRepository {
     private final AccountJdbcRepository accountJdbcRepository;
-
-    /**
-     * The mapper for converting between domain {@link Account} and persistence {@link AccountJdbcEntity} objects.
-     */
     private final AccountJdbcEntityMapper accountJdbcEntityMapper;
 
-    /**
+    /**Ī
      * Loads an account by its unique identifier.
      * Queries the database for an {@link AccountJdbcEntity} with the specified {@link UserId} and maps it to
      * a domain {@link Account} if found.

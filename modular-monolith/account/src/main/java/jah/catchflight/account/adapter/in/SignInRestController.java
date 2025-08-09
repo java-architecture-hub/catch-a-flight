@@ -31,19 +31,8 @@ import static jah.catchflight.common.controller.ResponseBodyHelper.internalServe
 @RestController
 @RequiredArgsConstructor
 class SignInRestController {
-    /**
-     * The use case responsible for executing the sign-in logic.
-     */
     private final SignInUseCase signInUseCase;
-
-    /**
-     * The mapper responsible for converting HTTP requests to domain commands.
-     */
     private final SignInMapper signInMapper;
-
-    /**
-     * The HTTP servlet request, used for constructing error responses with context.
-     */
     private final HttpServletRequest servletRequest;
 
     /**
@@ -98,12 +87,6 @@ class SignInRestController {
      * sign-in responses.
      */
     interface SignInResponse {
-        /**
-         * Represents a successful sign-in response.
-         * Contains the unique identifier of the authenticated user.
-         *
-         * @param userId the unique identifier of the authenticated user
-         */
         record SuccessResponse(UserId userId) implements SignInResponse {}
     }
 
@@ -113,13 +96,6 @@ class SignInRestController {
      * into a {@link SignInCommand} for use by the sign-in use case.
      */
     private static class SignInMapper {
-        /**
-         * Converts a {@link SignInRequest} to a {@link SignInCommand}.
-         * Maps the request fields to a domain command for authentication.
-         *
-         * @param request the HTTP request containing sign-in credentials
-         * @return a {@link SignInCommand} for the use case
-         */
         SignInCommand toCommand(SignInRequest request) {
             return new SignInCommand();
         }

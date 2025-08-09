@@ -44,17 +44,7 @@ public class Account {
      * Sealed interface representing the result of an account upgrade operation.
      */
     public sealed interface UpgradeUserResult {
-        /**
-         * Indicates a successful account upgrade.
-         */
         record Success() implements UpgradeUserResult {}
-
-        /**
-         * Indicates a failed account upgrade attempt due to the account already being upgraded.
-         *
-         * @param userId the ID of the user whose upgrade attempt failed
-         * @param message the reason for the failure
-         */
         record AlreadyUpdatedFailure(UserId userId, String message) implements UpgradeUserResult {}
     }
 }

@@ -23,24 +23,9 @@ import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserR
 @InboundAdapter
 @RequiredArgsConstructor
 class SubscriptionPaidEventHandler {
-
-    /**
-     * The use case responsible for executing the account upgrade logic.
-     */
     private final UpgradeAccountUseCase upgradeAccountUseCase;
-
-    /**
-     * The mapper responsible for converting subscription paid events to domain commands.
-     */
     private final UpgradeUserMapper upgradeUserMapper;
 
-    /**
-     * Handles the {@link AccountSubscriptionPaid} event to initiate an account upgrade.
-     * This method logs the received event, maps it to a domain command, invokes the upgrade
-     * use case, and logs the outcome of the operation based on the result.
-     *
-     * @param event the subscription paid event containing the account details
-     */
     @EventListener
     void handle(AccountSubscriptionPaid event) {
         log.info("Event received: {}", event);
@@ -60,17 +45,8 @@ class SubscriptionPaidEventHandler {
      * into a {@link UpgradeUserCommand} for use by the upgrade use case.
      */
     private static class UpgradeUserMapper {
-        /**
-         * Converts an {@link AccountSubscriptionPaid} event to a {@link UpgradeUserCommand}.
-         * Maps the event's account ID to a {@link UserId} domain value object and constructs
-         * a command for the upgrade use case.
-         *
-         * @param event the subscription paid event containing the account ID
-         * @return a {@link UpgradeUserCommand} for the use case
-         */
         UpgradeUserCommand toCommand(AccountSubscriptionPaid event) {
             return new UpgradeUserCommand(new UserId(event.eventId()));
         }
     }
 }
-

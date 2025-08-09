@@ -13,14 +13,6 @@ import java.util.Objects;
  */
 @DomainValueObject
 public record UserName(String firstName, String lastName) {
-    /**
-     * Constructs a {@code UserName} with the specified first name and last name.
-     * Ensures that both the first name and last name are not null.
-     *
-     * @param firstName the user's first name
-     * @param lastName  the user's last name
-     * @throws NullPointerException if either firstName or lastName is null
-     */
     public UserName {
         Objects.requireNonNull(firstName);
         Objects.requireNonNull(lastName);

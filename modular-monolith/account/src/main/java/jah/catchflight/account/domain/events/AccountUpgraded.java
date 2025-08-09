@@ -16,16 +16,6 @@ import java.util.UUID;
  * @since 1.0
  */
 public record AccountUpgraded(UUID eventId, UserId userId) implements DomainEvent {
-
-    /**
-     * Constructs an {@code AccountUpgraded} event with the specified event ID and user ID.
-     * Ensures that both parameters are non-null to maintain event integrity.
-     *
-     * @param eventId the unique identifier of the event
-     * @param userId  the unique identifier of the account that was upgraded
-     * @throws NullPointerException if either {@code eventId} or {@code userId} is null
-     * @since 1.0
-     */
     public AccountUpgraded {
         Objects.requireNonNull(eventId);
         Objects.requireNonNull(userId);

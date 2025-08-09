@@ -44,7 +44,6 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
                 user.upgradeUser();
                 updateAccountRepository.save(user);
                 emitUserUpgraded(command.userId());
-
                 return new Success();
             } else {
                 return new UserNotFoundFailure("User not found");
@@ -58,18 +57,42 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
         }
     }
 
+    /**
+     * Publishes an event indicating a successful user account upgrade.
+     *
+     * @param userId the {@link UserId} of the user whose account was upgraded
+     */
     private void emitUserUpgraded(UserId userId) {
         accountEventPublisher.publish(userUpgradedEvent(userId));
     }
 
+    /**
+     * Publishes an event indicating a failed user account upgrade.
+     *
+     * @param userId  the {@link UserId} of the user whose account upgrade failed
+     * @param message the error message describing the reason for the failure
+     */
     private void emitUserUpgradeFailed(UserId userId, String message) {
         accountEventPublisher.publish(userUpgradedFailedEvent(userId, message));
     }
 
+    /**
+     * Creates an event representing a successful user account upgrade.
+     *
+     * @param userId the {@link UserId} of the user whose account was upgraded
+     * @return an {@link AccountUpgraded} event containing the upgrade details
+     */
     private AccountUpgraded userUpgradedEvent(UserId userId) {
         return new AccountUpgraded(UUID.randomUUID(), userId);
     }
 
+    /**
+     * Creates an event representing a failed user account upgrade.
+     *
+     * @param userId  the {@link UserId} of the user whose account upgrade failed
+     * @param message the error message describing the reason for the failure
+     * @return an {@link AccountUpgradeFailed} event containing the failure details
+     */
     private AccountUpgradeFailed userUpgradedFailedEvent(UserId userId, String message) {
         return new AccountUpgradeFailed(UUID.randomUUID(), userId, message);
     }

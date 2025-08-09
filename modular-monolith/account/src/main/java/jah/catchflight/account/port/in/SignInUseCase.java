@@ -30,23 +30,8 @@ public interface SignInUseCase {
      * It defines the various result types for success and failure scenarios.
      */
     sealed interface SignInResult {
-        /**
-         * Represents a successful sign-in.
-         *
-         * @param userId the unique identifier of the authenticated user
-         */
         record Success(UserId userId) implements SignInResult {}
-
-        /**
-         * Represents a failure due to invalid credentials or authentication issues.
-         */
         record AuthenticationFailure() implements SignInResult {}
-
-        /**
-         * Represents an internal failure during the sign-in process.
-         *
-         * @param cause the throwable cause of the failure
-         */
         record InternalFailure(Throwable cause) implements SignInResult {}
     }
 }

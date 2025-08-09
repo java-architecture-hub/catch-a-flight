@@ -27,13 +27,6 @@ public interface UpgradeAccountUseCase {
      * @param userId the unique identifier of the user account to upgrade
      */
     record UpgradeUserCommand(UserId userId) {
-        /**
-         * Constructs a new {@link UpgradeUserCommand} with validation.
-         * Ensures that the provided user ID is not null.
-         *
-         * @param userId the user ID, must not be null
-         * @throws NullPointerException if the user ID is null
-         */
         public UpgradeUserCommand {
             Objects.requireNonNull(userId);
         }
@@ -44,30 +37,9 @@ public interface UpgradeAccountUseCase {
      * It defines the various result types for success and failure scenarios.
      */
     sealed interface UpgradeUserResult {
-        /**
-         * Represents a successful account upgrade.
-         */
         record Success() implements UpgradeUserResult {}
-
-        /**
-         * Represents a failure due to the user account not being found.
-         *
-         * @param message the error message describing the failure
-         */
         record UserNotFoundFailure(String message) implements UpgradeUserResult {}
-
-        /**
-         * Represents a failure due to the user account already being upgraded.
-         *
-         * @param message the error message describing the failure
-         */
         record UserAlreadyUpgradedFailure(String message) implements UpgradeUserResult {}
-
-        /**
-         * Represents an internal failure during the account upgrade process.
-         *
-         * @param cause the throwable cause of the failure
-         */
         record InternalFailure(Throwable cause) implements UpgradeUserResult {}
     }
 }
