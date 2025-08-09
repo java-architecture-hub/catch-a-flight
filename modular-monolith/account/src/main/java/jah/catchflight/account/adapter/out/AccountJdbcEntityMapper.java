@@ -6,6 +6,7 @@ import jah.catchflight.account.domain.model.UserName;
 import jah.catchflight.common.persistence.Version;
 import jah.catchflight.sharedkernel.account.Email;
 import jah.catchflight.sharedkernel.account.UserId;
+import org.springframework.stereotype.Component;
 
 /**
  * Maps between domain {@link Account} objects and persistence-layer {@link AccountJdbcEntity} objects
@@ -13,6 +14,7 @@ import jah.catchflight.sharedkernel.account.UserId;
  * for database storage and vice versa, ensuring seamless data transformation between the domain and
  * persistence layers.
  */
+@Component
 class AccountJdbcEntityMapper {
     /**
      * Converts a domain {@link Account} object to a persistence-layer {@link AccountJdbcEntity}.

@@ -10,6 +10,7 @@ import jah.catchflight.sharedkernel.account.Email;
 import jah.catchflight.sharedkernel.account.UserId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * with valid passwords and non-existing email addresses.
  */
 @Slf4j
+@Component
 @DomainFactory
 @RequiredArgsConstructor
 public class AccountFactory {

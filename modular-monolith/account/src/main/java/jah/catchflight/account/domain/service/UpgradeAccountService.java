@@ -10,6 +10,7 @@ import jah.catchflight.account.port.out.UpdateAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainService;
 import jah.catchflight.sharedkernel.account.UserId;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserR
  * the business logic for upgrading user accounts, utilizing repositories for
  * account retrieval and updates, and an event publisher for notifications.
  */
+@Service
 @DomainService
 @RequiredArgsConstructor
 public class UpgradeAccountService implements UpgradeAccountUseCase {

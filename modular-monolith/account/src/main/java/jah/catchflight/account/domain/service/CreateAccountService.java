@@ -11,6 +11,7 @@ import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.CreateAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static jah.catchflight.account.port.in.CreateAccountUseCase.CreateAccountResult.*;
@@ -25,10 +26,10 @@ import java.util.UUID;
  * persistence, and an event publisher for notifying other components of account
  * creation outcomes.
  */
+@Service
 @DomainService
 @RequiredArgsConstructor
 public class CreateAccountService implements CreateAccountUseCase {
-
     private final AccountFactory accountFactory;
     private final CreateAccountRepository createAccountRepository;
     private final AccountEventPublisher accountEventPublisher;

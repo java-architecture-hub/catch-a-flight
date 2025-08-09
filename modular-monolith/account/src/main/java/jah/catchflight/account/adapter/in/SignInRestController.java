@@ -8,11 +8,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static jah.catchflight.account.adapter.in.RestResources.ACCOUNT_API;
+import static jah.catchflight.account.adapter.in.RestResources.SIGN_IN_API;
 import static jah.catchflight.account.adapter.in.SignInRestController.SignInResponse.SuccessResponse;
 import static jah.catchflight.account.port.in.SignInUseCase.SignInCommand;
 import static jah.catchflight.account.port.in.SignInUseCase.SignInResult.*;
@@ -30,6 +34,7 @@ import static jah.catchflight.common.controller.ResponseBodyHelper.internalServe
 @InboundAdapter
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(SIGN_IN_API)
 class SignInRestController {
     private final SignInUseCase signInUseCase;
     private final SignInMapper signInMapper;
@@ -95,6 +100,7 @@ class SignInRestController {
      * This class is responsible for transforming a {@link SignInRequest}
      * into a {@link SignInCommand} for use by the sign-in use case.
      */
+    @Component
     private static class SignInMapper {
         SignInCommand toCommand(SignInRequest request) {
             return new SignInCommand();

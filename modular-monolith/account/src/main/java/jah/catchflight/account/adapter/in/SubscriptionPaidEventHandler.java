@@ -7,6 +7,7 @@ import jah.catchflight.sharedkernel.account.UserId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserCommand;
@@ -44,6 +45,7 @@ class SubscriptionPaidEventHandler {
      * This class is responsible for transforming an {@link AccountSubscriptionPaid} event
      * into a {@link UpgradeUserCommand} for use by the upgrade use case.
      */
+    @Component
     private static class UpgradeUserMapper {
         UpgradeUserCommand toCommand(AccountSubscriptionPaid event) {
             return new UpgradeUserCommand(new UserId(event.eventId()));
