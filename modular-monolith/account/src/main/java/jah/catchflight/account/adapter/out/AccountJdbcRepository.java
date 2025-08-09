@@ -14,12 +14,5 @@ import java.util.UUID;
  */
 @Repository
 interface AccountJdbcRepository extends CrudRepository<AccountJdbcEntity, UUID> {
-    /**
-     * Retrieves an account entity by its email address.
-     * This method queries the database for an {@link AccountJdbcEntity} with the specified email.
-     *
-     * @param email the email address to search for
-     * @return an {@link Optional} containing the {@link AccountJdbcEntity} if found, or an empty {@link Optional} if not
-     */
     Optional<AccountJdbcEntity> findByEmail(String email);
 }

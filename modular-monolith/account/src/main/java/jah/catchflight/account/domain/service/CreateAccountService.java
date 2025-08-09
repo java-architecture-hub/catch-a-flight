@@ -13,6 +13,8 @@ import jah.catchflight.common.annotations.domain.DomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import static jah.catchflight.account.port.in.CreateAccountUseCase.CreateAccountResult.*;
+
 import java.util.UUID;
 
 /**
@@ -46,10 +48,10 @@ public class CreateAccountService implements CreateAccountUseCase {
      * @param command the {@link CreateAccountCommand} containing the email, password, and username
      *                for the new account
      * @return a {@link CreateAccountResult} indicating the outcome of the account creation process,
-     *         such as success or specific failure reasons
+     * such as success or specific failure reasons
      * @throws AccountAlreadyExistsException if an account with the provided email already exists
-     * @throws PasswordPolicyException if the provided password does not meet the defined policy requirements
-     * @throws RuntimeException if an unexpected error occurs during the account creation process
+     * @throws PasswordPolicyException       if the provided password does not meet the defined policy requirements
+     * @throws RuntimeException              if an unexpected error occurs during the account creation process
      */
     @Override
     @Transactional
@@ -61,16 +63,16 @@ public class CreateAccountService implements CreateAccountUseCase {
                     command.userName());
             var persistedUser = createAccountRepository.create(user);
             emitAccountCreated(persistedUser);
-            return new CreateAccountResult.Success(persistedUser.getUserId());
+            return new Success(persistedUser.getUserId());
         } catch (AccountAlreadyExistsException ex) {
             emitAccountCreationFailed(command, ex.getMessage());
-            return new CreateAccountResult.ExistingAccountFailure(ex.getMessage());
+            return new ExistingAccountFailure(ex.getMessage());
         } catch (PasswordPolicyException ex) {
             emitAccountCreationFailed(command, ex.getMessage());
-            return new CreateAccountResult.PasswordPolicyFailure(ex.getMessage());
+            return new PasswordPolicyFailure(ex.getMessage());
         } catch (Exception ex) {
             emitAccountCreationFailed(command, ex.getMessage());
-            return new CreateAccountResult.InternalFailure(ex);
+            return new InternalFailure(ex);
         }
     }
 

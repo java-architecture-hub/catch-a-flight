@@ -11,12 +11,6 @@ import java.util.UUID;
  * @param eventId the unique identifier of the event
  */
 public record AccountSubscriptionPaid(UUID eventId) implements DomainEvent {
-
-    /**
-     * Returns the unique identifier of the account subscription payment event.
-     *
-     * @return the event's unique identifier
-     */
     @Override
     public UUID eventId() {
         return eventId;

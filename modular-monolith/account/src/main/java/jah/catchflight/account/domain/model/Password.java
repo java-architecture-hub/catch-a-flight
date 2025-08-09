@@ -12,13 +12,6 @@ import java.util.Objects;
  */
 @DomainValueObject
 public record Password(String value) {
-    /**
-     * Constructs a {@code Password} with the specified value.
-     * Ensures the password value is not null.
-     *
-     * @param value the password string
-     * @throws NullPointerException if the provided value is null
-     */
     public Password {
         Objects.requireNonNull(value);
     }

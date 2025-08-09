@@ -29,19 +29,8 @@ import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserR
 @InboundAdapter
 @RequiredArgsConstructor
 class UpgradeAccountRestController {
-    /**
-     * The use case responsible for executing the account upgrade logic.
-     */
     private final UpgradeAccountUseCase upgradeAccountUseCase;
-
-    /**
-     * The mapper responsible for converting HTTP request data to domain commands.
-     */
     private final UpgradeUserMapper upgradeUserMapper;
-
-    /**
-     * The HTTP servlet request, used for constructing error responses with context.
-     */
     private final HttpServletRequest servletRequest;
 
     /**
@@ -106,10 +95,6 @@ class UpgradeAccountRestController {
      * This interface provides a type-safe way to represent successful upgrade responses.
      */
     private interface UpgradeUserResponse {
-        /**
-         * Represents a successful account upgrade response.
-         * This record is used to indicate that the account upgrade was successful.
-         */
         record SuccessResponse() implements UpgradeUserResponse {}
     }
 
@@ -119,14 +104,6 @@ class UpgradeAccountRestController {
      * {@link UpgradeUserCommand} for use by the upgrade use case.
      */
     private static class UpgradeUserMapper {
-        /**
-         * Converts an account ID to a {@link UpgradeUserCommand}.
-         * Maps the provided account ID string to a {@link UserId} domain value object
-         * and constructs a command for the upgrade use case.
-         *
-         * @param userId the string representation of the account ID to upgrade
-         * @return a {@link UpgradeUserCommand} for the use case
-         */
         UpgradeUserCommand toCommand(String userId) {
             return new UpgradeUserCommand(new UserId(UUID.fromString(userId)));
         }

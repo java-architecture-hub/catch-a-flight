@@ -32,15 +32,6 @@ public interface CreateAccountUseCase {
      * @param userName the username for the user account
      */
     record CreateAccountCommand(Email email, Password password, UserName userName) {
-        /**
-         * Constructs a new {@link CreateAccountCommand} with validation.
-         * Ensures that none of the provided parameters are null.
-         *
-         * @param email    the email address, must not be null
-         * @param password the password, must not be null
-         * @param userName the username, must not be null
-         * @throws NullPointerException if any parameter is null
-         */
         public CreateAccountCommand {
             Objects.requireNonNull(email);
             Objects.requireNonNull(password);
@@ -53,32 +44,9 @@ public interface CreateAccountUseCase {
      * It defines the various result types for success and failure scenarios.
      */
     sealed interface CreateAccountResult {
-        /**
-         * Represents a successful account creation.
-         *
-         * @param userId the unique identifier of the created user account
-         */
         record Success(UserId userId) implements CreateAccountResult {}
-
-        /**
-         * Represents a failure due to an existing account with the same email.
-         *
-         * @param message the error message describing the failure
-         */
         record ExistingAccountFailure(String message) implements CreateAccountResult {}
-
-        /**
-         * Represents a failure due to the password not meeting policy requirements.
-         *
-         * @param message the error message describing the policy violation
-         */
         record PasswordPolicyFailure(String message) implements CreateAccountResult {}
-
-        /**
-         * Represents an internal failure during account creation.
-         *
-         * @param cause the throwable cause of the failure
-         */
         record InternalFailure(Throwable cause) implements CreateAccountResult {}
     }
 }
