@@ -4,6 +4,7 @@ import jah.catchflight.account.port.in.SignInUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.common.annotations.domain.DomainService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /**
  * Service responsible for handling user sign-in operations.
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
  * the business logic for user authentication, utilizing an event publisher
  * for notifications related to sign-in events.
  */
+@Service
 @DomainService
 @RequiredArgsConstructor
 public class SignInService implements SignInUseCase {

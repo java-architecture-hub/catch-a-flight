@@ -8,12 +8,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+import static jah.catchflight.account.adapter.in.RestResources.ACCOUNT_API;
+import static jah.catchflight.account.adapter.in.RestResources.UPGRADE_ACCOUNT_API;
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserCommand;
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
 
@@ -28,6 +32,7 @@ import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserR
 @RestController
 @InboundAdapter
 @RequiredArgsConstructor
+@RequestMapping(UPGRADE_ACCOUNT_API)
 class UpgradeAccountRestController {
     private final UpgradeAccountUseCase upgradeAccountUseCase;
     private final UpgradeUserMapper upgradeUserMapper;
@@ -103,6 +108,7 @@ class UpgradeAccountRestController {
      * This class is responsible for transforming an account ID into a
      * {@link UpgradeUserCommand} for use by the upgrade use case.
      */
+    @Component
     private static class UpgradeUserMapper {
         UpgradeUserCommand toCommand(String userId) {
             return new UpgradeUserCommand(new UserId(UUID.fromString(userId)));
