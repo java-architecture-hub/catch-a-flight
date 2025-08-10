@@ -2,7 +2,7 @@ package jah.catchflight.bestdeal.adapter.in;
 
 import jah.catchflight.bestdeal.port.in.IndexFlightQueryUseCase;
 import jah.catchflight.common.annotations.hexagonal.InboundAdapter;
-import jah.catchflight.event.account.FlightOfferCollected;
+import jah.catchflight.event.query.FlightOfferCollected;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
