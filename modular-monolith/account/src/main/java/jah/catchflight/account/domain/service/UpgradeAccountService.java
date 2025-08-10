@@ -33,7 +33,6 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
     private static final String ACCOUNT_ALREADY_UPGRADED = "Account is already upgraded";
     private static final String ACCOUNT_NOT_FOUND = "Account not found";
 
-    private final UpgradeCommandValidator upgradeCommandValidator;
     private final FindAccountRepository findAccountRepository;
     private final UpdateAccountRepository updateAccountRepository;
     private final AccountEventPublisher accountEventPublisher;
@@ -53,13 +52,6 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
         }
 
         try {
-            // Validate input
-            var validationResult = upgradeCommandValidator.validate(command);
-            if (validationResult instanceof NotValid(String message)) {
-                log.warn("Invalid upgrade command for userId: {}, reason: {}", command.userId(), message);
-                return new InputNotValid(message);
-            }
-
             // Retrieve and process account
             return findAccountRepository.load(command.userId())
                     .map(account -> processAccountUpgrade(account, command.userId()))
@@ -116,18 +108,5 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
      */
     private void emitAccountUpgradeFailed(UserId userId, String message) {
         accountEventPublisher.publish(new AccountUpgradeFailed(UUID.randomUUID(), userId, message));
-    }
-
-    /**
-     * Validates the {@link UpgradeUserCommand} to ensure it meets upgrade criteria.
-     */
-    @Component
-    static class UpgradeCommandValidator {
-        InputValidationResult validate(final UpgradeUserCommand command) {
-            if (command.userId() == null) {
-                return new NotValid("User ID cannot be null");
-            }
-            return new Valid();
-        }
     }
 }

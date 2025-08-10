@@ -38,7 +38,6 @@ public interface UpgradeAccountUseCase {
      */
     sealed interface UpgradeUserResult {
         record Success() implements UpgradeUserResult {}
-        record InputNotValid(String message) implements UpgradeUserResult {}
         record AccountNotFoundFailure(String message) implements UpgradeUserResult {}
         record AccountAlreadyUpgradedFailure(String message) implements UpgradeUserResult {}
         record InternalFailure(Throwable cause) implements UpgradeUserResult {}

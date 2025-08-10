@@ -19,6 +19,8 @@ import java.util.UUID;
 import static jah.catchflight.account.adapter.in.RestResources.UPGRADE_ACCOUNT_API;
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserCommand;
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
+import static jah.catchflight.common.controller.ResponseBodyHelper.badRequestBody;
+import static jah.catchflight.common.controller.ResponseBodyHelper.internalServerErrorBody;
 
 /**
  * REST controller for handling account upgrade requests in the CatchFlight application.
@@ -55,7 +57,6 @@ class UpgradeAccountRestController {
         return switch (upgradeUserResult) {
             case Success() -> successBody();
             case AccountNotFoundFailure(String message) -> badRequestBody(servletRequest, message);
-            case InputNotValid(String message) -> badRequestBody(servletRequest, message);
             case AccountAlreadyUpgradedFailure(String message) -> badRequestBody(servletRequest, message);
             case InternalFailure(Throwable cause) -> internalServerErrorBody(servletRequest, cause);
         };
@@ -65,32 +66,8 @@ class UpgradeAccountRestController {
      * Constructs a successful HTTP response for account upgrade.
      * Returns a 201 Created status with no response body.
      */
-    private static ResponseEntity<UpgradeUserResponse> successBody() {
+    private static ResponseEntity<Void> successBody() {
         return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    /**
-     * Constructs a bad request HTTP response for failed account upgrade attempts.
-     * Returns a 400 Bad Request status with an error message in the response body.
-     */
-    private ResponseEntity<?> badRequestBody(HttpServletRequest request, String message) {
-        return ResponseEntity.badRequest().body(message);
-    }
-
-    /**
-     * Constructs an internal server error HTTP response for unexpected failures.
-     * Returns a 500 Internal Server Error status with the cause's message in the response body.
-     */
-    private ResponseEntity<?> internalServerErrorBody(HttpServletRequest request, Throwable cause) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(cause.getMessage());
-    }
-
-    /**
-     * Defines the response structure for account upgrade operations.
-     * This interface provides a type-safe way to represent successful upgrade responses.
-     */
-    private interface UpgradeUserResponse {
-        record SuccessResponse() implements UpgradeUserResponse {}
     }
 
     /**

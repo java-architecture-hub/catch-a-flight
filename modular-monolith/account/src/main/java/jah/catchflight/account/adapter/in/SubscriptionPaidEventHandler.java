@@ -44,7 +44,6 @@ class SubscriptionPaidEventHandler {
         var result = upgradeAccountUseCase.upgradeUser(command);
         switch (result) {
             case Success() -> log.info("Account upgraded.");
-            case InputNotValid(String message) -> log.info("Account upgraded failed: {}", message);
             case AccountAlreadyUpgradedFailure(String message) -> log.info("Account upgraded failed: {}", message);
             case AccountNotFoundFailure(String message) -> log.info("Account upgraded failed: {}", message);
             case InternalFailure(Throwable cause) -> log.error("Internal failure:", cause);
