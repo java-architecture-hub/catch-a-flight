@@ -1,4 +1,4 @@
-package jah.catchflight.account.event;
+package jah.catchflight.event.account;
 
 import jah.catchflight.common.events.DomainEvent;
 
