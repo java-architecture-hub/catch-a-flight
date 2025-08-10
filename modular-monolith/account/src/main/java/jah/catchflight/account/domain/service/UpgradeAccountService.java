@@ -2,12 +2,12 @@ package jah.catchflight.account.domain.service;
 
 import jah.catchflight.account.domain.events.AccountUpgradeFailed;
 import jah.catchflight.account.domain.events.AccountUpgraded;
-import jah.catchflight.account.domain.model.AccountAlreadyUpgradedException;
 import jah.catchflight.account.port.in.UpgradeAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.FindAccountRepository;
 import jah.catchflight.account.port.out.UpdateAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainService;
+import jah.catchflight.common.validation.InputValidationResult;
 import jah.catchflight.sharedkernel.account.UserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
+import static jah.catchflight.common.validation.InputValidationResult.NotValid;
 
 /**
  * Service responsible for handling user account upgrades.
@@ -26,6 +27,9 @@ import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserR
 @DomainService
 @RequiredArgsConstructor
 public class UpgradeAccountService implements UpgradeAccountUseCase {
+    private static final String ACCOUNT_ALREADY_UPGRADED = "Account has been already upgraded";
+    private static final String ACCOUNT_NOT_FOUND = "Account not found";
+    private final UpgradeCommandValidator upgradeCommandValidator;
     private final FindAccountRepository findAccountRepository;
     private final UpdateAccountRepository updateAccountRepository;
     private final AccountEventPublisher accountEventPublisher;
@@ -35,67 +39,56 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
      *
      * @param command the {@link UpgradeUserCommand} containing the details required for the account upgrade
      * @return an {@link UpgradeUserResult} representing the outcome of the account upgrade process
-     * @throws UnsupportedOperationException if the operation is not yet implemented
      */
     @Override
     public UpgradeUserResult upgradeUser(UpgradeUserCommand command) {
         try {
-            var userOptional = findAccountRepository.load(command.userId());
-            if (userOptional.isPresent()) {
-                var user = userOptional.get();
-                user.upgradeUser();
-                updateAccountRepository.save(user);
-                emitUserUpgraded(command.userId());
+            // Input validation
+            var validationResult = upgradeCommandValidator.validate(command);
+            if (validationResult instanceof NotValid(String message)) {
+                return new InputNotValid(message);
+            }
+            // Core logic
+            var optionalAccount = findAccountRepository.load(command.userId());
+            if (optionalAccount.isPresent()) {
+                var account = optionalAccount.get();
+                if (account.isPremium()) {
+                    emitAccountUpgradeFailed(command.userId(), ACCOUNT_ALREADY_UPGRADED);
+                    return new AccountAlreadyUpgradedFailure(ACCOUNT_ALREADY_UPGRADED);
+                }
+                account.upgradeUser();
+                updateAccountRepository.save(account);
+                emitAccountUpgraded(command.userId());
                 return new Success();
             } else {
-                return new UserNotFoundFailure("User not found");
+                return new AccountNotFoundFailure(ACCOUNT_NOT_FOUND);
             }
-        } catch (AccountAlreadyUpgradedException ex) {
-            emitUserUpgradeFailed(command.userId(), ex.getMessage());
-            return new UserAlreadyUpgradedFailure(ex.getMessage());
         } catch (Exception ex) {
-            emitUserUpgradeFailed(command.userId(), ex.getMessage());
+            emitAccountUpgradeFailed(command.userId(), ex.getMessage());
             return new InternalFailure(ex);
         }
     }
 
     /**
      * Publishes an event indicating a successful user account upgrade.
-     *
-     * @param userId the {@link UserId} of the user whose account was upgraded
      */
-    private void emitUserUpgraded(UserId userId) {
-        accountEventPublisher.publish(userUpgradedEvent(userId));
+    private void emitAccountUpgraded(UserId userId) {
+        accountEventPublisher.publish(new AccountUpgraded(UUID.randomUUID(), userId));
     }
 
     /**
      * Publishes an event indicating a failed user account upgrade.
-     *
-     * @param userId  the {@link UserId} of the user whose account upgrade failed
-     * @param message the error message describing the reason for the failure
      */
-    private void emitUserUpgradeFailed(UserId userId, String message) {
-        accountEventPublisher.publish(userUpgradedFailedEvent(userId, message));
+    private void emitAccountUpgradeFailed(UserId userId, String message) {
+        accountEventPublisher.publish(new AccountUpgradeFailed(UUID.randomUUID(), userId, message));
     }
 
     /**
-     * Creates an event representing a successful user account upgrade.
-     *
-     * @param userId the {@link UserId} of the user whose account was upgraded
-     * @return an {@link AccountUpgraded} event containing the upgrade details
+     * Validates the {@link UpgradeUserCommand} to ensure it meets the required criteria for upgrading a user.
      */
-    private AccountUpgraded userUpgradedEvent(UserId userId) {
-        return new AccountUpgraded(UUID.randomUUID(), userId);
-    }
-
-    /**
-     * Creates an event representing a failed user account upgrade.
-     *
-     * @param userId  the {@link UserId} of the user whose account upgrade failed
-     * @param message the error message describing the reason for the failure
-     * @return an {@link AccountUpgradeFailed} event containing the failure details
-     */
-    private AccountUpgradeFailed userUpgradedFailedEvent(UserId userId, String message) {
-        return new AccountUpgradeFailed(UUID.randomUUID(), userId, message);
+    private class UpgradeCommandValidator {
+        InputValidationResult validate(UpgradeUserCommand upgradeUserCommand) {
+            return new InputValidationResult.Valid();
+        }
     }
 }
