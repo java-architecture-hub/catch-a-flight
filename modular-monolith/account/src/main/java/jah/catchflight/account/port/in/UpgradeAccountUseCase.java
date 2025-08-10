@@ -1,7 +1,7 @@
 package jah.catchflight.account.port.in;
 
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
-import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.AccountId;
 
 import java.util.Objects;
 
@@ -24,11 +24,11 @@ public interface UpgradeAccountUseCase {
      * A record representing the command to upgrade a user account.
      * It encapsulates the user ID of the account to be upgraded.
      *
-     * @param userId the unique identifier of the user account to upgrade
+     * @param accountId the unique identifier of the user account to upgrade
      */
-    record UpgradeUserCommand(UserId userId) {
+    record UpgradeUserCommand(AccountId accountId) {
         public UpgradeUserCommand {
-            Objects.requireNonNull(userId);
+            Objects.requireNonNull(accountId);
         }
     }
 

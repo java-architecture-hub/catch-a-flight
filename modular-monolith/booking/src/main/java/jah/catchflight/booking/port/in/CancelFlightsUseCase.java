@@ -1,7 +1,7 @@
 package jah.catchflight.booking.port.in;
 
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
-import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.AccountId;
 
 import java.util.Objects;
 
@@ -9,9 +9,9 @@ import java.util.Objects;
 public interface CancelFlightsUseCase {
     CancelFlightsResult cancelFlight(CancelFlightsCommand cancelFlightsCommand);
 
-    record CancelFlightsCommand(UserId userId) {
+    record CancelFlightsCommand(AccountId accountId) {
         public CancelFlightsCommand {
-            Objects.requireNonNull(userId);
+            Objects.requireNonNull(accountId);
         }
     }
 

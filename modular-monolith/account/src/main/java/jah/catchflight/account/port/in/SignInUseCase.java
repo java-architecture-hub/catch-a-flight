@@ -1,7 +1,7 @@
 package jah.catchflight.account.port.in;
 
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
-import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.AccountId;
 
 /**
  * Defines the inbound port for user sign-in operations.
@@ -30,7 +30,7 @@ public interface SignInUseCase {
      * It defines the various result types for success and failure scenarios.
      */
     sealed interface SignInResult {
-        record Success(UserId userId) implements SignInResult {}
+        record Success(AccountId accountId) implements SignInResult {}
         record AuthenticationFailure() implements SignInResult {}
         record InternalFailure(Throwable cause) implements SignInResult {}
     }

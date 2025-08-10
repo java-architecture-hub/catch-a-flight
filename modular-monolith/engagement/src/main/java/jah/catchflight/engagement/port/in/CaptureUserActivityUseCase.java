@@ -1,8 +1,7 @@
 package jah.catchflight.engagement.port.in;
 
-import jah.catchflight.common.annotations.hexagonal.InboundAdapter;
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
-import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.AccountId;
 
 import java.util.Objects;
 
@@ -10,9 +9,9 @@ import java.util.Objects;
 public interface CaptureUserActivityUseCase {
     CaptureUserActivityResult captureUserActivity(CaptureUserActivityCommand captureUserActivityCommand);
 
-    record CaptureUserActivityCommand(UserId userId) {
+    record CaptureUserActivityCommand(AccountId accountId) {
         public CaptureUserActivityCommand {
-            Objects.requireNonNull(userId);
+            Objects.requireNonNull(accountId);
         }
     }
 

@@ -1,7 +1,7 @@
 package jah.catchflight.event.account;
 
 import jah.catchflight.common.events.DomainEvent;
-import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.AccountId;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -11,10 +11,10 @@ import java.util.UUID;
  * This event captures the unique event identifier, the user identifier, and a message describing
  * the reason for the failure.
  */
-public record AccountUpgradeFailed(UUID eventId, UserId userId, String message) implements DomainEvent {
+public record AccountUpgradeFailed(UUID eventId, AccountId accountId, String message) implements DomainEvent {
     public AccountUpgradeFailed {
         Objects.requireNonNull(eventId);
-        Objects.requireNonNull(userId);
+        Objects.requireNonNull(accountId);
         Objects.requireNonNull(message);
     }
 }

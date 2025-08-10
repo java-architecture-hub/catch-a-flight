@@ -66,14 +66,14 @@ The module is implemented in Java using Spring Boot, with the following key comp
     - **Purpose**: Enables asynchronous communication with other parts of the monolith (e.g., sending welcome emails or updating user profiles).
 
 6. **Domain Models and Events**:
-    - **Account**: Represents the core domain entity with attributes like `userId`, `email`, `userName`, and `accountType`.
+    - **Account**: Represents the core domain entity with attributes like `accountId`, `email`, `userName`, and `accountType`.
     - **CreateAccountCommand**: A data transfer object (DTO) containing input data for account creation (email, password, username).
     - **CreateAccountResult**: A sealed class (or equivalent) representing possible outcomes:
-        - `Success`: Contains the created `userId`.
+        - `Success`: Contains the created `accountId`.
         - `InputNotValid`: Indicates validation failure with a message.
         - `PasswordPolicyFailure`: Indicates a password policy violation.
         - `InternalFailure`: Handles unexpected errors.
-    - **AccountCreated**: Event published on successful account creation, containing `userId`, `userName`, `accountType`, and `email`.
+    - **AccountCreated**: Event published on successful account creation, containing `accountId`, `userName`, `accountType`, and `email`.
     - **AccountCreationFailed**: Event published on failure, containing `userName`, `email`, and the failure reason.
 
 ### Flow of Account Creation

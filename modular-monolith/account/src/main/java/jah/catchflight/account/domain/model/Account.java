@@ -2,9 +2,9 @@ package jah.catchflight.account.domain.model;
 
 import jah.catchflight.common.annotations.domain.DomainAggregateRoot;
 import jah.catchflight.common.persistence.Version;
+import jah.catchflight.sharedkernel.account.AccountId;
 import jah.catchflight.sharedkernel.account.AccountType;
 import jah.catchflight.sharedkernel.account.Email;
-import jah.catchflight.sharedkernel.account.UserId;
 import jah.catchflight.sharedkernel.account.UserName;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import lombok.Getter;
 @Builder
 @DomainAggregateRoot
 public class Account {
-    private UserId userId;
+    private AccountId accountId;
     private Email email;
     private Password password;
     private UserName userName;
@@ -33,7 +33,7 @@ public class Account {
      */
     public UpgradeUserResult upgradeUser() {
         return switch (accountType) {
-            case PREMIUM -> new UpgradeUserResult.AlreadyUpdatedFailure(userId, "Premium user can't be upgraded");
+            case PREMIUM -> new UpgradeUserResult.AlreadyUpdatedFailure(accountId, "Premium user can't be upgraded");
             case REGULAR -> {
                 accountType = AccountType.PREMIUM;
                 yield new UpgradeUserResult.Success();
@@ -46,7 +46,7 @@ public class Account {
      */
     public sealed interface UpgradeUserResult {
         record Success() implements UpgradeUserResult {}
-        record AlreadyUpdatedFailure(UserId userId, String message) implements UpgradeUserResult {}
+        record AlreadyUpdatedFailure(AccountId accountId, String message) implements UpgradeUserResult {}
     }
 
     /**

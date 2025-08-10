@@ -2,7 +2,7 @@ package jah.catchflight.account.adapter.in;
 
 import jah.catchflight.account.port.in.SignInUseCase;
 import jah.catchflight.common.annotations.hexagonal.InboundAdapter;
-import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.AccountId;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +56,7 @@ class SignInRestController {
         var command = signInMapper.toCommand(request);
         var result = signInUseCase.signIn(command);
         return switch (result) {
-            case Success(UserId userId) -> successBody(userId);
+            case Success(AccountId accountId) -> successBody(accountId);
             case AuthenticationFailure _ -> badRequestBody(servletRequest, "Incorrect user and/or password.");
             case InternalFailure(Throwable cause) -> internalServerErrorBody(servletRequest, cause);
         };
@@ -73,10 +73,10 @@ class SignInRestController {
      * Constructs a successful HTTP response for user sign-in.
      * Returns a 201 Created status with the user ID in the response body.
      */
-    static ResponseEntity<SignInResponse> successBody(UserId userId) {
+    static ResponseEntity<SignInResponse> successBody(AccountId accountId) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new SuccessResponse(userId));
+                .body(new SuccessResponse(accountId));
     }
 
     /**
@@ -85,7 +85,7 @@ class SignInRestController {
      * sign-in responses.
      */
     interface SignInResponse {
-        record SuccessResponse(UserId userId) implements SignInResponse {}
+        record SuccessResponse(AccountId accountId) implements SignInResponse {}
     }
 
     /**

@@ -2,7 +2,7 @@ package jah.catchflight.account.adapter.in;
 
 import jah.catchflight.account.port.in.UpgradeAccountUseCase;
 import jah.catchflight.common.annotations.hexagonal.InboundAdapter;
-import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.AccountId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -58,7 +58,7 @@ class SubscriptionPaidEventHandler {
     @Component
     private static class UpgradeUserMapper {
         UpgradeUserCommand toCommand(AccountSubscriptionPaid event) {
-            return new UpgradeUserCommand(new UserId(event.eventId()));
+            return new UpgradeUserCommand(new AccountId(event.eventId()));
         }
     }
 }

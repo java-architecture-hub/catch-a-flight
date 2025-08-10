@@ -3,8 +3,8 @@ package jah.catchflight.account.adapter.in;
 import jah.catchflight.account.domain.model.Password;
 import jah.catchflight.account.port.in.CreateAccountUseCase;
 import jah.catchflight.common.annotations.hexagonal.InboundAdapter;
+import jah.catchflight.sharedkernel.account.AccountId;
 import jah.catchflight.sharedkernel.account.Email;
-import jah.catchflight.sharedkernel.account.UserId;
 import jah.catchflight.sharedkernel.account.UserName;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;
@@ -59,7 +59,7 @@ class CreateAccountRestController {
         var command = createAccountMapper.toCommand(request);
         var result = createAccountUseCase.createUser(command);
         return switch (result) {
-            case Success(UserId userId) -> successBody(userId);
+            case Success(AccountId accountId) -> successBody(accountId);
             case ExistingAccountFailure(String message) -> badRequestBody(servletRequest, message);
             case PasswordPolicyFailure(String message) -> badRequestBody(servletRequest, message);
             case InternalFailure(Throwable cause) -> internalServerErrorBody(servletRequest, cause);
@@ -80,15 +80,15 @@ class CreateAccountRestController {
      * account creation responses.
      */
     interface CreateAccountResponse {
-        record SuccessResponse(UserId userId) implements CreateAccountResponse {}
+        record SuccessResponse(AccountId accountId) implements CreateAccountResponse {}
     }
 
     /**
      * Constructs a successful HTTP response for account creation.
      * Returns a 201 Created status with the user ID in the response body.
      */
-    private static ResponseEntity<CreateAccountResponse> successBody(UserId userId) {
-        return status(HttpStatus.CREATED).body(new CreateAccountResponse.SuccessResponse(userId));
+    private static ResponseEntity<CreateAccountResponse> successBody(AccountId accountId) {
+        return status(HttpStatus.CREATED).body(new CreateAccountResponse.SuccessResponse(accountId));
     }
 
     /**
