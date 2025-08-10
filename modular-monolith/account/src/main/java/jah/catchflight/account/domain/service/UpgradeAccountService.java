@@ -65,7 +65,6 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
                     .map(account -> processAccountUpgrade(account, command.userId()))
                     .orElseGet(() -> handleAccountNotFound(command.userId()));
         } catch (Exception ex) {
-            log.error("Unexpected error during account upgrade for userId: {}", command.userId(), ex);
             return handleInternalFailure(command.userId(), ex);
         }
     }
@@ -100,6 +99,7 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
      * Handles unexpected errors during the upgrade process.
      */
     private UpgradeUserResult handleInternalFailure(UserId userId, Exception ex) {
+        log.error("Unexpected error during account upgrade for userId: {}", userId, ex);
         emitAccountUpgradeFailed(userId, ex.getMessage());
         return new InternalFailure(ex);
     }
