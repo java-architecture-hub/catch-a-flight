@@ -6,6 +6,8 @@ The **Catch a Flight - Modular Monolith** is a showcase of best-in-class softwar
 
 This project is part of the broader **Catch a Flight** initiative, which explores two architectural variants: **Modular Monolith** (this repository) and **Microservices**. The modular monolith variant serves as a robust, single-deployable application with clear module boundaries, making it ideal for teams seeking simplicity without sacrificing scalability or flexibility.
 
+[Architecture Decision Records](adr/readme.md)
+
 ## Key Features
 
 - **Domain-Driven Design (DDD)** and **Event Storming** for precise domain modeling and clear business logic.
