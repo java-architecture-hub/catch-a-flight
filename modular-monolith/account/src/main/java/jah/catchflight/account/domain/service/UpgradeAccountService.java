@@ -14,10 +14,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
 import static jah.catchflight.common.validation.InputValidationResult.NotValid;
+import static jah.catchflight.common.validation.InputValidationResult.Valid;
 
 /**
  * Domain service responsible for handling user account upgrades.
@@ -124,7 +126,7 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
             if (command.userId() == null) {
                 return new NotValid("User ID cannot be null");
             }
-            return new InputValidationResult.Valid();
+            return new Valid();
         }
     }
 }

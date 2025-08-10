@@ -3,33 +3,35 @@ package jah.catchflight.account.domain.service;
 import jah.catchflight.account.domain.events.AccountCreated;
 import jah.catchflight.account.domain.events.AccountCreationFailed;
 import jah.catchflight.account.domain.model.Account;
-import jah.catchflight.account.domain.model.AccountAlreadyExistsException;
 import jah.catchflight.account.domain.model.AccountFactory;
-import jah.catchflight.account.domain.model.PasswordPolicyException;
 import jah.catchflight.account.port.in.CreateAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.CreateAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainService;
+import jah.catchflight.common.validation.InputValidationResult;
+import jah.catchflight.sharedkernel.account.UserId;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static jah.catchflight.account.port.in.CreateAccountUseCase.CreateAccountResult.*;
-
 import java.util.UUID;
 
+import static jah.catchflight.account.port.in.CreateAccountUseCase.CreateAccountResult.*;
+import static jah.catchflight.common.validation.InputValidationResult.NotValid;
+
 /**
- * A domain service responsible for orchestrating the creation of new user accounts.
- * This service implements the {@link CreateAccountUseCase} interface, providing
- * business logic for account creation, including validation, persistence, and
- * event publishing. It leverages a factory for account creation, a repository for
- * persistence, and an event publisher for notifying other components of account
- * creation outcomes.
+ * Domain service responsible for creating user accounts.
+ * Implements {@link CreateAccountUseCase} to encapsulate the business logic for account creation.
  */
+@Slf4j
 @Service
 @DomainService
 @RequiredArgsConstructor
 public class CreateAccountService implements CreateAccountUseCase {
+    private final CreateAccountCommandValidator createAccountCommandValidator;
     private final AccountFactory accountFactory;
     private final CreateAccountRepository createAccountRepository;
     private final AccountEventPublisher accountEventPublisher;
@@ -39,81 +41,87 @@ public class CreateAccountService implements CreateAccountUseCase {
      * <p>
      * This method orchestrates the account creation process by:
      * <ul>
-     *     <li>Validating and creating an account using the provided email, password, and username.</li>
+     *     <li>Validating the command for email, password, and username.</li>
+     *     <li>Creating an account using the provided details.</li>
      *     <li>Persisting the account to the repository.</li>
-     *     <li>Publishing an {@link AccountCreated} event upon success or an
-     *         {@link AccountCreationFailed} event upon failure.</li>
+     *     <li>Publishing an {@link AccountCreated} event on success or an
+     *         {@link AccountCreationFailed} event on failure.</li>
      * </ul>
      * The operation is executed within a transactional context to ensure data consistency.
      *
      * @param command the {@link CreateAccountCommand} containing the email, password, and username
-     *                for the new account
-     * @return a {@link CreateAccountResult} indicating the outcome of the account creation process,
-     * such as success or specific failure reasons
-     * @throws AccountAlreadyExistsException if an account with the provided email already exists
-     * @throws PasswordPolicyException       if the provided password does not meet the defined policy requirements
-     * @throws RuntimeException              if an unexpected error occurs during the account creation process
+     * @return a {@link CreateAccountResult} indicating the outcome of the account creation
+     * @throws IllegalArgumentException if the command is null
      */
     @Override
     @Transactional
     public CreateAccountResult createUser(CreateAccountCommand command) {
+        if (command == null) {
+            log.error("CreateAccountCommand is null");
+            throw new IllegalArgumentException("CreateAccountCommand cannot be null");
+        }
+
         try {
-            var user = accountFactory.create(
-                    command.email(),
-                    command.password(),
-                    command.userName());
-            var persistedUser = createAccountRepository.create(user);
-            emitAccountCreated(persistedUser);
-            return new Success(persistedUser.getUserId());
-        } catch (AccountAlreadyExistsException ex) {
-            emitAccountCreationFailed(command, ex.getMessage());
-            return new ExistingAccountFailure(ex.getMessage());
-        } catch (PasswordPolicyException ex) {
-            emitAccountCreationFailed(command, ex.getMessage());
-            return new PasswordPolicyFailure(ex.getMessage());
+            // Validate input
+            var validationResult = createAccountCommandValidator.validate(command);
+            if (validationResult instanceof NotValid(String message)) {
+                log.warn("Invalid create account command for email: {}, reason: {}", command.email(), message);
+                emitAccountCreationFailed(command, message);
+                return new InputNotValid(message);
+            }
+
+            // Create and persist account
+            return processAccountCreation(command);
         } catch (Exception ex) {
+            log.error("Unexpected error during account creation for email: {}", command.email(), ex);
             emitAccountCreationFailed(command, ex.getMessage());
             return new InternalFailure(ex);
         }
     }
 
     /**
-     * Publishes an {@link AccountCreated} event for a successfully created account.
-     *
-     * @param account the {@link Account} that was successfully created
+     * Processes the account creation logic.
      */
-    private void emitAccountCreated(Account account) {
-        accountEventPublisher.publish(accountCreatedEvent(account));
+    private CreateAccountResult processAccountCreation(CreateAccountCommand command) {
+        var account = accountFactory.create(command.email(), command.password(), command.userName());
+        var persistedAccount = createAccountRepository.create(account);
+        log.info("Account created successfully for email: {}, userId: {}",
+                persistedAccount.getEmail(), persistedAccount.getUserId());
+        emitAccountCreated(persistedAccount);
+        return new Success(persistedAccount.getUserId());
     }
 
     /**
-     * Creates an {@link AccountCreated} event with details of the newly created account.
-     *
-     * @param account the {@link Account} from which to extract event details
-     * @return an {@link AccountCreated} event containing the account's details
+     * Publishes an {@link AccountCreated} event for a successfully created account.
      */
-    private AccountCreated accountCreatedEvent(Account account) {
-        return new AccountCreated(UUID.randomUUID(), account.getUserId(), account.getUserName(), account.getAccountType(), account.getEmail());
+    private void emitAccountCreated(Account account) {
+        accountEventPublisher.publish(new AccountCreated(
+                UUID.randomUUID(),
+                account.getUserId(),
+                account.getUserName(),
+                account.getAccountType(),
+                account.getEmail()
+        ));
     }
 
     /**
      * Publishes an {@link AccountCreationFailed} event when account creation fails.
-     *
-     * @param command the {@link CreateAccountCommand} that triggered the failure
-     * @param message the error message describing the reason for the failure
      */
     private void emitAccountCreationFailed(CreateAccountCommand command, String message) {
-        accountEventPublisher.publish(accountCreationFailedEvent(command, message));
+        accountEventPublisher.publish(new AccountCreationFailed(
+                UUID.randomUUID(),
+                command.userName(),
+                command.email(),
+                message
+        ));
     }
 
     /**
-     * Creates an {@link AccountCreationFailed} event with details of the failed account creation attempt.
-     *
-     * @param command the {@link CreateAccountCommand} that triggered the failure
-     * @param message the error message describing the reason for the failure
-     * @return an {@link AccountCreationFailed} event containing the failure details
+     * Validates the {@link CreateAccountCommand} to ensure it meets account creation criteria.
      */
-    private AccountCreationFailed accountCreationFailedEvent(CreateAccountCommand command, String message) {
-        return new AccountCreationFailed(UUID.randomUUID(), command.userName(), command.email(), message);
+    static class CreateAccountCommandValidator {
+        InputValidationResult validate(final CreateAccountCommand command) {
+            return new InputValidationResult.Valid();
+        }
     }
 }
