@@ -1,8 +1,8 @@
 package jah.catchflight.account.domain.service;
 
-import jah.catchflight.account.domain.events.AccountUpgradeFailed;
-import jah.catchflight.account.domain.events.AccountUpgraded;
 import jah.catchflight.account.domain.model.Account;
+import jah.catchflight.account.event.AccountUpgradeFailed;
+import jah.catchflight.account.event.AccountUpgraded;
 import jah.catchflight.account.port.in.UpgradeAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.FindAccountRepository;

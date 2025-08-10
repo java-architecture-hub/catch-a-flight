@@ -1,4 +1,4 @@
-package jah.catchflight.account.domain.model;
+package jah.catchflight.sharedkernel.account;
 
 import jah.catchflight.common.annotations.domain.DomainValueObject;
 

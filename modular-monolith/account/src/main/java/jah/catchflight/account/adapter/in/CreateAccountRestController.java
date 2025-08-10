@@ -1,11 +1,11 @@
 package jah.catchflight.account.adapter.in;
 
 import jah.catchflight.account.domain.model.Password;
-import jah.catchflight.account.domain.model.UserName;
 import jah.catchflight.account.port.in.CreateAccountUseCase;
 import jah.catchflight.common.annotations.hexagonal.InboundAdapter;
 import jah.catchflight.sharedkernel.account.Email;
 import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.UserName;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

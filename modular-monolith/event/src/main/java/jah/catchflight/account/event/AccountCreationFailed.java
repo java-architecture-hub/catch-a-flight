@@ -1,6 +1,6 @@
-package jah.catchflight.account.domain.events;
+package jah.catchflight.account.event;
 
-import jah.catchflight.account.domain.model.UserName;
+import jah.catchflight.sharedkernel.account.UserName;
 import jah.catchflight.common.events.DomainEvent;
 import jah.catchflight.sharedkernel.account.Email;
 
@@ -13,10 +13,10 @@ import java.util.UUID;
  * capturing details about the failure. It implements the {@link DomainEvent} interface
  * to integrate with the system's event-driven architecture.
  *
- * @param eventId   the unique identifier of the event
- * @param userName  the username associated with the failed account creation attempt
- * @param email     the email address associated with the failed account creation attempt
- * @param message   the error message describing the reason for the failure
+ * @param eventId  the unique identifier of the event
+ * @param userName the username associated with the failed account creation attempt
+ * @param email    the email address associated with the failed account creation attempt
+ * @param message  the error message describing the reason for the failure
  */
 public record AccountCreationFailed(UUID eventId, UserName userName, Email email, String message)
         implements DomainEvent {
@@ -24,10 +24,10 @@ public record AccountCreationFailed(UUID eventId, UserName userName, Email email
      * Constructs a new {@link AccountCreationFailed} event with validation.
      * Ensures that all provided parameters are non-null to maintain event integrity.
      *
-     * @param eventId   the unique identifier of the event, must not be null
-     * @param userName  the username, must not be null
-     * @param email     the email address, must not be null
-     * @param message   the error message, must not be null
+     * @param eventId  the unique identifier of the event, must not be null
+     * @param userName the username, must not be null
+     * @param email    the email address, must not be null
+     * @param message  the error message, must not be null
      * @throws NullPointerException if any parameter is null
      */
     public AccountCreationFailed {

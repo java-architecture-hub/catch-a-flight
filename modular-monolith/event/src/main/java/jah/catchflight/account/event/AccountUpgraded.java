@@ -1,4 +1,4 @@
-package jah.catchflight.account.domain.events;
+package jah.catchflight.account.event;
 
 import jah.catchflight.common.events.DomainEvent;
 import jah.catchflight.sharedkernel.account.UserId;

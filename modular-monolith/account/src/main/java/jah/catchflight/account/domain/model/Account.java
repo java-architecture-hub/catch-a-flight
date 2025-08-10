@@ -5,6 +5,7 @@ import jah.catchflight.common.persistence.Version;
 import jah.catchflight.sharedkernel.account.AccountType;
 import jah.catchflight.sharedkernel.account.Email;
 import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.UserName;
 import lombok.Builder;
 import lombok.Getter;
 
