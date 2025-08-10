@@ -16,5 +16,20 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>jah.catch-a-flight</groupId>
+            <artifactId>event</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jah.catch-a-flight</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jah.catch-a-flight</groupId>
+            <artifactId>shared-kernel</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
