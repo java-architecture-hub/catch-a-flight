@@ -2,11 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>jah.catch-a-flight</groupId>
-        <artifactId>modular-monolith</artifactId>
+        <groupId>jah.catch-a-flight.modular-monolith</groupId>
+        <artifactId>modules</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
     <artifactId>application</artifactId>
     <name>Catch a Flight :: Application</name>
 
@@ -20,37 +21,37 @@
             <artifactId>h2</artifactId>
         </dependency>
         <dependency>
-            <groupId>jah.catch-a-flight</groupId>
+            <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
             <artifactId>account</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>jah.catch-a-flight</groupId>
+            <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
             <artifactId>api-simulator</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>jah.catch-a-flight</groupId>
+            <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
             <artifactId>bestdeal</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>jah.catch-a-flight</groupId>
+            <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
             <artifactId>booking</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>jah.catch-a-flight</groupId>
+            <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
             <artifactId>engagement</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>jah.catch-a-flight</groupId>
+            <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
             <artifactId>order</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>jah.catch-a-flight</groupId>
+            <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
             <artifactId>query</artifactId>
             <version>${project.version}</version>
         </dependency>
