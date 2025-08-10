@@ -5,6 +5,7 @@ import jah.catchflight.account.domain.events.AccountCreationFailed;
 import jah.catchflight.account.domain.model.Account;
 import jah.catchflight.account.domain.model.AccountFactory;
 import jah.catchflight.account.port.in.CreateAccountUseCase;
+import jah.catchflight.account.port.in.UpgradeAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.CreateAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainService;
@@ -73,9 +74,7 @@ public class CreateAccountService implements CreateAccountUseCase {
             // Create and persist account
             return processAccountCreation(command);
         } catch (Exception ex) {
-            log.error("Unexpected error during account creation for email: {}", command.email(), ex);
-            emitAccountCreationFailed(command, ex.getMessage());
-            return new InternalFailure(ex);
+            return handleInternalFailure(command, ex);
         }
     }
 
@@ -114,6 +113,15 @@ public class CreateAccountService implements CreateAccountUseCase {
                 command.email(),
                 message
         ));
+    }
+
+    /**
+     * Handles unexpected errors during the upgrade process.
+     */
+    private CreateAccountResult handleInternalFailure(CreateAccountCommand command, Exception ex) {
+        log.error("Unexpected error during account creation for email: {}", command.email(), ex);
+        emitAccountCreationFailed(command, ex.getMessage());
+        return new InternalFailure(ex);
     }
 
     /**
