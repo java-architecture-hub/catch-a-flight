@@ -1,7 +1,7 @@
 package jah.catchflight.account.adapter.out;
 
-import jah.catchflight.account.domain.model.Account;
-import jah.catchflight.account.domain.model.Password;
+import jah.catchflight.account.domain.Account;
+import jah.catchflight.account.domain.Password;
 import jah.catchflight.common.persistence.Version;
 import jah.catchflight.sharedkernel.account.AccountId;
 import jah.catchflight.sharedkernel.account.Email;

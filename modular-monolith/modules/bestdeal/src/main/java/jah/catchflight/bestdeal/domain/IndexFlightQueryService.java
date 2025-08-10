@@ -1,4 +1,4 @@
-package jah.catchflight.bestdeal.domain.service;
+package jah.catchflight.bestdeal.domain;
 
 import jah.catchflight.bestdeal.port.in.IndexFlightQueryUseCase;
 import org.springframework.stereotype.Service;

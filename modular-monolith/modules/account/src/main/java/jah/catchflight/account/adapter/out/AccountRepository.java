@@ -1,6 +1,6 @@
 package jah.catchflight.account.adapter.out;
 
-import jah.catchflight.account.domain.model.*;
+import jah.catchflight.account.domain.*;
 import jah.catchflight.account.port.out.CreateAccountRepository;
 import jah.catchflight.account.port.out.FindAccountRepository;
 import jah.catchflight.account.port.out.FindCurrentAccountRepository;

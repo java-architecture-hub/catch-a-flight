@@ -1,4 +1,4 @@
-package jah.catchflight.account.domain.model;
+package jah.catchflight.account.domain;
 
 import jah.catchflight.account.port.out.FindCurrentAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainFactory;
