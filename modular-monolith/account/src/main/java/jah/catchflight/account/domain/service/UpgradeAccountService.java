@@ -1,25 +1,21 @@
 package jah.catchflight.account.domain.service;
 
 import jah.catchflight.account.domain.model.Account;
-import jah.catchflight.account.event.AccountUpgradeFailed;
-import jah.catchflight.account.event.AccountUpgraded;
+import jah.catchflight.event.account.AccountUpgradeFailed;
+import jah.catchflight.event.account.AccountUpgraded;
 import jah.catchflight.account.port.in.UpgradeAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.FindAccountRepository;
 import jah.catchflight.account.port.out.UpdateAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainService;
-import jah.catchflight.common.validation.InputValidationResult;
 import jah.catchflight.sharedkernel.account.UserId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
-import static jah.catchflight.common.validation.InputValidationResult.NotValid;
-import static jah.catchflight.common.validation.InputValidationResult.Valid;
 
 /**
  * Domain service responsible for handling user account upgrades.
