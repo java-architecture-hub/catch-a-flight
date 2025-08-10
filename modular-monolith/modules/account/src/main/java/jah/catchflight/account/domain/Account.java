@@ -1,4 +1,4 @@
-package jah.catchflight.account.domain.model;
+package jah.catchflight.account.domain;
 
 import jah.catchflight.common.annotations.domain.DomainAggregateRoot;
 import jah.catchflight.common.persistence.Version;

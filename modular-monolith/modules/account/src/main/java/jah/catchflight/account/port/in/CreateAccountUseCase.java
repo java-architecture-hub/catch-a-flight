@@ -1,6 +1,6 @@
 package jah.catchflight.account.port.in;
 
-import jah.catchflight.account.domain.model.Password;
+import jah.catchflight.account.domain.Password;
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
 import jah.catchflight.sharedkernel.account.AccountId;
 import jah.catchflight.sharedkernel.account.Email;

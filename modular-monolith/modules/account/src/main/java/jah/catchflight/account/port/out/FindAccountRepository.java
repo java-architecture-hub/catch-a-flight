@@ -1,6 +1,6 @@
 package jah.catchflight.account.port.out;
 
-import jah.catchflight.account.domain.model.Account;
+import jah.catchflight.account.domain.Account;
 import jah.catchflight.common.annotations.domain.DomainRepository;
 import jah.catchflight.common.annotations.hexagonal.OutboundPort;
 import jah.catchflight.sharedkernel.account.AccountId;

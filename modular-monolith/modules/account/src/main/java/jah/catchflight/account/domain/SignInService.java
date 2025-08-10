@@ -1,4 +1,4 @@
-package jah.catchflight.account.domain.service;
+package jah.catchflight.account.domain;
 
 import jah.catchflight.account.port.in.SignInUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;

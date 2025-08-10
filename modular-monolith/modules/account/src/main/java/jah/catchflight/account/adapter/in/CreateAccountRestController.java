@@ -1,6 +1,6 @@
 package jah.catchflight.account.adapter.in;
 
-import jah.catchflight.account.domain.model.Password;
+import jah.catchflight.account.domain.Password;
 import jah.catchflight.account.port.in.CreateAccountUseCase;
 import jah.catchflight.common.annotations.hexagonal.InboundAdapter;
 import jah.catchflight.sharedkernel.account.AccountId;

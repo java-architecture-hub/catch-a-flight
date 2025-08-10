@@ -1,6 +1,5 @@
-package jah.catchflight.account.domain.service;
+package jah.catchflight.account.domain;
 
-import jah.catchflight.account.domain.model.Account;
 import jah.catchflight.account.port.in.UpgradeAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.FindAccountRepository;

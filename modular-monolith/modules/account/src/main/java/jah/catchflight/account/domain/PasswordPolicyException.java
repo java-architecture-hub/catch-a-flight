@@ -1,4 +1,4 @@
-package jah.catchflight.account.domain.model;
+package jah.catchflight.account.domain;
 
 /**
  * An exception thrown when a password fails to meet one or more defined password policies.
