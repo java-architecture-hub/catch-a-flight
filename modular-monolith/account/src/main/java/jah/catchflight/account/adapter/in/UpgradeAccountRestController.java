@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-import static jah.catchflight.account.adapter.in.RestResources.ACCOUNT_API;
 import static jah.catchflight.account.adapter.in.RestResources.UPGRADE_ACCOUNT_API;
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserCommand;
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
@@ -45,8 +44,8 @@ class UpgradeAccountRestController {
      *
      * @param accountId the unique identifier of the account to upgrade, provided as a path variable
      * @return a {@link ResponseEntity} containing the result of the account upgrade,
-     *         with HTTP status codes indicating success (201), bad request (400) for
-     *         user not found or already upgraded failures, or internal server error (500)
+     * with HTTP status codes indicating success (201), bad request (400) for
+     * user not found or already upgraded failures, or internal server error (500)
      */
     @PostMapping
     ResponseEntity<?> upgrade(@PathVariable("accountId") String accountId) {
@@ -55,8 +54,9 @@ class UpgradeAccountRestController {
         var upgradeUserResult = upgradeAccountUseCase.upgradeUser(upgradeUserCommand);
         return switch (upgradeUserResult) {
             case Success() -> successBody();
-            case UserNotFoundFailure(String message) -> badRequestBody(servletRequest, message);
-            case UserAlreadyUpgradedFailure(String message) -> badRequestBody(servletRequest, message);
+            case AccountNotFoundFailure(String message) -> badRequestBody(servletRequest, message);
+            case InputNotValid(String message) -> badRequestBody(servletRequest, message);
+            case AccountAlreadyUpgradedFailure(String message) -> badRequestBody(servletRequest, message);
             case InternalFailure(Throwable cause) -> internalServerErrorBody(servletRequest, cause);
         };
     }

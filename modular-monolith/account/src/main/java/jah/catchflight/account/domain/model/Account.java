@@ -47,4 +47,8 @@ public class Account {
         record Success() implements UpgradeUserResult {}
         record AlreadyUpdatedFailure(UserId userId, String message) implements UpgradeUserResult {}
     }
+
+    public boolean isPremium() {
+        return accountType == AccountType.PREMIUM;
+    }
 }
