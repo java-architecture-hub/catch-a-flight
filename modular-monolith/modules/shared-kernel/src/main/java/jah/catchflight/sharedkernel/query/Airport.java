@@ -1,4 +1,3 @@
-
 package jah.catchflight.sharedkernel.query;
 
 import jah.catchflight.common.annotations.domain.DomainValueObject;

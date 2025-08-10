@@ -19,15 +19,14 @@ public interface PrepareBestDealsUseCase {
     PrepareBestDealsResult indexBestDeals(PrepareBestDealsCommand prepareBestDealsCommand);
 
     /**
-     * A record representing the command to prepare the best deals.
-     */
-    record PrepareBestDealsCommand(AccountId accountId) {}
-
-    /**
      * An interface representing the result of a best deals preparation operation.
      */
     interface PrepareBestDealsResult {
         record Success() implements PrepareBestDealsResult {}
         record InternalFailure(Throwable cause) implements PrepareBestDealsResult {}
     }
+    /**
+     * A record representing the command to prepare the best deals.
+     */
+    record PrepareBestDealsCommand(AccountId accountId) {}
 }

@@ -69,6 +69,7 @@ class UpgradeAccountRestController {
             case InternalFailure(Throwable cause) -> internalServerErrorBody(servletRequest, cause);
         };
     }
+
     /**
      * Maps HTTP request data to domain commands for account upgrade operations.
      * This class is responsible for transforming an account ID into a

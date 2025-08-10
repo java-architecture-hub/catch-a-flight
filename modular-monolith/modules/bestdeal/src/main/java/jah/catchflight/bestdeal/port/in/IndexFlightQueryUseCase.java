@@ -21,15 +21,14 @@ public interface IndexFlightQueryUseCase {
     IndexFlightQueryResult indexFlightQuery(IndexFlightQueryCommand indexFlightQueryCommand);
 
     /**
-     * A record representing the command to index a flight query.
-     */
-    record IndexFlightQueryCommand(AccountId accountId, Route route) {}
-
-    /**
      * A sealed interface representing the result of a flight query indexing operation.
      */
     sealed interface IndexFlightQueryResult {
         record Success(FlightQeuryIndexId indexId) implements IndexFlightQueryResult {}
         record InternalFailure(Throwable cause) implements IndexFlightQueryResult {}
     }
+    /**
+     * A record representing the command to index a flight query.
+     */
+    record IndexFlightQueryCommand(AccountId accountId, Route route) {}
 }
