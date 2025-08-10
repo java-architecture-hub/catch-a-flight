@@ -53,17 +53,22 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
             if (optionalAccount.isPresent()) {
                 var account = optionalAccount.get();
                 if (account.isPremium()) {
+                    // Handle fail result
                     emitAccountUpgradeFailed(command.userId(), ACCOUNT_ALREADY_UPGRADED);
                     return new AccountAlreadyUpgradedFailure(ACCOUNT_ALREADY_UPGRADED);
                 }
                 account.upgradeUser();
                 updateAccountRepository.save(account);
+                // Handle success result
                 emitAccountUpgraded(command.userId());
                 return new Success();
             } else {
+                // Handle fail result
+                emitAccountUpgradeFailed(command.userId(), ACCOUNT_NOT_FOUND);
                 return new AccountNotFoundFailure(ACCOUNT_NOT_FOUND);
             }
         } catch (Exception ex) {
+            // Handle fail result
             emitAccountUpgradeFailed(command.userId(), ex.getMessage());
             return new InternalFailure(ex);
         }
