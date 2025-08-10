@@ -1,0 +1,15 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  threads:
+    virtual:
+      enabled: true
+  datasource.url: jdbc:h2:mem:catchflight;INIT=RUNSCRIPT FROM 'src/main/resources/init.sql';
+  jackson:
+    deserialization:
+      adjust-dates-to-context-time-zone: false
+
+logging:
+  pattern:
+    console: "%white(%d{dd-MM-yyyy HH:mm:ss.SSS}) %magenta(%-5level) %green(%-64.64logger) - %msg%n"
