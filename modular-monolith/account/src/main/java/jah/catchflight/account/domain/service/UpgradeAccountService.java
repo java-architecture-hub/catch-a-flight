@@ -41,7 +41,7 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
      * @return an {@link UpgradeUserResult} representing the outcome of the account upgrade process
      */
     @Override
-    public UpgradeUserResult upgradeUser(UpgradeUserCommand command) {
+    public UpgradeUserResult upgradeUser(final UpgradeUserCommand command) {
         try {
             // Input validation
             var validationResult = upgradeCommandValidator.validate(command);
@@ -84,7 +84,7 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
     /**
      * Publishes an event indicating a failed user account upgrade.
      */
-    private void emitAccountUpgradeFailed(UserId userId, String message) {
+    private void emitAccountUpgradeFailed(final UserId userId, final String message) {
         accountEventPublisher.publish(new AccountUpgradeFailed(UUID.randomUUID(), userId, message));
     }
 
@@ -92,7 +92,7 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
      * Validates the {@link UpgradeUserCommand} to ensure it meets the required criteria for upgrading a user.
      */
     private class UpgradeCommandValidator {
-        InputValidationResult validate(UpgradeUserCommand upgradeUserCommand) {
+        InputValidationResult validate(final UpgradeUserCommand upgradeUserCommand) {
             return new InputValidationResult.Valid();
         }
     }
