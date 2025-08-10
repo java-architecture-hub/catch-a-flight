@@ -12,6 +12,7 @@ import jah.catchflight.common.validation.InputValidationResult;
 import jah.catchflight.sharedkernel.account.UserId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -121,6 +122,7 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
     /**
      * Validates the {@link UpgradeUserCommand} to ensure it meets upgrade criteria.
      */
+    @Component
     static class UpgradeCommandValidator {
         InputValidationResult validate(final UpgradeUserCommand command) {
             if (command.userId() == null) {
