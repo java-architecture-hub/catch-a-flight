@@ -6,19 +6,39 @@ import jah.catchflight.sharedkernel.account.AccountType;
 
 import java.util.Objects;
 
+/**
+ * Defines a use case for creating user accounts in the system.
+ * This interface provides a contract for initiating an account creation operation
+ * based on a provided command, returning the result of the operation.
+ */
 @InboundPort
 public interface CreateAccountUseCase {
-    CreateUserResult createUser(CreateUserCommand command);
+    /**
+     * Creates a user account based on the provided command.
+     *
+     * @param command the command containing the account ID and account type for creation
+     * @return a {@link CreateAccountResult} indicating the outcome of the account creation operation
+     * @throws IllegalArgumentException if the command is null
+     */
+    CreateAccountResult createUser(CreateAccountCommand command);
 
-    sealed interface CreateUserResult {
-        record Success(AccountId accountId) implements CreateUserResult {}
-        record ExistingUserFailure(String message) implements CreateUserResult {}
-        record InternalFailure(Throwable cause) implements CreateUserResult {}
+    /**
+     * Represents the result of an account creation operation.
+     * This sealed interface defines the possible outcomes of an account creation attempt.
+     */
+    sealed interface CreateAccountResult {
+        record Success(AccountId accountId) implements CreateAccountResult {}
+        record ExistingAccountFailure(String message) implements CreateAccountResult {}
+        record InternalFailure(Throwable cause) implements CreateAccountResult {}
     }
-    record CreateUserCommand(AccountId accountId, AccountType accountType) {
-        public CreateUserCommand {
-            Objects.requireNonNull(accountId);
-            Objects.requireNonNull(accountType);
+
+    /**
+     * A command to create a user account, containing the account ID and account type.
+     */
+    record CreateAccountCommand(AccountId accountId, AccountType accountType) {
+        public CreateAccountCommand {
+            Objects.requireNonNull(accountId, "accountId must not be null");
+            Objects.requireNonNull(accountType, "accountType must not be null");
         }
     }
 }
