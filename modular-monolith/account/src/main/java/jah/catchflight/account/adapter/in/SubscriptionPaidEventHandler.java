@@ -27,6 +27,16 @@ class SubscriptionPaidEventHandler {
     private final UpgradeAccountUseCase upgradeAccountUseCase;
     private final UpgradeUserMapper upgradeUserMapper;
 
+    /**
+     * Handles the {@code AccountSubscriptionPaid} event to process user account upgrades.
+     * <p>
+     * This method listens for an {@code AccountSubscriptionPaid} event, logs its receipt, maps the event to a command,
+     * and invokes the {@code upgradeAccountUseCase} to upgrade the user's account. The result of the upgrade operation
+     * is logged based on the outcome: success, invalid input, already upgraded account, account not found, or internal failure.
+     * </p>
+     *
+     * @param event the {@code AccountSubscriptionPaid} event containing details of the subscription payment
+     */
     @EventListener
     void handle(AccountSubscriptionPaid event) {
         log.info("Event received: {}", event);

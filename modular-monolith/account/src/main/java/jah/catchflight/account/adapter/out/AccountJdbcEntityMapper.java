@@ -47,9 +47,6 @@ class AccountJdbcEntityMapper {
      * This method constructs domain value objects (e.g., {@link UserId}, {@link Email}, {@link UserName},
      * {@link Password}, {@link Version}) from the JDBC entity fields and builds a domain {@link Account}
      * using the builder pattern.
-     *
-     * @param entity the {@link AccountJdbcEntity} to convert
-     * @return an {@link Account} representing the domain model
      */
     Account toDomain(AccountJdbcEntity entity) {
         var userId = new UserId(entity.id());

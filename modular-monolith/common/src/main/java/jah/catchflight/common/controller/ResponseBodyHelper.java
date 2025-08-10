@@ -21,10 +21,6 @@ public final class ResponseBodyHelper {
 
     /**
      * Creates a standardized 500 Internal Server Error response.
-     *
-     * @param request The HttpServletRequest associated with the error.
-     * @param cause   The Throwable cause of the error.
-     * @return A ResponseEntity containing the error details.
      */
     public static ResponseEntity<ErrorResponse> internalServerErrorBody(HttpServletRequest request, Throwable cause) {
         log.error("Unexpected error:", cause);
@@ -41,10 +37,6 @@ public final class ResponseBodyHelper {
 
     /**
      * Creates a standardized 400 Bad Request response.
-     *
-     * @param request The HttpServletRequest associated with the error.
-     * @param message The specific error message for the bad request.
-     * @return A ResponseEntity containing the error details.
      */
     public static ResponseEntity<ErrorResponse> badRequestBody(HttpServletRequest request, String message) {
         log.debug("Bad request error: {}", message);

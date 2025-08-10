@@ -64,8 +64,6 @@ class UpgradeAccountRestController {
     /**
      * Constructs a successful HTTP response for account upgrade.
      * Returns a 201 Created status with no response body.
-     *
-     * @return a {@link ResponseEntity} with HTTP status 201
      */
     private static ResponseEntity<UpgradeUserResponse> successBody() {
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -74,10 +72,6 @@ class UpgradeAccountRestController {
     /**
      * Constructs a bad request HTTP response for failed account upgrade attempts.
      * Returns a 400 Bad Request status with an error message in the response body.
-     *
-     * @param request the HTTP servlet request, used for context in error handling
-     * @param message the error message describing the reason for the failure
-     * @return a {@link ResponseEntity} with HTTP status 400 and the error message
      */
     private ResponseEntity<?> badRequestBody(HttpServletRequest request, String message) {
         return ResponseEntity.badRequest().body(message);
@@ -86,10 +80,6 @@ class UpgradeAccountRestController {
     /**
      * Constructs an internal server error HTTP response for unexpected failures.
      * Returns a 500 Internal Server Error status with the cause's message in the response body.
-     *
-     * @param request the HTTP servlet request, used for context in error handling
-     * @param cause   the throwable cause of the internal failure
-     * @return a {@link ResponseEntity} with HTTP status 500 and the error message
      */
     private ResponseEntity<?> internalServerErrorBody(HttpServletRequest request, Throwable cause) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(cause.getMessage());
