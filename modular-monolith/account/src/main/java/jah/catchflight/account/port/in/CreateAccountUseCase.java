@@ -45,7 +45,6 @@ public interface CreateAccountUseCase {
      */
     sealed interface CreateAccountResult {
         record Success(UserId userId) implements CreateAccountResult {}
-        record InputNotValid(String message) implements CreateAccountResult {}
         record ExistingAccountFailure(String message) implements CreateAccountResult {}
         record PasswordPolicyFailure(String message) implements CreateAccountResult {}
         record InternalFailure(Throwable cause) implements CreateAccountResult {}

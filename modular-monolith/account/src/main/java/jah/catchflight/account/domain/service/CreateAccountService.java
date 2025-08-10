@@ -4,6 +4,7 @@ import jah.catchflight.account.domain.events.AccountCreated;
 import jah.catchflight.account.domain.events.AccountCreationFailed;
 import jah.catchflight.account.domain.model.Account;
 import jah.catchflight.account.domain.model.AccountFactory;
+import jah.catchflight.account.domain.model.PasswordPolicyException;
 import jah.catchflight.account.port.in.CreateAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.CreateAccountRepository;
@@ -30,7 +31,7 @@ import static jah.catchflight.common.validation.InputValidationResult.Valid;
 @DomainService
 @RequiredArgsConstructor
 public class CreateAccountService implements CreateAccountUseCase {
-    private final CreateAccountCommandValidator createAccountCommandValidator;
+
     private final AccountFactory accountFactory;
     private final CreateAccountRepository createAccountRepository;
     private final AccountEventPublisher accountEventPublisher;
@@ -51,16 +52,10 @@ public class CreateAccountService implements CreateAccountUseCase {
         }
 
         try {
-            // Validate input
-            var validationResult = createAccountCommandValidator.validate(command);
-            if (validationResult instanceof NotValid(String message)) {
-                log.warn("Invalid create account command for email: {}, reason: {}", command.email(), message);
-                emitAccountCreationFailed(command, message);
-                return new InputNotValid(message);
-            }
-
             // Create and persist account
             return processAccountCreation(command);
+        } catch (PasswordPolicyException ex) {
+            return handlePasswordPolicyFailure(command, ex);
         } catch (Exception ex) {
             return handleInternalFailure(command, ex);
         }
@@ -68,18 +63,30 @@ public class CreateAccountService implements CreateAccountUseCase {
 
     /**
      * Processes the account creation logic.
+     *
+     * @param command the command containing account creation details
+     * @return the result of the account creation
      */
     private CreateAccountResult processAccountCreation(CreateAccountCommand command) {
-        var account = accountFactory.create(command.email(), command.password(), command.userName());
+        var account = accountFactory.create(
+                command.email(),
+                command.password(),
+                command.userName()
+        );
         var persistedAccount = createAccountRepository.create(account);
+
         log.info("Account created successfully for email: {}, userId: {}",
-                persistedAccount.getEmail(), persistedAccount.getUserId());
+                persistedAccount.getEmail(),
+                persistedAccount.getUserId());
+
         emitAccountCreated(persistedAccount);
         return new Success(persistedAccount.getUserId());
     }
 
     /**
      * Publishes an {@link AccountCreated} event for a successfully created account.
+     *
+     * @param account the created account
      */
     private void emitAccountCreated(Account account) {
         accountEventPublisher.publish(new AccountCreated(
@@ -93,6 +100,9 @@ public class CreateAccountService implements CreateAccountUseCase {
 
     /**
      * Publishes an {@link AccountCreationFailed} event when account creation fails.
+     *
+     * @param command the command that failed
+     * @param message the failure message
      */
     private void emitAccountCreationFailed(CreateAccountCommand command, String message) {
         accountEventPublisher.publish(new AccountCreationFailed(
@@ -104,7 +114,11 @@ public class CreateAccountService implements CreateAccountUseCase {
     }
 
     /**
-     * Handles unexpected errors during the upgrade process.
+     * Handles unexpected errors during account creation.
+     *
+     * @param command the command being processed
+     * @param ex the exception that occurred
+     * @return an internal failure result
      */
     private CreateAccountResult handleInternalFailure(CreateAccountCommand command, Exception ex) {
         log.error("Unexpected error during account creation for email: {}", command.email(), ex);
@@ -113,12 +127,15 @@ public class CreateAccountService implements CreateAccountUseCase {
     }
 
     /**
-     * Validates the {@link CreateAccountCommand} to ensure it meets account creation criteria.
+     * Handles password policy violations.
+     *
+     * @param command the command being processed
+     * @param ex the password policy exception
+     * @return a password policy failure result
      */
-    @Component
-    static class CreateAccountCommandValidator {
-        InputValidationResult validate(final CreateAccountCommand command) {
-            return new Valid();
-        }
+    private CreateAccountResult handlePasswordPolicyFailure(CreateAccountCommand command, Exception ex) {
+        log.error("Password policy violation for email: {}", command.email(), ex);
+        emitAccountCreationFailed(command, ex.getMessage());
+        return new PasswordPolicyFailure(ex.getMessage());
     }
 }
