@@ -5,9 +5,9 @@ import jah.catchflight.common.annotations.domain.DomainFactory;
 import jah.catchflight.common.persistence.Version;
 import jah.catchflight.common.policy.DomainPolicyOutput.Allowance;
 import jah.catchflight.common.policy.DomainPolicyOutput.Rejection;
+import jah.catchflight.sharedkernel.account.AccountId;
 import jah.catchflight.sharedkernel.account.AccountType;
 import jah.catchflight.sharedkernel.account.Email;
-import jah.catchflight.sharedkernel.account.UserId;
 import jah.catchflight.sharedkernel.account.UserName;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,8 +70,8 @@ public class AccountFactory {
     private void verifyIfUserAlreadyExists(Email email) {
         var currentUser = findCurrentAccountRepository.findByEmail(email);
         switch (currentUser) {
-            case RegularAccount(UserId userId) -> throw new AccountAlreadyExistsException(userId);
-            case PremiumAccount(UserId userId) -> throw new AccountAlreadyExistsException(userId);
+            case RegularAccount(AccountId accountId) -> throw new AccountAlreadyExistsException(accountId);
+            case PremiumAccount(AccountId accountId) -> throw new AccountAlreadyExistsException(accountId);
             case NonExistingAccount _ -> log.debug("All good. User does not exist yet.");
         }
     }

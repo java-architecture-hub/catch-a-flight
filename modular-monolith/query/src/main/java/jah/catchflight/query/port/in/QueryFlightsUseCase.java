@@ -1,7 +1,7 @@
 package jah.catchflight.query.port.in;
 
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
-import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.AccountId;
 
 import java.util.Objects;
 
@@ -9,9 +9,9 @@ import java.util.Objects;
 public interface QueryFlightsUseCase {
     QueryFlightsResult query(QueryFlightsCommand command);
 
-    record QueryFlightsCommand(UserId userId) {
+    record QueryFlightsCommand(AccountId accountId) {
         public QueryFlightsCommand {
-            Objects.requireNonNull(userId);
+            Objects.requireNonNull(accountId);
         }
     }
 

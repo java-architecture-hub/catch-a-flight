@@ -1,7 +1,7 @@
 package jah.catchflight.order.port.in;
 
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
-import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.AccountId;
 
 @InboundPort
 public interface PrepareOrderUseCase {
@@ -9,7 +9,7 @@ public interface PrepareOrderUseCase {
 
     record PrepareOrderCommand() {}
     public sealed interface PrepareOrderResult {
-        record Success(UserId userId) implements PrepareOrderResult {}
+        record Success(AccountId accountId) implements PrepareOrderResult {}
         record InternalFailure(Throwable cause) implements PrepareOrderResult {}
     }
 }

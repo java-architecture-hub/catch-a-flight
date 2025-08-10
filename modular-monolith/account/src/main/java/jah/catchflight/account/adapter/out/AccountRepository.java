@@ -6,8 +6,8 @@ import jah.catchflight.account.port.out.FindAccountRepository;
 import jah.catchflight.account.port.out.FindCurrentAccountRepository;
 import jah.catchflight.account.port.out.UpdateAccountRepository;
 import jah.catchflight.common.annotations.hexagonal.OutboundAdapter;
+import jah.catchflight.sharedkernel.account.AccountId;
 import jah.catchflight.sharedkernel.account.Email;
-import jah.catchflight.sharedkernel.account.UserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +29,13 @@ public class AccountRepository implements CreateAccountRepository, FindCurrentAc
 
     /**Ī
      * Loads an account by its unique identifier.
-     * Queries the database for an {@link AccountJdbcEntity} with the specified {@link UserId} and maps it to
+     * Queries the database for an {@link AccountJdbcEntity} with the specified {@link AccountId} and maps it to
      * a domain {@link Account} if found.
      */
     @Override
-    public Optional<Account> load(UserId userId) {
+    public Optional<Account> load(AccountId accountId) {
         return accountJdbcRepository
-                .findById(userId.value())
+                .findById(accountId.value())
                 .map(accountJdbcEntityMapper::toDomain);
     }
 
@@ -83,8 +83,8 @@ public class AccountRepository implements CreateAccountRepository, FindCurrentAc
      */
     private CurrentAccount existingUser(AccountJdbcEntity accountJdbcEntity) {
         return switch (accountJdbcEntity.accountType()) {
-            case REGULAR -> new RegularAccount(new UserId(accountJdbcEntity.id()));
-            case PREMIUM -> new PremiumAccount(new UserId(accountJdbcEntity.id()));
+            case REGULAR -> new RegularAccount(new AccountId(accountJdbcEntity.id()));
+            case PREMIUM -> new PremiumAccount(new AccountId(accountJdbcEntity.id()));
         };
     }
 

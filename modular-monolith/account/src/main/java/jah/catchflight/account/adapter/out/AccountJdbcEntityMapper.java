@@ -4,7 +4,7 @@ import jah.catchflight.account.domain.model.Account;
 import jah.catchflight.account.domain.model.Password;
 import jah.catchflight.common.persistence.Version;
 import jah.catchflight.sharedkernel.account.Email;
-import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.AccountId;
 import jah.catchflight.sharedkernel.account.UserName;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ class AccountJdbcEntityMapper {
      * @return an {@link AccountJdbcEntity} representing the account data for persistence
      */
     AccountJdbcEntity toJdbcEntity(Account account) {
-        var userId = account.getUserId();
+        var userId = account.getAccountId();
         var userName = account.getUserName();
         var email = account.getEmail();
         var password = account.getPassword();
@@ -44,12 +44,12 @@ class AccountJdbcEntityMapper {
 
     /**
      * Converts a persistence-layer {@link AccountJdbcEntity} to a domain {@link Account} object.
-     * This method constructs domain value objects (e.g., {@link UserId}, {@link Email}, {@link UserName},
+     * This method constructs domain value objects (e.g., {@link AccountId}, {@link Email}, {@link UserName},
      * {@link Password}, {@link Version}) from the JDBC entity fields and builds a domain {@link Account}
      * using the builder pattern.
      */
     Account toDomain(AccountJdbcEntity entity) {
-        var userId = new UserId(entity.id());
+        var userId = new AccountId(entity.id());
         var userName = new UserName(entity.firstName(), entity.lastName());
         var email = new Email(entity.email());
         var password = new Password(entity.password());
@@ -57,7 +57,7 @@ class AccountJdbcEntityMapper {
         var version = new Version(entity.version());
 
         return Account.builder()
-                .userId(userId)
+                .accountId(userId)
                 .userName(userName)
                 .email(email)
                 .password(password)

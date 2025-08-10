@@ -82,10 +82,10 @@ public class CreateAccountService implements CreateAccountUseCase {
 
         log.info("Account created successfully for email: {}, userId: {}",
                 persistedAccount.getEmail(),
-                persistedAccount.getUserId());
+                persistedAccount.getAccountId());
 
         emitAccountCreated(persistedAccount);
-        return new Success(persistedAccount.getUserId());
+        return new Success(persistedAccount.getAccountId());
     }
 
     /**
@@ -97,7 +97,7 @@ public class CreateAccountService implements CreateAccountUseCase {
         accountEventPublisher.publish(
                 new AccountCreated(
                         UUID.randomUUID(),
-                        account.getUserId(),
+                        account.getAccountId(),
                         account.getUserName(),
                         account.getAccountType(),
                         account.getEmail()

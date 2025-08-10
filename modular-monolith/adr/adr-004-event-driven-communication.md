@@ -12,7 +12,7 @@ Modules in the `catch-a-flight` modular monolith need to communicate without dir
 We will use **event-driven communication** for inter-module interactions:
 
 - Each module will publish domain events (e.g., `AccountCreated`, `AccountCreationFailed`) using an `EventPublisher` interface.
-- Events will be defined as immutable objects with relevant data (e.g., `userId`, `email`).
+- Events will be defined as immutable objects with relevant data (e.g., `accountId`, `email`).
 - Initially, use Spring’s `ApplicationEventPublisher` for in-memory event handling within the monolith.
 - Plan for future integration with a message broker (e.g., Kafka, RabbitMQ) if modules are extracted to microservices.
 

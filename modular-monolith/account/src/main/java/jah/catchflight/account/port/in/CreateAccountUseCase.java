@@ -2,8 +2,8 @@ package jah.catchflight.account.port.in;
 
 import jah.catchflight.account.domain.model.Password;
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
+import jah.catchflight.sharedkernel.account.AccountId;
 import jah.catchflight.sharedkernel.account.Email;
-import jah.catchflight.sharedkernel.account.UserId;
 import jah.catchflight.sharedkernel.account.UserName;
 
 import java.util.Objects;
@@ -44,7 +44,7 @@ public interface CreateAccountUseCase {
      * It defines the various result types for success and failure scenarios.
      */
     sealed interface CreateAccountResult {
-        record Success(UserId userId) implements CreateAccountResult {}
+        record Success(AccountId accountId) implements CreateAccountResult {}
         record ExistingAccountFailure(String message) implements CreateAccountResult {}
         record PasswordPolicyFailure(String message) implements CreateAccountResult {}
         record InternalFailure(Throwable cause) implements CreateAccountResult {}
