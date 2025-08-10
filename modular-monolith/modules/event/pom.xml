@@ -2,22 +2,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>jah.catch-a-flight</groupId>
-        <artifactId>modular-monolith</artifactId>
+        <groupId>jah.catch-a-flight.modular-monolith</groupId>
+        <artifactId>modules</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
     <artifactId>event</artifactId>
     <name>Catch a Flight :: Event</name>
 
     <dependencies>
         <dependency>
-            <groupId>jah.catch-a-flight</groupId>
+            <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
             <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>jah.catch-a-flight</groupId>
+            <groupId>jah.catch-a-flight.modular-monolith.modules</groupId>
             <artifactId>shared-kernel</artifactId>
             <version>${project.version}</version>
         </dependency>
