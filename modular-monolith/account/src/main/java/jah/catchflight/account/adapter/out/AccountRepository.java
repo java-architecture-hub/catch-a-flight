@@ -34,7 +34,9 @@ public class AccountRepository implements CreateAccountRepository, FindCurrentAc
      */
     @Override
     public Optional<Account> load(UserId userId) {
-        return accountJdbcRepository.findById(userId.value()).map(accountJdbcEntityMapper::toDomain);
+        return accountJdbcRepository
+                .findById(userId.value())
+                .map(accountJdbcEntityMapper::toDomain);
     }
 
     /**
@@ -94,4 +96,3 @@ public class AccountRepository implements CreateAccountRepository, FindCurrentAc
         return new NonExistingAccount();
     }
 }
-
