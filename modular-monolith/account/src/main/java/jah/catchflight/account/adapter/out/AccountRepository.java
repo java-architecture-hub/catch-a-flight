@@ -31,9 +31,6 @@ public class AccountRepository implements CreateAccountRepository, FindCurrentAc
      * Loads an account by its unique identifier.
      * Queries the database for an {@link AccountJdbcEntity} with the specified {@link UserId} and maps it to
      * a domain {@link Account} if found.
-     *
-     * @param userId the unique identifier of the account to load
-     * @return an {@link Optional} containing the {@link Account} if found, or an empty {@link Optional} if not
      */
     @Override
     public Optional<Account> load(UserId userId) {
@@ -45,9 +42,6 @@ public class AccountRepository implements CreateAccountRepository, FindCurrentAc
      * Queries the database for an {@link AccountJdbcEntity} with the specified email and returns a
      * {@link CurrentAccount} (either {@link RegularAccount} or {@link PremiumAccount}) if found,
      * or a {@link NonExistingAccount} if no account matches the email.
-     *
-     * @param email the email address to search for
-     * @return a {@link CurrentAccount} representing the found account or a non-existing account
      */
     @Override
     public CurrentAccount findByEmail(Email email) {
@@ -61,9 +55,6 @@ public class AccountRepository implements CreateAccountRepository, FindCurrentAc
      * Creates a new account in the database.
      * Converts the provided domain {@link Account} to an {@link AccountJdbcEntity}, saves it to the database,
      * and returns the created {@link Account} mapped back to the domain model.
-     *
-     * @param account the domain {@link Account} to create
-     * @return the created {@link Account} after persistence
      */
     @Override
     public Account create(Account account) {
@@ -87,9 +78,6 @@ public class AccountRepository implements CreateAccountRepository, FindCurrentAc
     /**
      * Converts an {@link AccountJdbcEntity} to a {@link CurrentAccount} based on its account type.
      * Returns a {@link RegularAccount} or {@link PremiumAccount} depending on the account type of the entity.
-     *
-     * @param accountJdbcEntity the JDBC entity to convert
-     * @return a {@link CurrentAccount} representing either a regular or premium account
      */
     private CurrentAccount existingUser(AccountJdbcEntity accountJdbcEntity) {
         return switch (accountJdbcEntity.accountType()) {
@@ -101,8 +89,6 @@ public class AccountRepository implements CreateAccountRepository, FindCurrentAc
     /**
      * Creates a {@link NonExistingAccount} to represent the absence of an account.
      * Used when no account is found for a given email address.
-     *
-     * @return a {@link NonExistingAccount} instance
      */
     private NonExistingAccount nonExistingUser() {
         return new NonExistingAccount();

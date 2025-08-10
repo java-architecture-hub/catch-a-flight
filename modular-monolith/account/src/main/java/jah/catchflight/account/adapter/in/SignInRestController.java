@@ -67,18 +67,12 @@ class SignInRestController {
      * Represents the request payload for user sign-in.
      * This record encapsulates the required fields for authentication, including
      * the user's email and password.
-     *
-     * @param email    the email address of the user
-     * @param password the password for the user account
      */
     record SignInRequest(String email, String password) {}
 
     /**
      * Constructs a successful HTTP response for user sign-in.
      * Returns a 201 Created status with the user ID in the response body.
-     *
-     * @param userId the unique identifier of the authenticated user
-     * @return a {@link ResponseEntity} with HTTP status 201 and a {@link SignInResponse}
      */
     static ResponseEntity<SignInResponse> successBody(UserId userId) {
         return ResponseEntity

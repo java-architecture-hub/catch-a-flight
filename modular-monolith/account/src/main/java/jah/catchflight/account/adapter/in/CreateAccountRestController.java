@@ -72,11 +72,6 @@ class CreateAccountRestController {
      * This record encapsulates the required fields for account creation, including
      * email, password, first name, and last name, all of which are validated to ensure
      * they are not null.
-     *
-     * @param email     the email address of the user
-     * @param password  the password for the user account
-     * @param firstName the first name of the user
-     * @param lastName  the last name of the user
      */
     record CreateAccountRequest(String email, String password, String firstName, String lastName) {}
 
@@ -92,9 +87,6 @@ class CreateAccountRestController {
     /**
      * Constructs a successful HTTP response for account creation.
      * Returns a 201 Created status with the user ID in the response body.
-     *
-     * @param userId the unique identifier of the created user
-     * @return a {@link ResponseEntity} with HTTP status 201 and a {@link CreateAccountResponse}
      */
     private static ResponseEntity<CreateAccountResponse> successBody(UserId userId) {
         return status(HttpStatus.CREATED).body(new CreateAccountResponse.SuccessResponse(userId));
@@ -102,9 +94,6 @@ class CreateAccountRestController {
 
     /**
      * Maps HTTP requests to domain commands for account creation.
-     * This class is responsible for transforming a {@link CreateAccountRequest}
-     * into a {@link CreateAccountUseCase.CreateAccountCommand} for use by the
-     * account creation use case.
      */
     @Component
     private static class CreateAccountMapper {

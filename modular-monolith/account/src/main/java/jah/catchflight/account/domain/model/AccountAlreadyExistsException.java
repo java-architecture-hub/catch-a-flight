@@ -20,8 +20,6 @@ public class AccountAlreadyExistsException extends RuntimeException {
 
     /**
      * Returns the error message indicating that the user already exists, formatted with the user ID.
-     *
-     * @return the formatted error message
      */
     @Override
     public String getMessage() {

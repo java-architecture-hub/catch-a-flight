@@ -48,6 +48,9 @@ public class Account {
         record AlreadyUpdatedFailure(UserId userId, String message) implements UpgradeUserResult {}
     }
 
+    /**
+     * Checks if the account is of premium type.
+     */
     public boolean isPremium() {
         return accountType == AccountType.PREMIUM;
     }

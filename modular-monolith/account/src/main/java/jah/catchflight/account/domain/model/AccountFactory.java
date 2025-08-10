@@ -48,9 +48,6 @@ public class AccountFactory {
     /**
      * Verifies that the provided password complies with all defined password policies.
      * Throws an exception if any policy is violated.
-     *
-     * @param password the password to validate
-     * @throws PasswordPolicyException if the password does not meet the defined policies
      */
     private void verifyPasswordPolicies(Password password) {
         var policyOutput =
@@ -68,9 +65,6 @@ public class AccountFactory {
     /**
      * Checks if an account with the given email already exists in the system.
      * Logs a debug message if no account exists, or throws an exception if an account is found.
-     *
-     * @param email the email address to check
-     * @throws AccountAlreadyExistsException if an account with the given email already exists
      */
     private void verifyIfUserAlreadyExists(Email email) {
         var currentUser = findCurrentAccountRepository.findByEmail(email);
@@ -84,11 +78,6 @@ public class AccountFactory {
     /**
      * Builds a new {@link Account} instance with the provided email, password, and username.
      * Sets the account type to REGULAR and initializes the version to zero.
-     *
-     * @param email    the email address for the account
-     * @param password the password for the account
-     * @param userName the username for the account
-     * @return a newly constructed {@link Account} instance
      */
     private Account buildUser(Email email, Password password, UserName userName) {
         return Account.builder()
