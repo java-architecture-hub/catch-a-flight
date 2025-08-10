@@ -2,9 +2,15 @@
 
 ![Java](https://img.shields.io/badge/Java-24-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-The **Catch a Flight - Modular Monolith** is a showcase of best-in-class software engineering practices within the Java and Spring Boot ecosystem, leveraging **JDK 24** and **Spring Boot 3**. This variant emphasizes a **Modular Monolith** architecture, prioritizing simplicity, cohesion, and maintainability while demonstrating modern design patterns and technologies.
+The **Catch a Flight - Modular Monolith** is a showcase of best-in-class software engineering practices within the Java
+and Spring Boot ecosystem, leveraging **JDK 24** and **Spring Boot 3**. This variant emphasizes a **Modular Monolith**
+architecture, prioritizing simplicity, cohesion, and maintainability while demonstrating modern design patterns and
+technologies.
 
-This project is part of the broader **Catch a Flight** initiative, which explores two architectural variants: **Modular Monolith** (this repository) and **Microservices**. The modular monolith variant serves as a robust, single-deployable application with clear module boundaries, making it ideal for teams seeking simplicity without sacrificing scalability or flexibility.
+This project is part of the broader **Catch a Flight** initiative, which explores two architectural variants: **Modular
+Monolith** (this repository) and **Microservices**. The modular monolith variant serves as a robust, single-deployable
+application with clear module boundaries, making it ideal for teams seeking simplicity without sacrificing scalability
+or flexibility.
 
 [Architecture Decision Records](adr/readme.md)
 
@@ -29,6 +35,7 @@ This project is part of the broader **Catch a Flight** initiative, which explore
 ## Goals
 
 The **Modular Monolith** variant aims to:
+
 - Demonstrate how to structure a cohesive, single-deployable application with clear module boundaries.
 - Showcase best practices for **JDK 24** and **Spring Boot 3** in a real-world context.
 - Provide a foundation for evolving into a microservices architecture if needed.

@@ -7,9 +7,9 @@ import jah.catchflight.sharedkernel.account.AccountId;
 public interface CancelOrderUseCase {
     CancelOrderResult prepareOrder(CancelOrderCommand prepareOrderCommand);
 
-    record CancelOrderCommand() {}
     public sealed interface CancelOrderResult {
         record Success(AccountId accountId) implements CancelOrderResult {}
         record InternalFailure(Throwable cause) implements CancelOrderResult {}
     }
+    record CancelOrderCommand() {}
 }

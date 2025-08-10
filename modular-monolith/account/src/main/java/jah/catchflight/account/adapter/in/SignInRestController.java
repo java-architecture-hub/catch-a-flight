@@ -40,6 +40,16 @@ class SignInRestController {
     private final HttpServletRequest servletRequest;
 
     /**
+     * Constructs a successful HTTP response for user sign-in.
+     * Returns a 201 Created status with the user ID in the response body.
+     */
+    static ResponseEntity<SignInResponse> successBody(AccountId accountId) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new SuccessResponse(accountId));
+    }
+
+    /**
      * Handles HTTP POST requests to authenticate a user.
      * This method validates the incoming sign-in request, maps it to a domain command,
      * invokes the sign-in use case, and returns an appropriate HTTP response based on
@@ -47,8 +57,8 @@ class SignInRestController {
      *
      * @param request the validated request containing user credentials (email and password)
      * @return a {@link ResponseEntity} containing the result of the sign-in operation,
-     *         with HTTP status codes indicating success (201), bad request (400) for
-     *         authentication failure, or internal server error (500)
+     * with HTTP status codes indicating success (201), bad request (400) for
+     * authentication failure, or internal server error (500)
      */
     @PostMapping
     ResponseEntity<?> signInUser(@Validated @RequestBody SignInRequest request) {
@@ -63,23 +73,6 @@ class SignInRestController {
     }
 
     /**
-     * Represents the request payload for user sign-in.
-     * This record encapsulates the required fields for authentication, including
-     * the user's email and password.
-     */
-    record SignInRequest(String email, String password) {}
-
-    /**
-     * Constructs a successful HTTP response for user sign-in.
-     * Returns a 201 Created status with the user ID in the response body.
-     */
-    static ResponseEntity<SignInResponse> successBody(AccountId accountId) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(new SuccessResponse(accountId));
-    }
-
-    /**
      * Defines the response structure for sign-in operations.
      * This sealed interface provides a type-safe way to represent successful
      * sign-in responses.
@@ -87,7 +80,12 @@ class SignInRestController {
     interface SignInResponse {
         record SuccessResponse(AccountId accountId) implements SignInResponse {}
     }
-
+    /**
+     * Represents the request payload for user sign-in.
+     * This record encapsulates the required fields for authentication, including
+     * the user's email and password.
+     */
+    record SignInRequest(String email, String password) {}
     /**
      * Maps HTTP requests to domain commands for sign-in operations.
      * This class is responsible for transforming a {@link SignInRequest}

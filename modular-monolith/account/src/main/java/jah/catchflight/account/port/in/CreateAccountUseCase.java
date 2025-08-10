@@ -24,6 +24,16 @@ public interface CreateAccountUseCase {
     CreateAccountResult createUser(CreateAccountCommand command);
 
     /**
+     * A sealed interface representing the possible outcomes of the account creation process.
+     * It defines the various result types for success and failure scenarios.
+     */
+    sealed interface CreateAccountResult {
+        record Success(AccountId accountId) implements CreateAccountResult {}
+        record ExistingAccountFailure(String message) implements CreateAccountResult {}
+        record PasswordPolicyFailure(String message) implements CreateAccountResult {}
+        record InternalFailure(Throwable cause) implements CreateAccountResult {}
+    }
+    /**
      * A record representing the command to create a neĪw user account.
      * It encapsulates the required details for account creation.
      *
@@ -37,16 +47,5 @@ public interface CreateAccountUseCase {
             Objects.requireNonNull(password);
             Objects.requireNonNull(userName);
         }
-    }
-
-    /**
-     * A sealed interface representing the possible outcomes of the account creation process.
-     * It defines the various result types for success and failure scenarios.
-     */
-    sealed interface CreateAccountResult {
-        record Success(AccountId accountId) implements CreateAccountResult {}
-        record ExistingAccountFailure(String message) implements CreateAccountResult {}
-        record PasswordPolicyFailure(String message) implements CreateAccountResult {}
-        record InternalFailure(Throwable cause) implements CreateAccountResult {}
     }
 }

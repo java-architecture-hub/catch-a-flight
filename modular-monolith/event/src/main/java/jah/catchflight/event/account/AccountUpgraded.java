@@ -11,8 +11,8 @@ import java.util.UUID;
  * This record implements the {@link DomainEvent} interface and encapsulates the event's unique identifier and the
  * {@link AccountId} of the upgraded account.
  *
- * @param eventId the unique identifier of the event
- * @param accountId  the unique identifier of the account that was upgraded
+ * @param eventId   the unique identifier of the event
+ * @param accountId the unique identifier of the account that was upgraded
  * @since 1.0
  */
 public record AccountUpgraded(UUID eventId, AccountId accountId) implements DomainEvent {

@@ -5,7 +5,10 @@
 
 ## Context
 
-The `catch-a-flight` application involves multiple domains (e.g., account management, flight search), each with distinct business rules. To ensure maintainability and alignment with business requirements, we need a structured approach to model these domains. A DDD approach can help define clear bounded contexts and domain models, but it requires discipline to implement effectively within a monolith.
+The `catch-a-flight` application involves multiple domains (e.g., account management, flight search), each with distinct
+business rules. To ensure maintainability and alignment with business requirements, we need a structured approach to
+model these domains. A DDD approach can help define clear bounded contexts and domain models, but it requires discipline
+to implement effectively within a monolith.
 
 ## Decision
 
@@ -20,12 +23,12 @@ We will apply **Domain-Driven Design (DDD)** principles to structure each module
 ## Consequences
 
 - **Pros**:
-  - Aligns code structure with business domains, improving clarity.
-  - Encourages encapsulation and separation of concerns.
-  - Facilitates event-driven integration between modules.
+    - Aligns code structure with business domains, improving clarity.
+    - Encourages encapsulation and separation of concerns.
+    - Facilitates event-driven integration between modules.
 - **Cons**:
-  - Increased complexity due to DDD terminology and patterns.
-  - Requires team training to ensure consistent application.
+    - Increased complexity due to DDD terminology and patterns.
+    - Requires team training to ensure consistent application.
 - **Mitigation**:
-  - Provide DDD training and guidelines for developers.
-  - Use annotations (e.g., `@DomainService`) to clearly mark DDD components.
+    - Provide DDD training and guidelines for developers.
+    - Use annotations (e.g., `@DomainService`) to clearly mark DDD components.

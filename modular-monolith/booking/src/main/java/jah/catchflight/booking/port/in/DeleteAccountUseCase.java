@@ -6,6 +6,6 @@ import jah.catchflight.common.annotations.hexagonal.InboundPort;
 public interface DeleteAccountUseCase {
     public DeleteUserResult deleteUser(DeleteUserCommand deleteUserInput);
 
-    public record DeleteUserCommand() {}
     public interface DeleteUserResult {}
+    public record DeleteUserCommand() {}
 }

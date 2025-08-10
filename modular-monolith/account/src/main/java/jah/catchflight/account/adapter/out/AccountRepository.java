@@ -27,7 +27,8 @@ public class AccountRepository implements CreateAccountRepository, FindCurrentAc
     private final AccountJdbcRepository accountJdbcRepository;
     private final AccountJdbcEntityMapper accountJdbcEntityMapper;
 
-    /**Ī
+    /**
+     * Ī
      * Loads an account by its unique identifier.
      * Queries the database for an {@link AccountJdbcEntity} with the specified {@link AccountId} and maps it to
      * a domain {@link Account} if found.

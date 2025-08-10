@@ -5,7 +5,10 @@
 
 ## Context
 
-The `account` module, and likely other modules, requires robust input validation to ensure commands (e.g., `CreateAccountCommand`) meet business rules before processing. Validation can be handled in controllers, services, or dedicated validators. Centralizing validation in controllers risks bloating them, while embedding it in entities may violate separation of concerns.
+The `account` module, and likely other modules, requires robust input validation to ensure commands (e.g.,
+`CreateAccountCommand`) meet business rules before processing. Validation can be handled in controllers, services, or
+dedicated validators. Centralizing validation in controllers risks bloating them, while embedding it in entities may
+violate separation of concerns.
 
 ## Decision
 

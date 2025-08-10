@@ -5,7 +5,9 @@
 
 ## Context
 
-The modular monolith requires a persistence strategy that supports module independence while leveraging the simplicity of a single deployable unit. Using a single database simplifies deployment and transactions but risks implicit coupling between modules. Separate databases per module increase operational complexity.
+The modular monolith requires a persistence strategy that supports module independence while leveraging the simplicity
+of a single deployable unit. Using a single database simplifies deployment and transactions but risks implicit coupling
+between modules. Separate databases per module increase operational complexity.
 
 ## Decision
 

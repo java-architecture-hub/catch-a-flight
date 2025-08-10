@@ -1,13 +1,13 @@
 package jah.catchflight.account.domain.service;
 
 import jah.catchflight.account.domain.model.Account;
-import jah.catchflight.event.account.AccountUpgradeFailed;
-import jah.catchflight.event.account.AccountUpgraded;
 import jah.catchflight.account.port.in.UpgradeAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.FindAccountRepository;
 import jah.catchflight.account.port.out.UpdateAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainService;
+import jah.catchflight.event.account.AccountUpgradeFailed;
+import jah.catchflight.event.account.AccountUpgraded;
 import jah.catchflight.sharedkernel.account.AccountId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

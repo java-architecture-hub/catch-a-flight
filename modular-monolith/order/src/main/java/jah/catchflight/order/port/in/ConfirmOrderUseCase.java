@@ -7,9 +7,9 @@ import jah.catchflight.sharedkernel.account.AccountId;
 public interface ConfirmOrderUseCase {
     ConfirmOrderResult prepareOrder(ConfirmOrderCommand prepareOrderCommand);
 
-    record ConfirmOrderCommand() {}
     public sealed interface ConfirmOrderResult {
         record Success(AccountId accountId) implements ConfirmOrderResult {}
         record InternalFailure(Throwable cause) implements ConfirmOrderResult {}
     }
+    record ConfirmOrderCommand() {}
 }
