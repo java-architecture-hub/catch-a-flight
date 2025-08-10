@@ -23,6 +23,14 @@ public interface CancelFlightsUseCase {
     CancelFlightsResult cancelFlight(CancelFlightsCommand cancelFlightsCommand);
 
     /**
+     * Represents the result of a flight cancellation operation.
+     * This sealed interface defines the possible outcomes of a cancellation attempt.
+     */
+    sealed interface CancelFlightsResult {
+        record Success() implements CancelFlightsResult {}
+        record InternalFailure(Throwable cause) implements CancelFlightsResult {}
+    }
+    /**
      * A command to cancel a flight, containing the account ID and booking ID.
      */
     record CancelFlightsCommand(AccountId accountId, BookingId bookingId) {
@@ -30,14 +38,5 @@ public interface CancelFlightsUseCase {
             Objects.requireNonNull(accountId, "accountId must not be null");
             Objects.requireNonNull(bookingId, "bookingId must not be null");
         }
-    }
-
-    /**
-     * Represents the result of a flight cancellation operation.
-     * This sealed interface defines the possible outcomes of a cancellation attempt.
-     */
-    sealed interface CancelFlightsResult {
-        record Success() implements CancelFlightsResult {}
-        record InternalFailure(Throwable cause) implements CancelFlightsResult {}
     }
 }
