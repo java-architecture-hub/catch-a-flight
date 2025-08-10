@@ -60,6 +60,7 @@ class CreateAccountRestController {
         var result = createAccountUseCase.createUser(command);
         return switch (result) {
             case Success(UserId userId) -> successBody(userId);
+            case InputNotValid(String message) -> badRequestBody(servletRequest, message);
             case ExistingAccountFailure(String message) -> badRequestBody(servletRequest, message);
             case PasswordPolicyFailure(String message) -> badRequestBody(servletRequest, message);
             case InternalFailure(Throwable cause) -> internalServerErrorBody(servletRequest, cause);
