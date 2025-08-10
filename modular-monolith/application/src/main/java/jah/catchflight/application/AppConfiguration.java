@@ -11,6 +11,12 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/**
+ * Configuration class for the Spring Boot application, enabling auto-configuration
+ * and importing specific configuration classes to set up beans for various
+ * application components such as account, API simulation, best deals, booking,
+ * engagement, order, and query functionalities.
+ */
 @EnableAutoConfiguration
 @Configuration(proxyBeanMethods = false)
 @Import({
