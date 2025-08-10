@@ -42,17 +42,17 @@ public class Account {
     }
 
     /**
+     * Checks if the account is of premium type.
+     */
+    public boolean isPremium() {
+        return accountType == AccountType.PREMIUM;
+    }
+
+    /**
      * Sealed interface representing the result of an account upgrade operation.
      */
     public sealed interface UpgradeUserResult {
         record Success() implements UpgradeUserResult {}
         record AlreadyUpdatedFailure(AccountId accountId, String message) implements UpgradeUserResult {}
-    }
-
-    /**
-     * Checks if the account is of premium type.
-     */
-    public boolean isPremium() {
-        return accountType == AccountType.PREMIUM;
     }
 }

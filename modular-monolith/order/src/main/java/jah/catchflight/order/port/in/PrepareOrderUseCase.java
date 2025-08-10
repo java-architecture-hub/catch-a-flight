@@ -7,9 +7,9 @@ import jah.catchflight.sharedkernel.account.AccountId;
 public interface PrepareOrderUseCase {
     PrepareOrderResult prepareOrder(PrepareOrderCommand prepareOrderCommand);
 
-    record PrepareOrderCommand() {}
     public sealed interface PrepareOrderResult {
         record Success(AccountId accountId) implements PrepareOrderResult {}
         record InternalFailure(Throwable cause) implements PrepareOrderResult {}
     }
+    record PrepareOrderCommand() {}
 }

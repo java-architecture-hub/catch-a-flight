@@ -2,28 +2,42 @@
 
 ## Overview
 
-The `account` module is a self-contained component of the `catch-a-flight` modular monolith application, responsible for handling user account creation and related operations. It follows a **Domain-Driven Design (DDD)** approach within a modular monolith architecture, ensuring clear boundaries, encapsulation, and maintainability. The module is designed to be independent, communicating with other modules through well-defined interfaces and events, while adhering to Clean Architecture principles for separation of concerns.
+The `account` module is a self-contained component of the `catch-a-flight` modular monolith application, responsible for
+handling user account creation and related operations. It follows a **Domain-Driven Design (DDD)** approach within a
+modular monolith architecture, ensuring clear boundaries, encapsulation, and maintainability. The module is designed to
+be independent, communicating with other modules through well-defined interfaces and events, while adhering to Clean
+Architecture principles for separation of concerns.
 
-This module encapsulates the business logic for creating user accounts, validating input, persisting account data, and publishing events to notify other parts of the system about account-related activities. It is built using **Spring Boot** and leverages annotations for dependency injection, logging, and transaction management.
+This module encapsulates the business logic for creating user accounts, validating input, persisting account data, and
+publishing events to notify other parts of the system about account-related activities. It is built using **Spring Boot
+** and leverages annotations for dependency injection, logging, and transaction management.
 
 ## Architecture
 
-The `account` module is structured as a **modular monolith** component, meaning it is a self-contained unit within the larger monolithic application. It adheres to the following architectural principles:
+The `account` module is structured as a **modular monolith** component, meaning it is a self-contained unit within the
+larger monolithic application. It adheres to the following architectural principles:
 
-- **Modularity**: The module is encapsulated, exposing only necessary interfaces (`CreateAccountUseCase`) and communicating with other modules via events (e.g., `AccountCreated`, `AccountCreationFailed`). This minimizes direct dependencies and enforces loose coupling.
-- **Domain-Driven Design (DDD)**: The module focuses on the "Account" bounded context, with clear domain entities (`Accountlucent`), use cases (`CreateAccountUseCase`), and domain events.
-- **Clean Architecture**: The module separates concerns into layers, including use cases, domain models, persistence, and event publishing, ensuring that business logic remains independent of infrastructure concerns.
-- **Event-Driven Communication**: Account-related activities trigger events that other modules can subscribe to, facilitating asynchronous communication within the monolith.
+- **Modularity**: The module is encapsulated, exposing only necessary interfaces (`CreateAccountUseCase`) and
+  communicating with other modules via events (e.g., `AccountCreated`, `AccountCreationFailed`). This minimizes direct
+  dependencies and enforces loose coupling.
+- **Domain-Driven Design (DDD)**: The module focuses on the "Account" bounded context, with clear domain entities (
+  `Accountlucent`), use cases (`CreateAccountUseCase`), and domain events.
+- **Clean Architecture**: The module separates concerns into layers, including use cases, domain models, persistence,
+  and event publishing, ensuring that business logic remains independent of infrastructure concerns.
+- **Event-Driven Communication**: Account-related activities trigger events that other modules can subscribe to,
+  facilitating asynchronous communication within the monolith.
 
 ### Module Boundaries
 
 The `account` module is responsible for:
+
 - Validating user input for account creation.
 - Creating and persisting user accounts.
 - Publishing domain events for successful or failed account creation.
 - Ensuring compliance with password policies and other business rules.
 
 It does *not* handle:
+
 - User authentication or session management (likely handled by a separate module, e.g., `auth`).
 - User profile updates or other account-related operations beyond creation.
 
@@ -46,12 +60,15 @@ The module is implemented in Java using Spring Boot, with the following key comp
         - Creates an `Account` entity via `AccountFactory`.
         - Persists the account using `CreateAccountRepository`.
         - Publishes events (`AccountCreated` or `AccountCreationFailed`) via `AccountEventPublisher`.
-        - Handles exceptions (e.g., `PasswordPolicyException`, generic errors) and returns appropriate `CreateAccountResult` objects.
+        - Handles exceptions (e.g., `PasswordPolicyException`, generic errors) and returns appropriate
+          `CreateAccountResult` objects.
 
 2. **CreateAccountCommandValidator** (Nested in `CreateAccountService.java`):
-    - **Role**: Validates the `CreateAccountCommand` to ensure it meets business rules (e.g., valid email, password strength).
+    - **Role**: Validates the `CreateAccountCommand` to ensure it meets business rules (e.g., valid email, password
+      strength).
     - **Annotation**: `@Component` for Spring dependency injection.
-    - **Functionality**: Returns an `InputValidationResult` (`Valid` or `NotValid` with a message). Currently, it returns `Valid` by default, but it can be extended to include specific validation logic.
+    - **Functionality**: Returns an `InputValidationResult` (`Valid` or `NotValid` with a message). Currently, it
+      returns `Valid` by default, but it can be extended to include specific validation logic.
 
 3. **AccountFactory**:
     - **Role**: Creates `Account` entities based on input parameters (email, password, username).
@@ -63,17 +80,21 @@ The module is implemented in Java using Spring Boot, with the following key comp
 
 5. **AccountEventPublisher**:
     - **Role**: Publishes domain events (`AccountCreated`, `AccountCreationFailed`) to notify other modules.
-    - **Purpose**: Enables asynchronous communication with other parts of the monolith (e.g., sending welcome emails or updating user profiles).
+    - **Purpose**: Enables asynchronous communication with other parts of the monolith (e.g., sending welcome emails or
+      updating user profiles).
 
 6. **Domain Models and Events**:
-    - **Account**: Represents the core domain entity with attributes like `accountId`, `email`, `userName`, and `accountType`.
-    - **CreateAccountCommand**: A data transfer object (DTO) containing input data for account creation (email, password, username).
+    - **Account**: Represents the core domain entity with attributes like `accountId`, `email`, `userName`, and
+      `accountType`.
+    - **CreateAccountCommand**: A data transfer object (DTO) containing input data for account creation (email,
+      password, username).
     - **CreateAccountResult**: A sealed class (or equivalent) representing possible outcomes:
         - `Success`: Contains the created `accountId`.
         - `InputNotValid`: Indicates validation failure with a message.
         - `PasswordPolicyFailure`: Indicates a password policy violation.
         - `InternalFailure`: Handles unexpected errors.
-    - **AccountCreated**: Event published on successful account creation, containing `accountId`, `userName`, `accountType`, and `email`.
+    - **AccountCreated**: Event published on successful account creation, containing `accountId`, `userName`,
+      `accountType`, and `email`.
     - **AccountCreationFailed**: Event published on failure, containing `userName`, `email`, and the failure reason.
 
 ### Flow of Account Creation

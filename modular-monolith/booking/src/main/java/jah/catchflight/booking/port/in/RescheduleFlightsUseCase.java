@@ -7,6 +7,6 @@ import jah.catchflight.sharedkernel.account.AccountId;
 public interface RescheduleFlightsUseCase {
     RescheduleFlightsResult rescheduleFlight(RescheduleFlightsInput rescheduleFlightsInput);
 
-    record RescheduleFlightsInput(AccountId accountId) {}
     interface RescheduleFlightsResult {}
+    record RescheduleFlightsInput(AccountId accountId) {}
 }

@@ -9,11 +9,10 @@ import java.util.Objects;
 public interface BookFlightsUseCase {
     BookFlightsResult bookFlight(BookFlightsCommand bookFlightsCommand);
 
+    interface BookFlightsResult {}
     record BookFlightsCommand(AccountId accountId) {
         public BookFlightsCommand {
             Objects.requireNonNull(accountId);
         }
     }
-
-    interface BookFlightsResult {}
 }

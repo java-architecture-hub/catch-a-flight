@@ -1,10 +1,10 @@
 package jah.catchflight.event.account;
 
 import jah.catchflight.common.events.DomainEvent;
-import jah.catchflight.sharedkernel.account.AccountType;
-import jah.catchflight.sharedkernel.account.UserName;
-import jah.catchflight.sharedkernel.account.Email;
 import jah.catchflight.sharedkernel.account.AccountId;
+import jah.catchflight.sharedkernel.account.AccountType;
+import jah.catchflight.sharedkernel.account.Email;
+import jah.catchflight.sharedkernel.account.UserName;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -16,7 +16,7 @@ import java.util.UUID;
  * to integrate with the system's event-driven architecture.
  *
  * @param eventId     the unique identifier of the event
- * @param accountId      the unique identifier of the created user account
+ * @param accountId   the unique identifier of the created user account
  * @param userName    the username associated with the account
  * @param accountType the type of account created
  * @param email       the email address associated with the account
@@ -28,7 +28,7 @@ public record AccountCreated(UUID eventId, AccountId accountId, UserName userNam
      * Ensures that all provided parameters are non-null to maintain event integrity.
      *
      * @param eventId     the unique identifier of the event, must not be null
-     * @param accountId      the unique identifier of the user account, must not be null
+     * @param accountId   the unique identifier of the user account, must not be null
      * @param userName    the username, must not be null
      * @param accountType the account type, must not be null
      * @param email       the email address, must not be null

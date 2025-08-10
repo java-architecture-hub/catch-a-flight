@@ -19,13 +19,6 @@ public interface SignInUseCase {
     SignInResult signIn(SignInCommand signInCommand);
 
     /**
-     * A record representing the command to initiate a user sign-in.
-     * This record is currently empty, but can be extended to include authentication details
-     * such as username and password.
-     */
-    record SignInCommand() {}
-
-    /**
      * A sealed interface representing the possible outcomes of the sign-in process.
      * It defines the various result types for success and failure scenarios.
      */
@@ -34,4 +27,10 @@ public interface SignInUseCase {
         record AuthenticationFailure() implements SignInResult {}
         record InternalFailure(Throwable cause) implements SignInResult {}
     }
+    /**
+     * A record representing the command to initiate a user sign-in.
+     * This record is currently empty, but can be extended to include authentication details
+     * such as username and password.
+     */
+    record SignInCommand() {}
 }

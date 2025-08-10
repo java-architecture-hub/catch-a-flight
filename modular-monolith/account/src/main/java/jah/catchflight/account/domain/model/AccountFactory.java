@@ -37,7 +37,7 @@ public class AccountFactory {
      * @param password the password for the new account
      * @param userName the username for the new account
      * @return a new {@link Account} instance
-     * @throws PasswordPolicyException      if the password does not meet the defined policies
+     * @throws PasswordPolicyException       if the password does not meet the defined policies
      * @throws AccountAlreadyExistsException if an account with the given email already exists
      */
     public Account create(Email email, Password password, UserName userName) {

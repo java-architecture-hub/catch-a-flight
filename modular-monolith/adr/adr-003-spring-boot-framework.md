@@ -5,7 +5,10 @@
 
 ## Context
 
-The `catch-a-flight` project requires a robust framework to handle dependency injection, transaction management, and infrastructure concerns (e.g., persistence, event publishing). Several frameworks (e.g., Spring Boot, Micronaut, Quarkus) are available, but we need one that balances developer productivity, community support, and compatibility with modular monolith principles.
+The `catch-a-flight` project requires a robust framework to handle dependency injection, transaction management, and
+infrastructure concerns (e.g., persistence, event publishing). Several frameworks (e.g., Spring Boot, Micronaut,
+Quarkus) are available, but we need one that balances developer productivity, community support, and compatibility with
+modular monolith principles.
 
 ## Decision
 

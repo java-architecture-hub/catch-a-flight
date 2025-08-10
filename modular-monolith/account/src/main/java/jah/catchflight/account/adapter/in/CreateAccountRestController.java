@@ -43,6 +43,14 @@ class CreateAccountRestController {
     private final HttpServletRequest servletRequest;
 
     /**
+     * Constructs a successful HTTP response for account creation.
+     * Returns a 201 Created status with the user ID in the response body.
+     */
+    private static ResponseEntity<CreateAccountResponse> successBody(AccountId accountId) {
+        return status(HttpStatus.CREATED).body(new CreateAccountResponse.SuccessResponse(accountId));
+    }
+
+    /**
      * Handles HTTP POST requests to create a new user account.
      * This method validates the incoming request, maps it to a domain command,
      * invokes the account creation use case, and returns an appropriate HTTP response
@@ -67,14 +75,6 @@ class CreateAccountRestController {
     }
 
     /**
-     * Represents the request payload for creating a new user account.
-     * This record encapsulates the required fields for account creation, including
-     * email, password, first name, and last name, all of which are validated to ensure
-     * they are not null.
-     */
-    record CreateAccountRequest(@NotNull String email, @NotNull String password, @NotNull String firstName, @NotNull String lastName) {}
-
-    /**
      * Defines the response structure for account creation operations.
      * This sealed interface provides a type-safe way to represent successful
      * account creation responses.
@@ -82,15 +82,14 @@ class CreateAccountRestController {
     interface CreateAccountResponse {
         record SuccessResponse(AccountId accountId) implements CreateAccountResponse {}
     }
-
     /**
-     * Constructs a successful HTTP response for account creation.
-     * Returns a 201 Created status with the user ID in the response body.
+     * Represents the request payload for creating a new user account.
+     * This record encapsulates the required fields for account creation, including
+     * email, password, first name, and last name, all of which are validated to ensure
+     * they are not null.
      */
-    private static ResponseEntity<CreateAccountResponse> successBody(AccountId accountId) {
-        return status(HttpStatus.CREATED).body(new CreateAccountResponse.SuccessResponse(accountId));
-    }
-
+    record CreateAccountRequest(@NotNull String email, @NotNull String password, @NotNull String firstName,
+                                @NotNull String lastName) {}
     /**
      * Maps HTTP requests to domain commands for account creation.
      */

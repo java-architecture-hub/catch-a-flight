@@ -21,6 +21,16 @@ public interface UpgradeAccountUseCase {
     UpgradeUserResult upgradeUser(UpgradeUserCommand command);
 
     /**
+     * A sealed interface representing the possible outcomes of the account upgrade process.
+     * It defines the various result types for success and failure scenarios.
+     */
+    sealed interface UpgradeUserResult {
+        record Success() implements UpgradeUserResult {}
+        record AccountNotFoundFailure(String message) implements UpgradeUserResult {}
+        record AccountAlreadyUpgradedFailure(String message) implements UpgradeUserResult {}
+        record InternalFailure(Throwable cause) implements UpgradeUserResult {}
+    }
+    /**
      * A record representing the command to upgrade a user account.
      * It encapsulates the user ID of the account to be upgraded.
      *
@@ -30,16 +40,5 @@ public interface UpgradeAccountUseCase {
         public UpgradeUserCommand {
             Objects.requireNonNull(accountId);
         }
-    }
-
-    /**
-     * A sealed interface representing the possible outcomes of the account upgrade process.
-     * It defines the various result types for success and failure scenarios.
-     */
-    sealed interface UpgradeUserResult {
-        record Success() implements UpgradeUserResult {}
-        record AccountNotFoundFailure(String message) implements UpgradeUserResult {}
-        record AccountAlreadyUpgradedFailure(String message) implements UpgradeUserResult {}
-        record InternalFailure(Throwable cause) implements UpgradeUserResult {}
     }
 }

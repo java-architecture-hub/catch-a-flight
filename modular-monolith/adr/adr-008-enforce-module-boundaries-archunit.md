@@ -5,13 +5,16 @@
 
 ## Context
 
-In a modular monolith, maintaining strict boundaries between modules is critical to prevent tight coupling. Without enforcement, developers may accidentally introduce dependencies (e.g., `account` module calling `booking` module directly), undermining modularity. Manual code reviews are insufficient to catch all violations.
+In a modular monolith, maintaining strict boundaries between modules is critical to prevent tight coupling. Without
+enforcement, developers may accidentally introduce dependencies (e.g., `account` module calling `booking` module
+directly), undermining modularity. Manual code reviews are insufficient to catch all violations.
 
 ## Decision
 
 We will use **ArchUnit** to enforce module boundaries through automated architecture tests:
 
-- Define rules to prevent direct dependencies between modules (e.g., `com.example.account` should not access `com.example.booking`).
+- Define rules to prevent direct dependencies between modules (e.g., `com.example.account` should not access
+  `com.example.booking`).
 - Ensure modules only interact via interfaces (e.g., `CreateAccountUseCase`) or events.
 - Restrict access to module-specific database tables (e.g., `account_users`) to the owning module’s repositories.
 - Run architecture tests as part of the CI/CD pipeline.

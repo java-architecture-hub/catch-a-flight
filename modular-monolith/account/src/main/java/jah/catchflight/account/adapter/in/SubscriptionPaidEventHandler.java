@@ -2,13 +2,13 @@ package jah.catchflight.account.adapter.in;
 
 import jah.catchflight.account.port.in.UpgradeAccountUseCase;
 import jah.catchflight.common.annotations.hexagonal.InboundAdapter;
+import jah.catchflight.event.account.AccountSubscriptionPaid;
 import jah.catchflight.sharedkernel.account.AccountId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import jah.catchflight.event.account.AccountSubscriptionPaid;
 
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserCommand;
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;

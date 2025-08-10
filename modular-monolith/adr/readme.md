@@ -1,6 +1,7 @@
 # Architecture Decision Records
 
-This directory contains the Architecture Decision Records (ADRs) for the `catch-a-flight` project. Each ADR documents a significant architectural decision, including its context, decision, consequences, and status.
+This directory contains the Architecture Decision Records (ADRs) for the `catch-a-flight` project. Each ADR documents a
+significant architectural decision, including its context, decision, consequences, and status.
 
 - [ADR-001: Adopt Modular Monolith Architecture](adr-001-modular-monolith.md)
 - [ADR-002: Use Domain-Driven Design (DDD) for Module Structure](adr-002-ddd-module-structure.md)

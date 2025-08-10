@@ -9,15 +9,14 @@ import java.util.Objects;
 public interface QueryFlightsUseCase {
     QueryFlightsResult query(QueryFlightsCommand command);
 
-    record QueryFlightsCommand(AccountId accountId) {
-        public QueryFlightsCommand {
-            Objects.requireNonNull(accountId);
-        }
-    }
-
     sealed interface QueryFlightsResult {
         record Success() implements QueryFlightsResult {}
         record InvalidQueryParameters(String message) implements QueryFlightsResult {}
         record InternalFailure(Throwable cause) implements QueryFlightsResult {}
+    }
+    record QueryFlightsCommand(AccountId accountId) {
+        public QueryFlightsCommand {
+            Objects.requireNonNull(accountId);
+        }
     }
 }
