@@ -5,16 +5,13 @@ import jah.catchflight.account.domain.events.AccountCreationFailed;
 import jah.catchflight.account.domain.model.Account;
 import jah.catchflight.account.domain.model.AccountFactory;
 import jah.catchflight.account.port.in.CreateAccountUseCase;
-import jah.catchflight.account.port.in.UpgradeAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.CreateAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainService;
 import jah.catchflight.common.validation.InputValidationResult;
-import jah.catchflight.sharedkernel.account.UserId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +19,7 @@ import java.util.UUID;
 
 import static jah.catchflight.account.port.in.CreateAccountUseCase.CreateAccountResult.*;
 import static jah.catchflight.common.validation.InputValidationResult.NotValid;
+import static jah.catchflight.common.validation.InputValidationResult.Valid;
 
 /**
  * Domain service responsible for creating user accounts.
@@ -117,9 +115,10 @@ public class CreateAccountService implements CreateAccountUseCase {
     /**
      * Validates the {@link CreateAccountCommand} to ensure it meets account creation criteria.
      */
+    @Component
     static class CreateAccountCommandValidator {
         InputValidationResult validate(final CreateAccountCommand command) {
-            return new InputValidationResult.Valid();
+            return new Valid();
         }
     }
 }

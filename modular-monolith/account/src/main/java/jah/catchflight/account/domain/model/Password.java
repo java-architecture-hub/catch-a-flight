@@ -11,8 +11,4 @@ import java.util.Objects;
  * @param value the password string
  */
 @DomainValueObject
-public record Password(String value) {
-    public Password {
-        Objects.requireNonNull(value);
-    }
-}
+public record Password(String value) {}

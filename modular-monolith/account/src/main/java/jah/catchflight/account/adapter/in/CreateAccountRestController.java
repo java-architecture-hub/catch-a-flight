@@ -54,7 +54,7 @@ class CreateAccountRestController {
      * or internal server error (500)
      */
     @PostMapping
-    ResponseEntity<?> createUser(@RequestBody CreateAccountRequest request) {
+    ResponseEntity<?> createUser(@Validated @RequestBody CreateAccountRequest request) {
         log.info("Request: {}", request);
         var command = createAccountMapper.toCommand(request);
         var result = createAccountUseCase.createUser(command);
@@ -73,7 +73,7 @@ class CreateAccountRestController {
      * email, password, first name, and last name, all of which are validated to ensure
      * they are not null.
      */
-    record CreateAccountRequest(String email, String password, String firstName, String lastName) {}
+    record CreateAccountRequest(@NotNull String email, @NotNull String password, @NotNull String firstName, @NotNull String lastName) {}
 
     /**
      * Defines the response structure for account creation operations.

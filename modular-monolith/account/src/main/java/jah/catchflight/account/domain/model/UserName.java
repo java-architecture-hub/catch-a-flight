@@ -12,9 +12,4 @@ import java.util.Objects;
  * @param lastName  the user's last name
  */
 @DomainValueObject
-public record UserName(String firstName, String lastName) {
-    public UserName {
-        Objects.requireNonNull(firstName);
-        Objects.requireNonNull(lastName);
-    }
-}
+public record UserName(String firstName, String lastName) {}
