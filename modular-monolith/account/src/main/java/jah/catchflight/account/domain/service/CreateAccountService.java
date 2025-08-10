@@ -39,20 +39,10 @@ public class CreateAccountService implements CreateAccountUseCase {
 
     /**
      * Creates a new user account based on the provided command.
-     * <p>
-     * This method orchestrates the account creation process by:
-     * <ul>
-     *     <li>Validating the command for email, password, and username.</li>
-     *     <li>Creating an account using the provided details.</li>
-     *     <li>Persisting the account to the repository.</li>
-     *     <li>Publishing an {@link AccountCreated} event on success or an
-     *         {@link AccountCreationFailed} event on failure.</li>
-     * </ul>
-     * The operation is executed within a transactional context to ensure data consistency.
      *
-     * @param command the {@link CreateAccountCommand} containing the email, password, and username
+     * @param command the {@link CreateAccountCommand} containing user account details
      * @return a {@link CreateAccountResult} indicating the outcome of the account creation
-     * @throws IllegalArgumentException if the command is null
+     * @throws IllegalArgumentException if the provided command is null
      */
     @Override
     @Transactional
