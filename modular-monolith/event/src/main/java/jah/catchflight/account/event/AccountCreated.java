@@ -1,8 +1,8 @@
-package jah.catchflight.account.domain.events;
+package jah.catchflight.account.event;
 
-import jah.catchflight.account.domain.model.UserName;
 import jah.catchflight.common.events.DomainEvent;
 import jah.catchflight.sharedkernel.account.AccountType;
+import jah.catchflight.sharedkernel.account.UserName;
 import jah.catchflight.sharedkernel.account.Email;
 import jah.catchflight.sharedkernel.account.UserId;
 

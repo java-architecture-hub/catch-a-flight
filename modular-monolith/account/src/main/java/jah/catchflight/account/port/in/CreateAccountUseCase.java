@@ -1,10 +1,10 @@
 package jah.catchflight.account.port.in;
 
 import jah.catchflight.account.domain.model.Password;
-import jah.catchflight.account.domain.model.UserName;
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
 import jah.catchflight.sharedkernel.account.Email;
 import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.UserName;
 
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ public interface CreateAccountUseCase {
     CreateAccountResult createUser(CreateAccountCommand command);
 
     /**
-     * A record representing the command to create a new user account.
+     * A record representing the command to create a neĪw user account.
      * It encapsulates the required details for account creation.
      *
      * @param email    the email address of the user

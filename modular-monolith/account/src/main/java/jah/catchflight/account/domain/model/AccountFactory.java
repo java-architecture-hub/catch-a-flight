@@ -8,6 +8,7 @@ import jah.catchflight.common.policy.DomainPolicyOutput.Rejection;
 import jah.catchflight.sharedkernel.account.AccountType;
 import jah.catchflight.sharedkernel.account.Email;
 import jah.catchflight.sharedkernel.account.UserId;
+import jah.catchflight.sharedkernel.account.UserName;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

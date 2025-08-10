@@ -22,15 +22,16 @@
 
     <modules>
         <module>account</module>
-        <module>api-simulator</module>
         <module>application</module>
-        <module>common</module>
         <module>bestdeal</module>
         <module>booking</module>
         <module>engagement</module>
         <module>order</module>
         <module>query</module>
+        <module>event</module>
+        <module>common</module>
         <module>shared-kernel</module>
+        <module>api-simulator</module>
     </modules>
 
     <dependencyManagement>

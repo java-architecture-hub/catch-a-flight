@@ -1,11 +1,11 @@
 package jah.catchflight.account.domain.service;
 
-import jah.catchflight.account.domain.events.AccountCreated;
-import jah.catchflight.account.domain.events.AccountCreationFailed;
 import jah.catchflight.account.domain.model.Account;
 import jah.catchflight.account.domain.model.AccountFactory;
 import jah.catchflight.account.domain.model.NonExistingAccount;
 import jah.catchflight.account.domain.model.PasswordPolicyException;
+import jah.catchflight.account.event.AccountCreated;
+import jah.catchflight.account.event.AccountCreationFailed;
 import jah.catchflight.account.port.in.CreateAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.CreateAccountRepository;
