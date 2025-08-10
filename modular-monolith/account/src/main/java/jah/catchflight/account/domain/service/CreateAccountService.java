@@ -4,23 +4,21 @@ import jah.catchflight.account.domain.events.AccountCreated;
 import jah.catchflight.account.domain.events.AccountCreationFailed;
 import jah.catchflight.account.domain.model.Account;
 import jah.catchflight.account.domain.model.AccountFactory;
+import jah.catchflight.account.domain.model.NonExistingAccount;
 import jah.catchflight.account.domain.model.PasswordPolicyException;
 import jah.catchflight.account.port.in.CreateAccountUseCase;
 import jah.catchflight.account.port.out.AccountEventPublisher;
 import jah.catchflight.account.port.out.CreateAccountRepository;
+import jah.catchflight.account.port.out.FindCurrentAccountRepository;
 import jah.catchflight.common.annotations.domain.DomainService;
-import jah.catchflight.common.validation.InputValidationResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 import static jah.catchflight.account.port.in.CreateAccountUseCase.CreateAccountResult.*;
-import static jah.catchflight.common.validation.InputValidationResult.NotValid;
-import static jah.catchflight.common.validation.InputValidationResult.Valid;
 
 /**
  * Domain service responsible for creating user accounts.
@@ -31,9 +29,11 @@ import static jah.catchflight.common.validation.InputValidationResult.Valid;
 @DomainService
 @RequiredArgsConstructor
 public class CreateAccountService implements CreateAccountUseCase {
+    private static final String ACCOUNT_ALREADY_EXISTS = "Account already exists";
 
     private final AccountFactory accountFactory;
     private final CreateAccountRepository createAccountRepository;
+    private final FindCurrentAccountRepository findCurrentAccountRepository;
     private final AccountEventPublisher accountEventPublisher;
 
     /**
@@ -68,6 +68,11 @@ public class CreateAccountService implements CreateAccountUseCase {
      * @return the result of the account creation
      */
     private CreateAccountResult processAccountCreation(CreateAccountCommand command) {
+        var existingAccount = findCurrentAccountRepository.findByEmail(command.email());
+        if (!(existingAccount instanceof NonExistingAccount)) {
+            return new ExistingAccountFailure(ACCOUNT_ALREADY_EXISTS);
+        }
+
         var account = accountFactory.create(
                 command.email(),
                 command.password(),
@@ -89,13 +94,14 @@ public class CreateAccountService implements CreateAccountUseCase {
      * @param account the created account
      */
     private void emitAccountCreated(Account account) {
-        accountEventPublisher.publish(new AccountCreated(
-                UUID.randomUUID(),
-                account.getUserId(),
-                account.getUserName(),
-                account.getAccountType(),
-                account.getEmail()
-        ));
+        accountEventPublisher.publish(
+                new AccountCreated(
+                        UUID.randomUUID(),
+                        account.getUserId(),
+                        account.getUserName(),
+                        account.getAccountType(),
+                        account.getEmail()
+                ));
     }
 
     /**
@@ -105,19 +111,20 @@ public class CreateAccountService implements CreateAccountUseCase {
      * @param message the failure message
      */
     private void emitAccountCreationFailed(CreateAccountCommand command, String message) {
-        accountEventPublisher.publish(new AccountCreationFailed(
-                UUID.randomUUID(),
-                command.userName(),
-                command.email(),
-                message
-        ));
+        accountEventPublisher.publish(
+                new AccountCreationFailed(
+                        UUID.randomUUID(),
+                        command.userName(),
+                        command.email(),
+                        message
+                ));
     }
 
     /**
      * Handles unexpected errors during account creation.
      *
      * @param command the command being processed
-     * @param ex the exception that occurred
+     * @param ex      the exception that occurred
      * @return an internal failure result
      */
     private CreateAccountResult handleInternalFailure(CreateAccountCommand command, Exception ex) {
@@ -130,7 +137,7 @@ public class CreateAccountService implements CreateAccountUseCase {
      * Handles password policy violations.
      *
      * @param command the command being processed
-     * @param ex the password policy exception
+     * @param ex      the password policy exception
      * @return a password policy failure result
      */
     private CreateAccountResult handlePasswordPolicyFailure(CreateAccountCommand command, Exception ex) {
