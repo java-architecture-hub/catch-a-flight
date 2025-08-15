@@ -34,7 +34,7 @@ public interface QueryFlightsUseCase {
      * A record representing the command to query flights for a specific account and route.
      *
      * @param accountId the unique identifier of the account initiating the query
-     * @param route the {@link Route} specifying the flight query details
+     * @param route     the {@link Route} specifying the flight query details
      */
     record QueryFlightsCommand(AccountId accountId, Route route) {
         public QueryFlightsCommand {

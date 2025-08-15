@@ -1,10 +1,7 @@
 package jah.catchflight.order.port.in;
 
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
-import jah.catchflight.order.domain.OrderDetails;
 import jah.catchflight.order.domain.OrderId;
-import jah.catchflight.order.domain.UserDetails;
-import jah.catchflight.sharedkernel.account.AccountId;
 
 /**
  * Defines a use case for confirming orders in the system.
