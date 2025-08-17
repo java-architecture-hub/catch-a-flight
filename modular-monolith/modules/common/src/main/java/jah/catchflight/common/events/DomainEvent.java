@@ -11,8 +11,6 @@ import java.util.UUID;
 public interface DomainEvent {
     /**
      * Retrieves the unique identifier for this domain event.
-     *
-     * @return the {@link UUID} representing the unique event ID
      */
     UUID eventId();
 }

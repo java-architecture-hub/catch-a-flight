@@ -6,7 +6,6 @@ package jah.catchflight.common.policy;
  * be an allowance or a rejection with a specified reason.
  */
 public sealed interface DomainPolicyOutput {
-
     /**
      * Indicates that the policy evaluation resulted in an allowance.
      * This record represents a successful policy check with no additional details.
@@ -16,8 +15,6 @@ public sealed interface DomainPolicyOutput {
     /**
      * Indicates that the policy evaluation resulted in a rejection.
      * This record includes a reason explaining why the policy check failed.
-     *
-     * @param reason the explanation for the policy rejection
      */
     record Rejection(String reason) implements DomainPolicyOutput {}
 }
