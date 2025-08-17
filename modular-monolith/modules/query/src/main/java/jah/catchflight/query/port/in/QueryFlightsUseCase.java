@@ -15,9 +15,6 @@ import java.util.Objects;
 public interface QueryFlightsUseCase {
     /**
      * Queries flights based on the provided command.
-     *
-     * @param command the {@link QueryFlightsCommand} containing the account identifier and route details for the flight query
-     * @return a {@link QueryFlightsResult} indicating the outcome of the flight query process
      */
     QueryFlightsResult query(QueryFlightsCommand command);
 
@@ -32,9 +29,6 @@ public interface QueryFlightsUseCase {
 
     /**
      * A record representing the command to query flights for a specific account and route.
-     *
-     * @param accountId the unique identifier of the account initiating the query
-     * @param route     the {@link Route} specifying the flight query details
      */
     record QueryFlightsCommand(AccountId accountId, Route route) {
         public QueryFlightsCommand {
