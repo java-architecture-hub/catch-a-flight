@@ -1,7 +1,6 @@
-package jah.catchflight.query.domain;
+package jah.catchflight.sharedkernel.query;
 
 import jah.catchflight.common.annotations.domain.DomainValueObject;
-import jah.catchflight.sharedkernel.query.OfferId;
 
 import java.util.Objects;
 

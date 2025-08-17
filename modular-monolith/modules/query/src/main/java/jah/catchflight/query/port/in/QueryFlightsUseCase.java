@@ -1,8 +1,8 @@
 package jah.catchflight.query.port.in;
 
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
-import jah.catchflight.query.domain.Offer;
 import jah.catchflight.sharedkernel.account.AccountId;
+import jah.catchflight.sharedkernel.query.Offer;
 import jah.catchflight.sharedkernel.query.Route;
 
 import java.util.List;
