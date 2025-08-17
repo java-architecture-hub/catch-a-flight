@@ -23,17 +23,6 @@ import java.util.UUID;
  */
 public record AccountCreated(UUID eventId, AccountId accountId, UserName userName, AccountType accountType,
                              Email email) implements DomainEvent {
-    /**
-     * Constructs a new {@link AccountCreated} event with validation.
-     * Ensures that all provided parameters are non-null to maintain event integrity.
-     *
-     * @param eventId     the unique identifier of the event, must not be null
-     * @param accountId   the unique identifier of the user account, must not be null
-     * @param userName    the username, must not be null
-     * @param accountType the account type, must not be null
-     * @param email       the email address, must not be null
-     * @throws NullPointerException if any parameter is null
-     */
     public AccountCreated {
         Objects.requireNonNull(eventId);
         Objects.requireNonNull(accountId);

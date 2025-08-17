@@ -20,16 +20,6 @@ import java.util.UUID;
  */
 public record AccountCreationFailed(UUID eventId, UserName userName, Email email, String message)
         implements DomainEvent {
-    /**
-     * Constructs a new {@link AccountCreationFailed} event with validation.
-     * Ensures that all provided parameters are non-null to maintain event integrity.
-     *
-     * @param eventId  the unique identifier of the event, must not be null
-     * @param userName the username, must not be null
-     * @param email    the email address, must not be null
-     * @param message  the error message, must not be null
-     * @throws NullPointerException if any parameter is null
-     */
     public AccountCreationFailed {
         Objects.requireNonNull(eventId);
         Objects.requireNonNull(userName);
