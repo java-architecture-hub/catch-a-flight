@@ -11,9 +11,6 @@ import jah.catchflight.sharedkernel.account.AccountId;
 public interface FindLastQueriesUseCase {
     /**
      * Retrieves the last queries for a specified account.
-     *
-     * @param accountId the unique identifier of the account whose last queries are to be retrieved
-     * @return a {@link LastQueriesView} containing the last queries for the specified account
      */
     LastQueriesView findLastQueries(AccountId accountId);
 }
