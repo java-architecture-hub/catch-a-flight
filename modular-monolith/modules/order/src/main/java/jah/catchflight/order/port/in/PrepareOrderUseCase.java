@@ -16,9 +16,6 @@ public interface PrepareOrderUseCase {
 
     /**
      * Prepares an order based on the provided command.
-     *
-     * @param prepareOrderCommand the command containing details required to prepare the order
-     * @return a {@link ConfirmOrderResult} indicating the outcome of the order preparation
      */
     ConfirmOrderResult prepareOrder(ConfirmOrderCommand prepareOrderCommand);
 

@@ -12,9 +12,6 @@ import jah.catchflight.order.domain.OrderId;
 public interface CancelOrderUseCase {
     /**
      * Prepares an order for cancellation based on the provided command.
-     *
-     * @param prepareOrderCommand the command containing details required to prepare the order for cancellation
-     * @return a {@link CancelOrderResult} indicating the outcome of the order cancellation preparation
      */
     CancelOrderResult prepareOrder(CancelOrderCommand prepareOrderCommand);
 
