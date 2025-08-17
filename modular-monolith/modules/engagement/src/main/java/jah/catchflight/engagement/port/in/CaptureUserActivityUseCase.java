@@ -16,10 +16,6 @@ public interface CaptureUserActivityUseCase {
 
     /**
      * Captures user activity based on the provided command.
-     *
-     * @param captureUserActivityCommand the command containing the account ID and user activity details
-     * @return a {@link CaptureUserActivityResult} indicating the outcome of the activity capture operation
-     * @throws IllegalArgumentException if the captureUserActivityCommand is null
      */
     CaptureUserActivityResult captureUserActivity(CaptureUserActivityCommand captureUserActivityCommand);
 
