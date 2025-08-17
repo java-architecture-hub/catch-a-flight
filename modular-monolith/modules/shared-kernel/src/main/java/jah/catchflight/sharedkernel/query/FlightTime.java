@@ -7,8 +7,6 @@ import java.util.Objects;
 
 /**
  * A record representing the scheduled time of a flight.
- *
- * @param time the flight time with offset, must not be null
  */
 @DomainValueObject
 public record FlightTime(OffsetDateTime time) {

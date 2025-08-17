@@ -6,8 +6,6 @@ import java.util.Objects;
 
 /**
  * A record representing an airport identified by its IATA code.
- *
- * @param code the IATA code of the airport, must not be null
  */
 @DomainValueObject
 public record Airport(IATACode code) {

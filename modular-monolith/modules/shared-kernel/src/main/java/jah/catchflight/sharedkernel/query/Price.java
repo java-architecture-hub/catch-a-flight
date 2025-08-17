@@ -7,9 +7,6 @@ import java.util.Objects;
 
 /**
  * A record representing a price with an amount and currency.
- *
- * @param value    the monetary amount of the price, must not be null and must be positive
- * @param currency the currency of the price, must not be null
  */
 @DomainValueObject
 public record Price(BigDecimal value, Currency currency) {

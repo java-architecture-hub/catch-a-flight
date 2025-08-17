@@ -20,16 +20,6 @@ public record Offer(
         FlightTime flightTime,
         ExpirationTime expirationTime,
         Price price) {
-    /**
-     * Creates an instance of {@code Offer} with the specified identifier, airline, flight time, expiration, and price.
-     *
-     * @param offerId        the unique identifier of the offer, must not be null
-     * @param airline        the airline providing the offer, must not be null
-     * @param flightTime     the scheduled flight time, must not be null
-     * @param expirationTime the expiration time of the offer, must not be null
-     * @param price          the price of the offer, must not be null
-     * @throws NullPointerException if any of the parameters are null
-     */
     public Offer {
         Objects.requireNonNull(offerId, "Offer ID must not be null");
         Objects.requireNonNull(airline, "Airline must not be null");
