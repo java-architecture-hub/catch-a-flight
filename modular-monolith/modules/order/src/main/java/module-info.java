@@ -1,3 +1,10 @@
+/**
+ * The order module defines the order-related functionality for the CatchFlight application.
+ *
+ * This module provides the infrastructure for managing orders, including RESTful endpoints and
+ * service logic for creating, updating, and retrieving order data. It depends on various external
+ * and internal modules for dependency injection, logging, web server capabilities, and domain-specific logic.
+ */
 module order {
     requires common;
     requires sharedkernel;
