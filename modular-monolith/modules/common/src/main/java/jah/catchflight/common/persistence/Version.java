@@ -11,8 +11,6 @@ public record Version(int value) {
     /**
      * Creates a new {@link Version} instance initialized to zero.
      * This is typically used as the initial version for a newly created entity.
-     *
-     * @return a {@link Version} instance with a value of 0
      */
     public static Version zero() {
         return new Version(0);

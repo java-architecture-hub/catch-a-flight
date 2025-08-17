@@ -10,8 +10,6 @@ public interface DomainEventsPublisher {
     /**
      * Publishes a domain event to be processed by registered event handlers or
      * messaging systems.
-     *
-     * @param event the {@link DomainEvent} to be published
      */
     void publish(DomainEvent event);
 }
