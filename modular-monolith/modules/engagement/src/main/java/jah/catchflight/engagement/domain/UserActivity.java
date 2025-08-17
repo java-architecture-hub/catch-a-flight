@@ -2,15 +2,6 @@ package jah.catchflight.engagement.domain;
 
 /**
  * An enumeration of possible user activities in the system.
- * <p>
- * This enum defines the types of user interactions that can be captured and processed
- * by the system, such as signing in, querying flight offers, or booking flights.
- * It is typically used in conjunction with {@link CaptureUserActivityService} to
- * record user actions in an event-driven architecture.
- * </p>
- *
- * @see CaptureUserActivityService
- * @see CaptureUserActivityCommand
  */
 public enum UserActivity {
     /**
