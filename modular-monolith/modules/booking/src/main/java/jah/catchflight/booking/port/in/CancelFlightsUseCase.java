@@ -15,10 +15,6 @@ import java.util.Objects;
 public interface CancelFlightsUseCase {
     /**
      * Cancels a flight based on the provided command.
-     *
-     * @param cancelFlightsCommand the command containing the account ID and booking ID for cancellation
-     * @return a {@link CancelFlightsResult} indicating the outcome of the cancellation operation
-     * @throws IllegalArgumentException if the cancelFlightsCommand is null
      */
     CancelFlightsResult cancelFlight(CancelFlightsCommand cancelFlightsCommand);
 

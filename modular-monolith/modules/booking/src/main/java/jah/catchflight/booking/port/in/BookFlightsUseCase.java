@@ -16,10 +16,6 @@ import java.util.Objects;
 public interface BookFlightsUseCase {
     /**
      * Books a flight based on the provided command.
-     *
-     * @param bookFlightsCommand the command containing the account ID and offer ID for booking
-     * @return a {@link BookFlightsResult} indicating the outcome of the booking operation
-     * @throws IllegalArgumentException if the bookFlightsCommand is null
      */
     BookFlightsResult bookFlight(BookFlightsCommand bookFlightsCommand);
 
