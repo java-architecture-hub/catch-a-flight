@@ -1,4 +1,4 @@
-package jah.catchflight.query.domain;
+package jah.catchflight.sharedkernel.query;
 
 /**
  * An enumeration representing supported currencies.

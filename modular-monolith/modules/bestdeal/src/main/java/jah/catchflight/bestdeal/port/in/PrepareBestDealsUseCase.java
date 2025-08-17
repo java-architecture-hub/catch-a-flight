@@ -9,14 +9,12 @@ import jah.catchflight.sharedkernel.account.AccountId;
  */
 @InboundPort
 public interface PrepareBestDealsUseCase {
-
     /**
      * Executes a best deals preparation operation based on the provided command.
      *
-     * @param prepareBestDealsCommand the command containing the account ID for preparing the best deals
      * @return a {@link PrepareBestDealsResult} indicating the outcome of the operation
      */
-    PrepareBestDealsResult indexBestDeals(PrepareBestDealsCommand prepareBestDealsCommand);
+    PrepareBestDealsResult indexBestDeals();
 
     /**
      * An interface representing the result of a best deals preparation operation.

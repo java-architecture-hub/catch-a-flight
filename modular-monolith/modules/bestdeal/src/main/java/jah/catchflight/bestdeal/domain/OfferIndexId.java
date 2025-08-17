@@ -5,4 +5,4 @@ import jah.catchflight.common.annotations.domain.DomainValueObject;
 import java.util.UUID;
 
 @DomainValueObject
-public record FlightQeuryIndexId(UUID value) {}
+public record OfferIndexId(UUID value) {}
