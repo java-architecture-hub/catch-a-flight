@@ -9,8 +9,6 @@ import java.util.Set;
 
 /**
  * A record representing a collection of recent query views.
- *
- * @param queryViewItems the set of query views, must not be null
  */
 @DomainValueObject
 public record LastQueriesView(Set<QueryView> queryViewItems) {

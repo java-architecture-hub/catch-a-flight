@@ -12,9 +12,6 @@ import java.util.Objects;
 public interface CollectOffersUserCase {
     /**
      * Collects offers based on the provided command.
-     *
-     * @param command the {@link CollectOffersCommand} containing the query identifier for collecting offers
-     * @return a {@link CollectOffersResult} indicating the outcome of the offer collection process
      */
     CollectOffersResult collectOffers(CollectOffersCommand command);
 
