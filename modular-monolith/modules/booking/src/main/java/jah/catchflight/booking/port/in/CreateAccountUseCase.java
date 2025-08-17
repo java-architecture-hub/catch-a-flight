@@ -15,10 +15,6 @@ import java.util.Objects;
 public interface CreateAccountUseCase {
     /**
      * Creates a user account based on the provided command.
-     *
-     * @param command the command containing the account ID and account type for creation
-     * @return a {@link CreateAccountResult} indicating the outcome of the account creation operation
-     * @throws IllegalArgumentException if the command is null
      */
     CreateAccountResult createUser(CreateAccountCommand command);
 

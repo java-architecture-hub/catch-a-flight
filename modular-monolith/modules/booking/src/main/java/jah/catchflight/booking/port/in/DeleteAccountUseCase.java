@@ -25,7 +25,7 @@ public interface DeleteAccountUseCase {
      * Represents the result of an account deletion operation.
      * This interface defines the possible outcomes of an account deletion attempt.
      */
-    public interface DeleteAccountResult {
+     interface DeleteAccountResult {
         record Success(AccountId accountId) implements DeleteAccountResult {}
         record NonExistingAccountFailure(String message) implements DeleteAccountResult {}
         record InternalFailure(Throwable cause) implements DeleteAccountResult {}
@@ -34,7 +34,7 @@ public interface DeleteAccountUseCase {
     /**
      * A command to delete a user account, containing the account ID.
      */
-    public record DeleteAccountCommand(AccountId accountId) {
+     record DeleteAccountCommand(AccountId accountId) {
         public DeleteAccountCommand {
             Objects.requireNonNull(accountId, "accountId must not be null");
         }
