@@ -7,9 +7,6 @@ import java.util.Objects;
 
 /**
  * A record representing a time range defined by a start and end date-time with offset.
- *
- * @param begin the start date and time of the range, must not be null
- * @param end   the end date and time of the range, must not be null
  */
 @DomainValueObject
 public record DateTimeRange(
