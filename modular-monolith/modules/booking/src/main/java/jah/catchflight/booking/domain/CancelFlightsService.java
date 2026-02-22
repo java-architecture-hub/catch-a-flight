@@ -5,18 +5,14 @@ import jah.catchflight.common.annotations.domain.DomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/**
- * A service responsible for handling flight cancellation operations in the system.
- */
+/** A service responsible for handling flight cancellation operations in the system. */
 @Service
 @DomainService
 @RequiredArgsConstructor
 public class CancelFlightsService implements CancelFlightsUseCase {
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CancelFlightsResult cancelFlight(CancelFlightsCommand cancelFlightsCommand) {
-        throw new UnsupportedOperationException();
-    }
+	/** {@inheritDoc} */
+	@Override
+	public CancelFlightsResult cancelFlight(CancelFlightsCommand cancelFlightsCommand) {
+		throw new UnsupportedOperationException();
+	}
 }

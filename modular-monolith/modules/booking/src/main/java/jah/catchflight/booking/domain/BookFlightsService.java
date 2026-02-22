@@ -5,18 +5,14 @@ import jah.catchflight.common.annotations.domain.DomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/**
- * A service responsible for handling flight booking operations in the system.
- */
+/** A service responsible for handling flight booking operations in the system. */
 @Service
 @DomainService
 @RequiredArgsConstructor
 public class BookFlightsService implements BookFlightsUseCase {
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public BookFlightsResult bookFlight(BookFlightsCommand bookFlightsCommand) {
-        throw new UnsupportedOperationException();
-    }
+	/** {@inheritDoc} */
+	@Override
+	public BookFlightsResult bookFlight(BookFlightsCommand bookFlightsCommand) {
+		throw new UnsupportedOperationException();
+	}
 }

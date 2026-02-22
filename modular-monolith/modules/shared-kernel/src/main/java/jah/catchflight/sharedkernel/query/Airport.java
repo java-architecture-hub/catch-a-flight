@@ -4,12 +4,10 @@ import jah.catchflight.common.annotations.domain.DomainValueObject;
 
 import java.util.Objects;
 
-/**
- * A record representing an airport identified by its IATA code.
- */
+/** A record representing an airport identified by its IATA code. */
 @DomainValueObject
 public record Airport(IATACode code) {
-    public Airport {
-        Objects.requireNonNull(code, "IATA code must not be null");
-    }
+	public Airport {
+		Objects.requireNonNull(code, "IATA code must not be null");
+	}
 }

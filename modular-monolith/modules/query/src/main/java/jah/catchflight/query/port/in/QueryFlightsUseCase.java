@@ -4,36 +4,29 @@ import jah.catchflight.common.annotations.hexagonal.InboundPort;
 import jah.catchflight.sharedkernel.account.AccountId;
 import jah.catchflight.sharedkernel.query.Offer;
 import jah.catchflight.sharedkernel.query.Route;
-
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Defines the use case for querying flights based on a given command.
- */
+/** Defines the use case for querying flights based on a given command. */
 @InboundPort
 public interface QueryFlightsUseCase {
-    /**
-     * Queries flights based on the provided command.
-     */
-    QueryFlightsResult query(QueryFlightsCommand command);
+	/** Queries flights based on the provided command. */
+	QueryFlightsResult query(QueryFlightsCommand command);
 
-    /**
-     * Sealed interface representing the possible outcomes of the flight query process.
-     */
-    sealed interface QueryFlightsResult {
-        record Success(List<Offer> offers) implements QueryFlightsResult {}
-        record InvalidQueryParameters(String message) implements QueryFlightsResult {}
-        record InternalFailure(Throwable cause) implements QueryFlightsResult {}
-    }
+	/** Sealed interface representing the possible outcomes of the flight query process. */
+	sealed interface QueryFlightsResult {
+		record Success(List<Offer> offers) implements QueryFlightsResult {}
 
-    /**
-     * A record representing the command to query flights for a specific account and route.
-     */
-    record QueryFlightsCommand(AccountId accountId, Route route) {
-        public QueryFlightsCommand {
-            Objects.requireNonNull(accountId);
-            Objects.requireNonNull(route);
-        }
-    }
+		record InvalidQueryParameters(String message) implements QueryFlightsResult {}
+
+		record InternalFailure(Throwable cause) implements QueryFlightsResult {}
+	}
+
+	/** A record representing the command to query flights for a specific account and route. */
+	record QueryFlightsCommand(AccountId accountId, Route route) {
+		public QueryFlightsCommand {
+			Objects.requireNonNull(accountId);
+			Objects.requireNonNull(route);
+		}
+	}
 }
