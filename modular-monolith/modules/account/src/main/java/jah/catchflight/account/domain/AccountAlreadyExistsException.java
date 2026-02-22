@@ -7,6 +7,7 @@ import jah.catchflight.sharedkernel.account.AccountId;
  * This exception includes the {@link AccountId} of the existing user.
  */
 public class AccountAlreadyExistsException extends RuntimeException {
+
     private final AccountId accountId;
 
     /**
@@ -19,7 +20,8 @@ public class AccountAlreadyExistsException extends RuntimeException {
     }
 
     /**
-     * Returns the error message indicating that the user already exists, formatted with the user ID.
+     * Returns the error message indicating that the user already exists, formatted with the user
+     * ID.
      */
     @Override
     public String getMessage() {

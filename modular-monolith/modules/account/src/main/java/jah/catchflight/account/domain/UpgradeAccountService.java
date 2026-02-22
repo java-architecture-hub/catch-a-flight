@@ -12,20 +12,22 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.UUID;
 
+import static jah.catchflight.account.domain.Account.UpgradeUserResult.AlreadyUpdatedFailure;
+import static jah.catchflight.account.domain.Account.UpgradeUserResult.UserUpgradedSuccess;
 import static jah.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
 
 /**
- * Domain service responsible for handling user account upgrades.
- * Implements {@link UpgradeAccountUseCase} to encapsulate the business logic for upgrading user accounts.
+ * Domain service responsible for handling user account upgrades. Implements {@link
+ * UpgradeAccountUseCase} to encapsulate the business logic for upgrading user accounts.
  */
 @Slf4j
 @Service
 @DomainService
 @RequiredArgsConstructor
 public class UpgradeAccountService implements UpgradeAccountUseCase {
-    private static final String ACCOUNT_ALREADY_UPGRADED = "Account is already upgraded";
     private static final String ACCOUNT_NOT_FOUND = "Account not found";
 
     private final FindAccountRepository findAccountRepository;
@@ -41,16 +43,13 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
      */
     @Override
     public UpgradeUserResult upgradeUser(final UpgradeUserCommand command) {
-        if (command == null) {
-            log.error("UpgradeUserCommand is null");
-            throw new IllegalArgumentException("UpgradeUserCommand cannot be null");
-        }
+        Objects.requireNonNull(command, "UpgradeUserCommand cannot be null");
 
         try {
-            // Retrieve and process account
-            return findAccountRepository.load(command.accountId())
-                    .map(account -> processAccountUpgrade(account, command.accountId()))
-                    .orElseGet(() -> handleAccountNotFound(command.accountId()));
+            return findAccountRepository
+                .load(command.accountId())
+                .map(account -> processAccountUpgrade(account, command.accountId()))
+                .orElseGet(() -> handleAccountNotFound(command.accountId()));
         } catch (Exception ex) {
             return handleInternalFailure(command.accountId(), ex);
         }
@@ -60,17 +59,22 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
      * Processes the account upgrade logic.
      */
     private UpgradeUserResult processAccountUpgrade(Account account, AccountId accountId) {
-        if (account.isPremium()) {
-            log.info("Account upgrade failed for userId: {} - already upgraded", accountId);
-            emitAccountUpgradeFailed(accountId, ACCOUNT_ALREADY_UPGRADED);
-            return new AccountAlreadyUpgradedFailure(ACCOUNT_ALREADY_UPGRADED);
-        }
+        var result = account.upgradeUser();
 
-        account.upgradeUser();
-        updateAccountRepository.save(account);
-        log.info("Account upgraded successfully for userId: {}", accountId);
-        emitAccountUpgraded(accountId);
-        return new Success();
+        return switch (result) {
+            case UserUpgradedSuccess() -> {
+                updateAccountRepository.save(account);
+                emitAccountUpgraded(accountId);
+                log.info("Account upgraded successfully for userId: {}", accountId);
+                yield Success.builder().build();
+            }
+
+            case AlreadyUpdatedFailure(_, String message) -> {
+                emitAccountUpgradeFailed(accountId, message);
+                log.warn("Account  failed for userId: {}. Reason: {}", accountId, message);
+                yield AccountAlreadyUpgradedFailure.builder().message(message).build();
+            }
+        };
     }
 
     /**
@@ -95,13 +99,21 @@ public class UpgradeAccountService implements UpgradeAccountUseCase {
      * Publishes an event for a successful account upgrade.
      */
     private void emitAccountUpgraded(AccountId accountId) {
-        accountEventPublisher.publish(new AccountUpgraded(UUID.randomUUID(), accountId));
+        accountEventPublisher.publish(new AccountUpgraded(
+            UUID.randomUUID(),
+            accountId
+        ));
     }
 
     /**
      * Publishes an event for a failed account upgrade.
      */
     private void emitAccountUpgradeFailed(AccountId accountId, String message) {
-        accountEventPublisher.publish(new AccountUpgradeFailed(UUID.randomUUID(), accountId, message));
+        accountEventPublisher.publish(
+            new AccountUpgradeFailed(
+                UUID.randomUUID(),
+                accountId,
+                message
+            ));
     }
 }

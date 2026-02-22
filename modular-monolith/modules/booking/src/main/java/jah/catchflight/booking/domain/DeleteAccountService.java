@@ -5,18 +5,14 @@ import jah.catchflight.common.annotations.domain.DomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/**
- * A service responsible for handling user account deletion in the system.
- */
+/** A service responsible for handling user account deletion in the system. */
 @Service
 @DomainService
 @RequiredArgsConstructor
 public class DeleteAccountService implements DeleteAccountUseCase {
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public DeleteAccountResult deleteAccount(DeleteAccountCommand deleteUserInput) {
-        throw new UnsupportedOperationException();
-    }
+	/** {@inheritDoc} */
+	@Override
+	public DeleteAccountResult deleteAccount(DeleteAccountCommand deleteUserInput) {
+		throw new UnsupportedOperationException();
+	}
 }

@@ -5,12 +5,10 @@ import jah.catchflight.common.annotations.domain.DomainValueObject;
 import java.time.Instant;
 import java.util.Objects;
 
-/**
- * A record representing an expiration time for an offer or event.
- */
+/** A record representing an expiration time for an offer or event. */
 @DomainValueObject
 public record ExpirationTime(Instant time) {
-    public ExpirationTime {
-        Objects.requireNonNull(time, "Expiration time must not be null");
-    }
+	public ExpirationTime {
+		Objects.requireNonNull(time, "Expiration time must not be null");
+	}
 }

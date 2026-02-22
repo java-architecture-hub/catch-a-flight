@@ -3,42 +3,55 @@ package jah.catchflight.account.port.in;
 import jah.catchflight.common.annotations.hexagonal.InboundPort;
 import jah.catchflight.sharedkernel.account.AccountId;
 
+import lombok.Builder;
+
 import java.util.Objects;
 
 /**
- * Defines the inbound port for upgrading user accounts.
- * This interface specifies the contract for the account upgrade use case,
- * allowing clients to initiate the process of upgrading a user account with the required details.
+ * Defines the inbound port for upgrading user accounts. This interface specifies the contract for
+ * the account upgrade use case, allowing clients to initiate the process of upgrading a user
+ * account with the required details.
  */
 @InboundPort
 public interface UpgradeAccountUseCase {
-    /**
-     * Upgrades a user account based on the provided command.
-     *
-     * @param command the {@link UpgradeUserCommand} containing the user ID for the account to be upgraded
-     * @return an {@link UpgradeUserResult} indicating the outcome of the account upgrade process
-     */
-    UpgradeUserResult upgradeUser(UpgradeUserCommand command);
 
-    /**
-     * A sealed interface representing the possible outcomes of the account upgrade process.
-     * It defines the various result types for success and failure scenarios.
-     */
-    sealed interface UpgradeUserResult {
-        record Success() implements UpgradeUserResult {}
-        record AccountNotFoundFailure(String message) implements UpgradeUserResult {}
-        record AccountAlreadyUpgradedFailure(String message) implements UpgradeUserResult {}
-        record InternalFailure(Throwable cause) implements UpgradeUserResult {}
-    }
-    /**
-     * A record representing the command to upgrade a user account.
-     * It encapsulates the user ID of the account to be upgraded.
-     *
-     * @param accountId the unique identifier of the user account to upgrade
-     */
-    record UpgradeUserCommand(AccountId accountId) {
-        public UpgradeUserCommand {
-            Objects.requireNonNull(accountId);
-        }
-    }
+	/**
+	 * Upgrades a user account based on the provided command.
+	 *
+	 * @param command the {@link UpgradeUserCommand} containing the user ID for the account to be
+	 *     upgraded
+	 * @return an {@link UpgradeUserResult} indicating the outcome of the account upgrade process
+	 */
+	UpgradeUserResult upgradeUser(UpgradeUserCommand command);
+
+	/**
+	 * A sealed interface representing the possible outcomes of the account upgrade process. It
+	 * defines the various result types for success and failure scenarios.
+	 */
+	sealed interface UpgradeUserResult {
+
+		@Builder
+		record Success() implements UpgradeUserResult {}
+
+		@Builder
+		record AccountNotFoundFailure(String message) implements UpgradeUserResult {}
+
+		@Builder
+		record AccountAlreadyUpgradedFailure(String message) implements UpgradeUserResult {}
+
+		@Builder
+		record InternalFailure(Throwable cause) implements UpgradeUserResult {}
+	}
+
+	/**
+	 * A record representing the command to upgrade a user account. It encapsulates the user ID of
+	 * the account to be upgraded.
+	 *
+	 * @param accountId the unique identifier of the user account to upgrade
+	 */
+	record UpgradeUserCommand(AccountId accountId) {
+		public UpgradeUserCommand {
+			Objects.requireNonNull(accountId);
+		}
+	}
 }
